@@ -1,6 +1,9 @@
 import {BathroomSettings} from "./BathroomSettings";
 import {LivingSpaceSettings} from "./LivingSpaceSettings";
 import {MediaAndTechnologySettings} from "./MediaAndTechnologySettings";
+import {RoomSecuritySettings} from "./RoomSecuritySettings";
+import {RoomServices} from "./RoomServices";
+import {RoomOtheSettings} from "./RoomOtheSettings";
 
 export class RoomCategory {
     /**
@@ -8,21 +11,21 @@ export class RoomCategory {
      * Редактируемое
      * Обязательное
      */
-    name:string
+    name?: string
 
     /**
      * Количество спальных мест
      * Редактируемое
      * Обязательное
      */
-    beds: number
+    beds?: number
 
     /**
      * Количество дополнительных спальных мест
      * Редактируемое
      * Обязательное
      */
-    extraBeds: number
+    extraBeds?: number
 
     /**
      * Тип спального места
@@ -35,42 +38,63 @@ export class RoomCategory {
      * - Двухместная
      * - Одноместная
      */
-    bedType: BedType
+    bedType?: BedType
 
     /**
      * Редактируемое
      * Обязательное
      * Множественное
      */
-    photo: Array<unknown>
+    photo?: Array<unknown>
 
     /**
      * Удобства в номере
      * Редактируемое
      * Обязательное
      */
-    comfortInfo:string
+    comfortInfo?:string
 
     /**
      * Ванная комната
      * Редактируемое
      * Обязательное
      */
-    bathroomSettings: BathroomSettings
+    bathroomSettings?: BathroomSettings
 
     /**
      * Жилое помещение
      * Редактируемое
      * Обязательное
      */
-    livingSpace: LivingSpaceSettings
+    livingSpace?: LivingSpaceSettings
 
     /**
      * Медиа и технологии
      * Редактируемое
      * Обязательное
      */
-    mediaAndTechnology: MediaAndTechnologySettings
+    mediaAndTechnology?: MediaAndTechnologySettings
+
+    /**
+     * Безопасность
+     * Редактируемое
+     * Обязательное
+     */
+    security?: RoomSecuritySettings
+
+    /**
+     * Сервисы
+     * Редактируемое
+     * Обязательное
+     */
+    services?: RoomServices
+
+    /**
+     * Другое
+     * Редактируемое
+     * Обязательное
+     */
+    other?: RoomOtheSettings
 
 }
 
