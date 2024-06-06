@@ -1,3 +1,5 @@
+import {FieldsCheckResult, IFieldsCheck} from "../interfaces/IFieldsCheck";
+
 /** Система налогообложения */
 export enum TaxType {
     /** Общая */
@@ -19,7 +21,7 @@ export enum TaxType {
  *
  * все поля редактируемые
  */
-export class Company {
+export abstract class Company /* implements IFieldsCheck*/{
     /**
      * обязательное
      * название компании
@@ -51,6 +53,10 @@ export class Company {
 
     /** Логотип */
     logo?: any
+
+
+    /** проверка на заполнение всех полей */
+    // abstract checkFields(): FieldsCheckResult
 
 
 }
