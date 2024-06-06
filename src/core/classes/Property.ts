@@ -1,3 +1,5 @@
+import {Room} from "./RoomCategory/Room";
+
 /**
  * имущество / собственность
  *
@@ -94,7 +96,7 @@ export class Property {
      * Выводит информацию о привязанных
      * номерах
      */
-    rooms?: unknown
+    rooms?: Room[]
 
     /**
      * Редактируемое

@@ -1,9 +1,9 @@
-import {BathroomSettings} from "./BathroomSettings";
-import {LivingSpaceSettings} from "./LivingSpaceSettings";
-import {MediaAndTechnologySettings} from "./MediaAndTechnologySettings";
-import {RoomSecuritySettings} from "./RoomSecuritySettings";
-import {RoomServices} from "./RoomServices";
-import {RoomOtheSettings} from "./RoomOtheSettings";
+import {BathroomSettings} from "./settings/BathroomSettings";
+import {LivingSpaceSettings} from "./settings/LivingSpaceSettings";
+import {MediaAndTechnologySettings} from "./settings/MediaAndTechnologySettings";
+import {RoomSecuritySettings} from "./settings/RoomSecuritySettings";
+import {RoomServicesSettings} from "./settings/RoomServicesSettings";
+import {RoomOtheSettings} from "./settings/RoomOtheSettings";
 
 export class RoomCategory {
     /**
@@ -87,7 +87,7 @@ export class RoomCategory {
      * Редактируемое
      * Обязательное
      */
-    services?: RoomServices
+    services?: RoomServicesSettings
 
     /**
      * Другое

@@ -13,15 +13,15 @@
  * Имеется возможность добавить новое значение в
  * список
  */
-export class RoomServices {
+export class RoomServicesSettings {
     dailyCleaning = false
     luggageStorage = false
     laundry = false
     elevator = false;
     [key: string]: boolean
 
-    constructor(options: Partial<RoomServices>) {
-        const keys =  Object.keys(options) as Array<keyof RoomServices>
+    constructor(options: Partial<RoomServicesSettings>) {
+        const keys =  Object.keys(options) as Array<keyof RoomServicesSettings>
         for (const key of keys) {
             this[key] = options[key]!
         }
