@@ -2,6 +2,7 @@ import {FieldsCheckResult, IFieldsCheck} from "../interfaces/IFieldsCheck";
 
 /** Система налогообложения */
 export enum TaxType {
+    DEFAULT,
     /** Общая */
     REGULAR,
     /** УСН 6% */
@@ -24,35 +25,49 @@ export enum TaxType {
 export abstract class Company /* implements IFieldsCheck*/{
     /**
      * обязательное
+     *
      * название компании
+     *
      * заполняется автоматически по введенному ИНН
      */
-    name?: string
+    name: string
 
     /**
      * обязательное
      * ИНН
      */
-    INN?: number
+    INN: number
 
     /** Система налогообложения */
-    taxs?: TaxType[]
+    tax: TaxType
 
     /** Номер расчетного счета */
-    invoiceNumber?: number
+    invoiceNumber: number
 
     /** Номер корреспондентского счета */
-    correspondentInvoiceNumber?: number
+    correspondentInvoiceNumber: number
 
 
     /** Название банка */
-    bankName?: string
+    bankName: string
 
     /** БИК */
-    BIK?: string
+    BIK: string
 
     /** Логотип */
-    logo?: any
+    logo: any
+
+
+    constructor(company: Partial<Company> = {}) {
+        this.name           = company.name !== undefined ? company.name : ''
+        this.INN            = company.INN !== undefined ? company.INN : 0
+        this.tax            = company.tax !== undefined ? company.tax : TaxType.DEFAULT
+        this.invoiceNumber  = company.invoiceNumber !== undefined ? company.invoiceNumber : 0
+        this.correspondentInvoiceNumber     = company.correspondentInvoiceNumber !== undefined ? company.correspondentInvoiceNumber : 0
+        this.bankName       = company.bankName !== undefined ? company.bankName : ''
+        this.BIK            = company.BIK !== undefined ? company.BIK : ''
+        this.logo           = company.logo !== undefined ? company.logo : ''
+    }
 
 
     /** проверка на заполнение всех полей */
@@ -70,19 +85,27 @@ export class UR_Company extends Company {
      * обязательное
      * КПП
      */
-    KPP?: number
+    KPP: number
 
     /**
      * обязательное
      * ОГРН
      */
-    OGRN?: number
+    OGRN: number
 
     /**
      * обязательное
      * дата выдачи ОГРН
      */
-    OGRN_date?: Date
+    OGRN_date: Date
+
+
+    constructor(ur_company: Partial<UR_Company> = {}) {
+        super(ur_company);
+        this.KPP        = ur_company.KPP !== undefined ? ur_company.KPP : 0
+        this.OGRN       = ur_company.OGRN !== undefined ? ur_company.OGRN : 0
+        this.OGRN_date  = ur_company.OGRN_date !== undefined ? ur_company.OGRN_date : new Date(0)
+    }
 }
 
 
@@ -91,11 +114,18 @@ export class IP_Company extends Company {
      * обязательное
      * ОГРНИП
      */
-    OGRNIP?: number
+    OGRNIP: number
 
     /**
      * обязательное
      * дата выдачи ОГРНИП
      */
-    OGRNIP_date?: Date
+    OGRNIP_date: Date
+
+
+    constructor(ip_company: Partial<IP_Company> = {}) {
+        super(ip_company);
+        this.OGRNIP         = ip_company.OGRNIP !== undefined ? ip_company.OGRNIP  : 0
+        this.OGRNIP_date    = ip_company.OGRNIP_date !== undefined ? ip_company.OGRNIP_date : new Date(0)
+    }
 }

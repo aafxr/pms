@@ -1,5 +1,5 @@
 import {Property} from "./Property";
-import {Company} from "./Company";
+import {Company, IP_Company} from "./Company";
 
 /**
  * Дополнительные услуги — это перечень услуг, предоставляемых вне рамок
@@ -10,45 +10,63 @@ export class ExtraService {
      * Редактируемое
      * Обязательное
      */
-    name?: string
+    name: string
 
     /**
      * Тип дополнительной услуги
+     *
      * Редактируемое
      * Обязательное
+     *
      * Данные для этого списка формируются из
      * созданных в системе Типов дополнительных услуг
      */
-    type?: Array<unknown>
+    type: Array<unknown>
 
     /**
      * Привязанный объект размещения
+     *
      * Редактируемое
      * Обязательное
+     *
      * Данные для этого списка формируются из
      * созданных в системе Объектов размещения
      */
-    properties?: Property[]
+    propertie: Property
 
     /**
      * Привязанная компания
+     *
      * Редактируемое
      * Обязательное
+     *
      * Данные для этого списка формируются из
      * созданных в системе Компаний
      */
-    companies?: Company[]
+    company: Company
 
     /**
      * Фото
+     *
      * Редактируемое
      * Множественное
      */
-    photos?: Array<unknown>
+    photos: Array<unknown>
 
     /**
      * Описание
+     *
      * Редактируемое
      */
-    description?: string
+    description: string
+
+
+    constructor(extraService: Partial<ExtraService> = {}) {
+        this.name           = extraService.name !== undefined ? extraService.name : ''
+        this.type           = extraService.type !== undefined ? extraService.type : []
+        this.propertie      = extraService.propertie !== undefined ? extraService.propertie : new Property()
+        this.company        = extraService.company !== undefined ? extraService.company : new IP_Company()
+        this.photos         = extraService.photos !== undefined ? extraService.photos : []
+        this.description    = extraService.description !== undefined ? extraService.description : ''
+    }
 }
