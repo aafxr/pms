@@ -1,2 +1,5 @@
 export * from './ChevronIcon'
 export * from './SearchIcon'
+export * from './BellIcon'
+export * from './GearIcon'
+export * from './UserIcon'

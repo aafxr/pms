@@ -11,7 +11,7 @@ export interface SelectorItemsPropsType extends PropsWithChildren{
 
 function Items({className,children}:SelectorItemsPropsType) {
     return (
-        <div className={clsx('selector-items')}>
+        <div className={clsx('select-items')}>
             {children}
         </div>
     );

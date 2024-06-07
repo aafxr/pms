@@ -1,0 +1,6 @@
+.blank{
+    padding: var(--pd-main);
+    background-color: var(--bg-main);
+    border-radius: var(--br-v2);
+    box-shadow: 0 0 15px var(--shadow-color);
+}

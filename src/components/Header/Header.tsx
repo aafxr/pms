@@ -2,12 +2,14 @@ import clsx from "clsx";
 import {useState} from "react";
 
 import {Container} from "../Container";
-import {Selector} from "../Selector";
+import {Select} from "../Selector";
 import {Search} from "../Search";
 import {Logo} from "../Logo";
 import {Nav} from "../Nav";
 
 import './Header.css'
+import {RoundButton} from "../buttons";
+import {BellIcon, GearIcon, UserIcon} from "../svg";
 
 
 export interface HeaderPropsType {
@@ -23,17 +25,17 @@ export function Header({className}: HeaderPropsType) {
             <Container >
                 <div className='header-inner'>
                     <Logo/>
-                    <Selector open={open} onClose={() => setOpen(false)}>
-                        <Selector.Title onClick={() => setOpen(!open)}>
+                    <Select open={open} onClose={() => setOpen(false)}>
+                        <Select.Title onClick={() => setOpen(!open)}>
                             Объекты размещения
-                        </Selector.Title>
-                        <Selector.Items>
-                            <Selector.Item>1</Selector.Item>
-                            <Selector.Item selected>2</Selector.Item>
-                            <Selector.Item>3</Selector.Item>
-                            <Selector.Item>4</Selector.Item>
-                        </Selector.Items>
-                    </Selector>
+                        </Select.Title>
+                        <Select.Items>
+                            <Select.Item>1</Select.Item>
+                            <Select.Item selected>2</Select.Item>
+                            <Select.Item>3</Select.Item>
+                            <Select.Item>4</Select.Item>
+                        </Select.Items>
+                    </Select>
 
                     <Nav>
                         <Nav.Item to={'/deal'}>Сделки</Nav.Item>
@@ -44,6 +46,15 @@ export function Header({className}: HeaderPropsType) {
                     </Nav>
 
                     <Search placeholder='Поиск по сервису' />
+                    <RoundButton>
+                        <BellIcon className='icon-24' />
+                    </RoundButton>
+                    <RoundButton>
+                        <GearIcon className='icon-24' />
+                    </RoundButton>
+                    <RoundButton>
+                        <UserIcon className='icon-24' />
+                    </RoundButton>
 
                 </div>
             </Container>

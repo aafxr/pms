@@ -1,4 +1,4 @@
-.selector-items{
+.select-items{
     position: absolute;
     top: 100%;
     left: 0;
@@ -9,9 +9,9 @@
     background-color: var(--bg-v3);
     transition: var(--tr-time) linear;
     overflow-y: scroll;
-
+    z-index: var(--z-popup);
 }
 
-.selector.open .selector-items{
+.select.open .select-items{
     max-height: 300px;
 }

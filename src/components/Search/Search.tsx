@@ -16,7 +16,7 @@ export function Search({className, inputRef, ...props}: SearchPropsType) {
     return (
         <div className={clsx('search', className)}>
             <Input ref={inputRef} {...props} />
-            <SearchIcon className='icon' />
+            <SearchIcon className='icon-24' />
         </div>
     );
 }

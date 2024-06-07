@@ -17,9 +17,9 @@ export function Title({className, children, chevron = true, ...props}: SelectorT
 
 
     return (
-        <div {...props} className={clsx('selector-title', className)}>
+        <div {...props} className={clsx('select-title', className)}>
             {children}
-            {chevron && <ChevronIcon className='icon' /> }
+            {chevron && <ChevronIcon className='select-icon icon-20' /> }
         </div>
     );
 }

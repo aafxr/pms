@@ -25,7 +25,12 @@ a{
     height: 100%;
 }
 
-.icon{
-    width: var(--icon-size);
-    height: var(--icon-size);
+.icon-20{
+    width: var(--icon-sz-20);
+    height: var(--icon-sz-20);
+}
+
+.icon-24{
+    width: var(--icon-sz-24);
+    height: var(--icon-sz-24);
 }

@@ -1,4 +1,4 @@
-.selector-title{
+.select-title{
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -8,17 +8,17 @@
     cursor: pointer;
 }
 
-.selector-title .icon{
+.select-title .select-icon{
     transition: transform var(--tr-time) linear;
     transform: rotate(0deg);
     margin-left: 10px;
 }
 
-.selector.open .selector-title .icon{
+.select.open .select-title .select-icon{
     transform: rotate(-180deg);
 }
 
-.selector.open .selector-title{
+.select.open .select-title{
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
 }
