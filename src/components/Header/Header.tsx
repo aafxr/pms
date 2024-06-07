@@ -3,7 +3,9 @@ import {useState} from "react";
 
 import {Container} from "../Container";
 import {Selector} from "../Selector";
+import {Search} from "../Search";
 import {Logo} from "../Logo";
+import {Nav} from "../Nav";
 
 import './Header.css'
 
@@ -23,7 +25,7 @@ export function Header({className}: HeaderPropsType) {
                     <Logo/>
                     <Selector open={open} onClose={() => setOpen(false)}>
                         <Selector.Title onClick={() => setOpen(!open)}>
-                            selector
+                            Объекты размещения
                         </Selector.Title>
                         <Selector.Items>
                             <Selector.Item>1</Selector.Item>
@@ -32,6 +34,16 @@ export function Header({className}: HeaderPropsType) {
                             <Selector.Item>4</Selector.Item>
                         </Selector.Items>
                     </Selector>
+
+                    <Nav>
+                        <Nav.Item to={'/deal'}>Сделки</Nav.Item>
+                        <Nav.Item to={'/rate'}>Тарифы</Nav.Item>
+                        <Nav.Item to={'/oreders'}>Заказы</Nav.Item>
+                        <Nav.Item to={'/tasks'}>Задачи</Nav.Item>
+                        <Nav.Item to={'/notification_MVD'}>Уведомления в МВД</Nav.Item>
+                    </Nav>
+
+                    <Search placeholder='Поиск по сервису' />
 
                 </div>
             </Container>

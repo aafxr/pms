@@ -1,0 +1,8 @@
+.nav-item{
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.nav-item .nav-item-inner.active{
+    color: var(--text-selected);
+}

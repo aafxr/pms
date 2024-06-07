@@ -1,0 +1,6 @@
+.input{
+    padding: 12px 16px;
+    background-color: inherit;
+    border: 1px solid var(--bg-v2);
+    border-radius: var(--br-main);
+}

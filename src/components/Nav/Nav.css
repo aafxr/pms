@@ -1,0 +1,17 @@
+.nav{
+    position: relative;
+
+}
+
+.nav-inner{
+    display: flex;
+    gap: var(--pd-main);
+}
+
+.nav.row .nav-inner{
+    flex-direction: row;
+}
+
+.nav.column .nav-inner{
+    flex-direction: column;
+}

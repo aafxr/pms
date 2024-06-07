@@ -1,0 +1,19 @@
+.search{
+    --p-search-icon: 16px;
+
+    position: relative;
+}
+
+.search .input{
+    padding-right: calc(var(--icon-size) + var(--p-search-icon) * 2);
+}
+
+.search .icon{
+    position: absolute;
+    top: 50%;
+    right: var(--p-search-icon);
+    width: 24px;
+    height: 24px;
+    color: var(--bg-v2);
+    transform: translateY(-50%);
+}
