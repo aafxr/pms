@@ -19,3 +19,8 @@ html, body{
 .h-full{
     height: 100%;
 }
+
+.icon{
+    width: var(--icon-size);
+    height: var(--icon-size);
+}

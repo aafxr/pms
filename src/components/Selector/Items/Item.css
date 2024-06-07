@@ -1,0 +1,9 @@
+.selector-item{
+    padding: 12px 15px;
+    border-radius: var(--br-main);
+    cursor: pointer;
+}
+
+.selector-item.selected{
+    background-color: var(--bg-selected);
+}

@@ -1,0 +1,17 @@
+.selector-items{
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    max-height: 0;
+    border-bottom-left-radius: var(--br-main);
+    border-bottom-right-radius: var(--br-main);
+    background-color: var(--bg-v3);
+    transition: var(--tr-time) linear;
+    overflow-y: scroll;
+
+}
+
+.selector.open .selector-items{
+    max-height: 300px;
+}

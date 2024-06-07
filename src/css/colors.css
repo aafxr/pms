@@ -33,6 +33,7 @@
         selector variant 2
      */
     --bg-v3: #9E9E9E;
+    --bg-selected: var(--bg-v4);
 
     /*
         day / month selector
@@ -56,6 +57,10 @@
     /* main border radius */
     --br-main: 8px;
     --pd-main: 20px;
+
+    --icon-size: 20px;
+
+    --tr-time: 0.3s;
 
 
 }

@@ -1,0 +1,24 @@
+.selector-title{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    border-radius: var(--br-main);
+    background-color: var(--bg-v2);
+    cursor: pointer;
+}
+
+.selector-title .icon{
+    transition: transform var(--tr-time) linear;
+    transform: rotate(0deg);
+    margin-left: 10px;
+}
+
+.selector.open .selector-title .icon{
+    transform: rotate(-180deg);
+}
+
+.selector.open .selector-title{
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}

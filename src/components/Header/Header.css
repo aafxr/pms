@@ -1,5 +1,10 @@
 .header{
+    padding: var(--pd-main) 0;
+    background-color: var(--bg-v1);
+}
+
+.header-inner{
     display: flex;
     flex-wrap: wrap;
-
+    gap: var(--pd-main);
 }
