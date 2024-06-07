@@ -1,4 +1,62 @@
 :root, .light-theme {
+/*
+#FFFFFF - main
+#D9D9D9 - header
+#D9D9D9 - btn-group
+#B4B4B4 - logo
+#9F9F9F - selector
+#9E9E9E - selector 2
+#9F9F9F - btn
+#E9E9E9 - day / month selector
+#E9E9E9 - без номера
+#F5F5F5 - weekend
+#BDBDBD - no active cell
+#898989 - intersected
+*/
+
+    --bg-main: #FFFFFF;
+    --bg-logo: #B4B4B4;
+
+    /*
+        header
+        btn-group
+     */
+    --bg-v1: #D9D9D9;
+
+    /*
+        selector variant 1
+        btn
+     */
+    --bg-v2: #9F9F9F;
+
+    /*
+        selector variant 2
+     */
+    --bg-v3: #9E9E9E;
+
+    /*
+        day / month selector
+        без номера комната
+     */
+    --bg-v4: #E9E9E9;
+
+    /*
+        weekend
+     */
+    --bg-v5: #F5F5F5;
+
+    /*
+        no active cell
+        service works
+     */
+    --bg-sw: #BDBDBD;
+
+    --bg-intersect: #898989;
+
+    /* main border radius */
+    --br-main: 8px;
+    --pd-main: 20px;
+
 
 }
 

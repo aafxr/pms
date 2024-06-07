@@ -1,0 +1,5 @@
+.logo{
+    padding: 11px 34px;
+    background-color: var(--bg-logo);
+    cursor: pointer;
+}

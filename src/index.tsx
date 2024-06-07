@@ -1,21 +1,29 @@
 import './css/reset.css'
+import './css/index.css';
 
 import React from 'react';
+import {Provider} from "react-redux";
 import ReactDOM from 'react-dom/client';
+import {BrowserRouter} from "react-router-dom";
 
-import './css/index.css';
-import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
+import {store} from "./redux";
+import App from './App';
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+    document.getElementById('root') as HTMLElement
 );
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+    <React.StrictMode>
+        <Provider store={store}>
+            <BrowserRouter>
+                <App/>
+            </BrowserRouter>
+        </Provider>
+    </React.StrictMode>
 );
+
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

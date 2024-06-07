@@ -1,0 +1,6 @@
+.container{
+    position: relative;
+    margin: 0 auto;
+    padding: 0 var(--pd-main);
+    max-width: 1844px;
+}

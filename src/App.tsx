@@ -1,10 +1,14 @@
 import React from 'react';
+import {Navigate, Route, Routes} from "react-router-dom";
+
+import {Main} from "./pages";
 
 function App() {
   return (
-      <div style={{backgroundColor: 'Black', minHeight: '100vh'}}>
-
-      </div>
+      <Routes>
+            <Route path="/" element={<Main />} />
+            <Route path="*" element={<Navigate to={'/'} />} />
+      </Routes>
   );
 }
 
