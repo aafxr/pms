@@ -1,6 +1,9 @@
 import React from 'react';
 
+import BHeader from "./BHeader/BHeader";
+
 import './OrderBoard.css'
+import clsx from "clsx";
 
 
 export type OrderBoardStateType = {
@@ -8,8 +11,15 @@ export type OrderBoardStateType = {
 }
 
 
-export function OrderBoard() {
+export interface OrderBoardPropsType{
+    className?: string
+}
+
+
+export function OrderBoard({className}: OrderBoardPropsType) {
     return (
-        <div className='board'></div>
+        <div className={clsx('order-board', className)}>
+            <BHeader />
+        </div>
     );
 }

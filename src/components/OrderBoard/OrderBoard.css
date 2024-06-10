@@ -1,0 +1,57 @@
+.order-board{
+    position: relative;
+    margin-left: 194px;
+    border: 1px solid black;
+}
+
+.b-header{
+    position: relative;
+}
+
+.b-filter{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    position: absolute;
+    left: -194px;
+    width: 190px;
+    padding: 8px;
+    background-color: var(--bg-v4);
+    border-radius: var(--br-main);
+}
+
+.b-filter .buttons-group{
+    width: 100%;
+    justify-content: stretch;
+}
+
+.b-filter .buttons-group .button{
+    background: transparent;
+    width: 100%;
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+.b-filter .date-info{
+    gap: 4px;
+}
+
+.b-filter .date,
+.b-filter .current-date,
+.b-filter .button.selected{
+    background-color: var(--bg-main);
+}
+
+.b-filter .date,
+.b-filter .current-date{
+    padding-right: 8px;
+    padding-left: 8px;
+}
+
+.b-filter .date{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
