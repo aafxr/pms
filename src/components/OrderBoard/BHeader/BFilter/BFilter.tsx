@@ -13,7 +13,7 @@ export function BFilter() {
                 ]}
                 select={1}
             />
-            <Row className='date-info'>
+            <Row className='date-info' full justify='stretch'>
                 <Button className='date '>
                     {new Date().toLocaleDateString(navigator.language, {month: "long", year: "numeric"})}
                 </Button>

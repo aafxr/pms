@@ -20,11 +20,11 @@
 }
 
 .row.jc-between{
-    justify-content: stretch;
+    justify-content: space-between;
 }
 
 .row.jc-stretch{
-    justify-content: space-between;
+    justify-content: stretch;
 }
 
 

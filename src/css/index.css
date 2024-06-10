@@ -9,6 +9,15 @@ html, body{
     color: var(--text-main);
 }
 
+*::-webkit-scrollbar {
+    width: 8px;
+}
+
+*::-webkit-scrollbar-thumb{
+    background-color: var(--bg-scroll);
+    border-radius: 13px;
+}
+
 a{
     text-decoration: none;
 }
@@ -23,6 +32,16 @@ a{
 
 .h-full{
     height: 100%;
+}
+
+.icon-15{
+    width: var(--icon-sz-15);
+    height: var(--icon-sz-15);
+}
+
+.icon-16{
+    width: var(--icon-sz-16);
+    height: var(--icon-sz-16);
 }
 
 .icon-20{

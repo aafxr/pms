@@ -1,57 +1,117 @@
-.order-board{
-    position: relative;
-    margin-left: 194px;
-    border: 1px solid black;
+.board{
+    --bgap: 4px;
+
+    display: grid;
+    grid-template-columns: 190px 1fr;
+    grid-gap: var(--bgap);
 }
 
-.b-header{
-    position: relative;
-}
-
-.b-filter{
+.board .filter{
+    padding: 8px;
     display: flex;
     flex-direction: column;
-    gap: 4px;
-
-    position: absolute;
-    left: -194px;
-    width: 190px;
-    padding: 8px;
+    align-items: stretch;
+    gap: var(--bgap);
+    grid-row: 1 / 3;
     background-color: var(--bg-v4);
     border-radius: var(--br-main);
 }
 
-.b-filter .buttons-group{
-    width: 100%;
-    justify-content: stretch;
+.filter .buttons-group .button{
+    flex:1;
+    background-color: transparent;
 }
 
-.b-filter .buttons-group .button{
-    background: transparent;
-    width: 100%;
-    padding-left: 4px;
-    padding-right: 4px;
+
+.filter .info{
+    gap: var(--bgap);
 }
 
-.b-filter .date-info{
-    gap: 4px;
-}
-
-.b-filter .date,
-.b-filter .current-date,
-.b-filter .button.selected{
+.filter .filter-month,
+.filter .filter-day,
+.filter .button.selected{
     background-color: var(--bg-main);
 }
 
-.b-filter .date,
-.b-filter .current-date{
-    padding-right: 8px;
-    padding-left: 8px;
-}
-
-.b-filter .date{
+.board .filter .filter-month,
+.board .filter .filter-day{
+    padding-left: 4px;
+    padding-right: 4px;
     white-space: nowrap;
-    overflow: hidden;
     text-overflow: ellipsis;
+    overflow: hidden;
 }
 
+.board .property{
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    grid-column: 2 / 3;
+    font-size: 1.25rem;
+    font-weight: 600;
+    border: 1px solid var(--bg-v2);
+    border-radius: var(--br-main);
+    background-color: var(--bg-main);
+}
+
+.board .month,
+.board .day{
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+    font-size: 1.25rem;
+    font-weight: 600;
+    border: 1px solid var(--bg-v2);
+    border-radius: var(--br-main);
+    background-color: var(--bg-main);
+}
+
+
+.board .room,
+.board .room-category{
+    position: relative;
+    padding: 8px 32px;
+    border: 1px solid var(--bg-v2);
+    border-radius: var(--br-main);
+    background-color: var(--bg-main);
+}
+
+.board .room-category{
+    font-weight: 600;
+}
+
+.board .cell,
+.board .cell-date,
+.board .cell-time{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 56px;
+    height: 56px;
+
+    border: 1px solid var(--bg-v2);
+    border-radius: var(--br-main);
+    background-color: var(--bg-main);
+}
+
+.board .cell-date,
+.board .cell-time{
+    font-weight: 600;
+}
+
+.board .cell:not(:first-child),
+.board .cell-date:not(:first-child),
+.board .cell-time:not(:first-child){
+    margin-left: var(--bgap);
+}
+
+.board .without-number{
+    background-color: var(--bg-v4);
+}
+
+.board .service{
+    background-color: var(--bg-sw);
+}

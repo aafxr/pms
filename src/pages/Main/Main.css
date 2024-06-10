@@ -23,6 +23,7 @@
     border: 1px solid var(--bg-v2);
 }
 
-.main .order-board {
+.main .order-board,
+.main .board{
     margin-top: var(--pd-main);
 }
