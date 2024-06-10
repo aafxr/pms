@@ -1,0 +1,24 @@
+.main{}
+
+.main .button.reset{
+    padding-left: 0;
+    padding-right: 0;
+    background-color: transparent;
+}
+
+.main .options-panel{
+    margin-top: 12px;
+}
+
+.main .button.reset span{
+    border-bottom: 2px dashed var(--text-main);
+}
+
+.main .button.print{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: var(--bg-main);
+    border: 1px solid var(--bg-v2);
+}

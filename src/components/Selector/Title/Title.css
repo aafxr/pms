@@ -5,6 +5,7 @@
     padding: 12px 15px;
     border-radius: var(--br-main);
     background-color: var(--bg-v2);
+    transition: background var(--tr-time) linear;
     cursor: pointer;
 }
 

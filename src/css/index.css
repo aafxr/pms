@@ -34,3 +34,15 @@ a{
     width: var(--icon-sz-24);
     height: var(--icon-sz-24);
 }
+
+.flex-0{
+    flex: none;
+}
+
+.flex-1{
+    flex: 1;
+}
+
+.gap-1{
+    gap: var(--pd-main);
+}

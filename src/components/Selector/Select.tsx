@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import {PropsWithChildren, useRef} from "react";
+import {PropsWithChildren, useEffect, useRef, useState} from "react";
 
 import {useOutside} from "../../hooks";
 import Items from "./Items/Items";
@@ -19,10 +19,20 @@ export interface SelectPropsType extends PropsWithChildren{
 function _Select({className, children, open, onClose}: SelectPropsType){
     const selectorRef = useRef<HTMLDivElement>(null)
     useOutside(selectorRef, () => onClose?.())
+    const [isOpen, setIsOpen] = useState(false)
+
+
+    useEffect(() => {
+        if(open !== undefined) setIsOpen(open)
+    }, [open]);
 
 
     return (
-        <div ref={selectorRef} className={clsx('select', className, {open})}>
+        <div
+            ref={selectorRef}
+            className={clsx('select', className, {open: isOpen})}
+            onClick={() => setIsOpen(!isOpen)}
+        >
             {children}
         </div>
     )

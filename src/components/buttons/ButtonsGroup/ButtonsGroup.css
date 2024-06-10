@@ -1,0 +1,13 @@
+.buttons-group{
+    display: flex;
+    border-radius: var(--br-main);
+    background-color: var(--bg-v1);
+}
+
+.buttons-group .bg-btn{
+    background-color: transparent;
+}
+
+.buttons-group .bg-btn.selected{
+    background-color: var(--bg-v3);
+}

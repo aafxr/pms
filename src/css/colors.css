@@ -54,24 +54,12 @@
 
     --bg-intersect: #898989;
 
-    /* main border radius */
-    --br-main: 8px;
-    --br-v2: 12px;
-
-    --pd-main: 20px;
-
-    --icon-sz-20: 20px;
-    --icon-sz-24: 24px;
-
-    --tr-time: 0.3s;
-
     --text-main: #000000;
     --text-selected: #f22270;
 
     --bg-disable: #999;
     --text-disable: #555;
     --shadow-color: #CCCCCC;
-    --z-popup: 100;
 
 }
 

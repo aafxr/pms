@@ -13,3 +13,35 @@
 .header .search .input{
     border-color: var(--bg-main);
 }
+
+.header .round-button {
+    margin-left: 8px;
+}
+
+.header .round-button:last-child{
+    margin-left: 12px;
+}
+
+.header .reservation{
+    display: flex;
+    align-items: center;
+    background-color: var(--bg-main);
+}
+
+.header .reservation .icon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-left: 16px;
+    width: 28px;
+    height: 28px;
+    aspect-ratio: 1 / 1;
+    background-color: var(--bg-v1);
+    border-radius: 50%;
+}
+
+.header .search{
+    width: 380px;
+}
+

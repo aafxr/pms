@@ -1,3 +1,15 @@
 :root{
     --vh: 1vh;
+
+    /* main border radius */
+    --br-main: 8px;
+    --br-v2: 12px;
+
+    --pd-main: 20px;
+
+    --icon-sz-20: 20px;
+    --icon-sz-24: 24px;
+
+    --tr-time: 0.3s;
+    --z-popup: 100;
 }

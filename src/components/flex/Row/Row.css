@@ -1,0 +1,47 @@
+.row{
+    display: flex;
+}
+
+.row.full{
+    width: 100%;
+}
+
+
+.row.jc-start{
+    justify-content: flex-start;
+}
+
+.row.jc-center{
+    justify-content: center;
+}
+
+.row.jc-end{
+    justify-content: flex-end;
+}
+
+.row.jc-between{
+    justify-content: stretch;
+}
+
+.row.jc-stretch{
+    justify-content: space-between;
+}
+
+
+.row.ai-start{
+    align-items: flex-start;
+}
+
+.row.ai-center{
+    align-items: center;
+}
+
+.row.ai-end{
+    align-items: flex-end;
+}
+
+.row.ai-stretch{
+    align-items: stretch;
+}
+
+
