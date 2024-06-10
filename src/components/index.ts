@@ -8,4 +8,5 @@ export * from './Input'
 export * from './Search'
 export * from './buttons'
 export * from './Blank'
+export * from './OrderBoard'
 

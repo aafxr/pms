@@ -1,8 +1,9 @@
-import {Blank, Button, ButtonsGroup, Container, Header, Search, Select, Wrapper} from "../../components";
+import {Blank, Button, ButtonsGroup, Container, Header, OrderBoard, Search, Select, Wrapper} from "../../components";
 
 import './Main.css'
 import {Row} from "../../components/flex";
 import {PrintIcon} from "../../components/svg";
+import NavButtons from "../../components/buttons/NavButtons/NavButtons";
 
 export function Main() {
     return (
@@ -48,10 +49,12 @@ export function Main() {
                             </Row>
                         </Row>
                     </Blank>
+
+                    <OrderBoard />
                 </Container>
             </Wrapper.Content>
             <Wrapper.Footer>
-                footer
+                <NavButtons />
             </Wrapper.Footer>
         </Wrapper>
     )

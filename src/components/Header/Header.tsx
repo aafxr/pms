@@ -26,7 +26,7 @@ export function Header({className}: HeaderPropsType) {
             <Container>
                 <div className='header-inner'>
                     <Row justify='between' align='center' full>
-                        <Row className='gap-1' full>
+                        <div className='left gap-1'>
                             <Logo/>
                             <Select className='flex-0' open={open} onClose={() => setOpen(false)}>
                                 <Select.Title onClick={() => setOpen(!open)}>
@@ -43,7 +43,7 @@ export function Header({className}: HeaderPropsType) {
                             <Nav>
                                 <Nav.Item to={'/deal'}>Сделки</Nav.Item>
                                 <Nav.Item to={'/rate'}>Тарифы</Nav.Item>
-                                <Nav.Item to={'/oreders'}>Заказы</Nav.Item>
+                                <Nav.Item to={'/orders'}>Заказы</Nav.Item>
                                 <Nav.Item to={'/tasks'}>Задачи</Nav.Item>
                                 <Nav.Item to={'/notification_MVD'}>Уведомления в МВД</Nav.Item>
                             </Nav>
@@ -53,8 +53,8 @@ export function Header({className}: HeaderPropsType) {
                                     <PlusIcon className='icon-24' />
                                 </div>
                             </Button>
-                        </Row>
-                        <Row justify='end' className='gap-1'>
+                        </div>
+                        <div className='right gap-1'>
                             <Search placeholder='Поиск по сервису'/>
                             <Row>
                                 <RoundButton>
@@ -67,7 +67,7 @@ export function Header({className}: HeaderPropsType) {
                                     <UserIcon className='icon-24'/>
                                 </RoundButton>
                             </Row>
-                        </Row>
+                        </div>
                     </Row>
 
                 </div>

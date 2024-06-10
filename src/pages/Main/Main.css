@@ -22,3 +22,7 @@
     background-color: var(--bg-main);
     border: 1px solid var(--bg-v2);
 }
+
+.main .board {
+    margin-top: var(--pd-main);
+}
