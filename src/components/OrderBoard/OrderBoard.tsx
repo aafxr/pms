@@ -40,7 +40,7 @@ export function OrderBoard({className}: OrderBoardPropsType) {
             <div className='room-category'>Категории</div>
             <Row>
                 {Array.from({length: daysInTHisMonth}).map((_, i) => (
-                    <div key={i} className='cell-date'>
+                    <div key={i} className={clsx('cell-date', {weekend: [5,6].includes(new Date(d.getFullYear(), d.getMonth(), i).getDay())})}>
                         {i + 1}
                     </div>
                 ))}
@@ -49,7 +49,7 @@ export function OrderBoard({className}: OrderBoardPropsType) {
             <div className='room'>100</div>
             <Row>
                 {Array.from({length: daysInTHisMonth}).map((_, i) => (
-                    <div key={i} className='cell-date'>
+                    <div key={i} className={clsx('cell', {weekend: [5,6].includes(new Date(d.getFullYear(), d.getMonth(), i).getDay())})}>
 
                     </div>
                 ))}
@@ -58,7 +58,7 @@ export function OrderBoard({className}: OrderBoardPropsType) {
             <div className='room'>101</div>
             <Row>
                 {Array.from({length: daysInTHisMonth}).map((_, i) => (
-                    <div key={i} className='cell'>
+                    <div key={i} className={clsx('cell', {weekend: [5,6].includes(new Date(d.getFullYear(), d.getMonth(), i).getDay())})}>
 
                     </div>
                 ))}
@@ -67,8 +67,8 @@ export function OrderBoard({className}: OrderBoardPropsType) {
             <div className='room'>210</div>
             <Row>
                 {Array.from({length: daysInTHisMonth}).map((_, i) => (
-                    <div key={i} className='cell'>
-                        {i+1}
+                    <div key={i} className={clsx('cell', {weekend: [5,6].includes(new Date(d.getFullYear(), d.getMonth(), i).getDay())})}>
+                        {i + 1}
                     </div>
                 ))}
             </Row>
@@ -76,7 +76,7 @@ export function OrderBoard({className}: OrderBoardPropsType) {
             <div className='room'>212</div>
             <Row>
                 {Array.from({length: daysInTHisMonth}).map((_, i) => (
-                    <div key={i} className='cell'>
+                    <div key={i} className={clsx('cell', {weekend: [5,6].includes(new Date(d.getFullYear(), d.getMonth(), i).getDay())})}>
 
                     </div>
                 ))}
@@ -94,8 +94,35 @@ export function OrderBoard({className}: OrderBoardPropsType) {
             <div className='room'>215</div>
             <Row>
                 {Array.from({length: daysInTHisMonth}).map((_, i) => (
-                    <div key={i} className={clsx('cell', {service: Math.random() < 0.2})}>
+                    <div key={i} className={clsx('cell', {service: Math.random() < 0.2, weekend: [5,6].includes(new Date(d.getFullYear(), d.getMonth(), i).getDay())})}>
 
+                    </div>
+                ))}
+            </Row>
+
+            <div className='room'>221</div>
+            <Row>
+                {Array.from({length: daysInTHisMonth}).map((_, i) => (
+                    <div key={i} className={clsx('cell', {weekend: [5,6].includes(new Date(d.getFullYear(), d.getMonth(), i).getDay())})}>
+
+                    </div>
+                ))}
+            </Row>
+
+            <div className='room'>312</div>
+            <Row>
+                {Array.from({length: daysInTHisMonth}).map((_, i) => (
+                    <div key={i} className={clsx('cell', {weekend: [5,6].includes(new Date(d.getFullYear(), d.getMonth(), i).getDay())})}>
+
+                    </div>
+                ))}
+            </Row>
+
+            <div className='room-category'>Люкс</div>
+            <Row>
+                {Array.from({length: daysInTHisMonth}).map((_, i) => (
+                    <div key={i} className={clsx('cell-date', {weekend: [5,6].includes(new Date(d.getFullYear(), d.getMonth(), i).getDay())})}>
+                        {i + 1 }
                     </div>
                 ))}
             </Row>

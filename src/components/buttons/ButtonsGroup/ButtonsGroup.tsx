@@ -41,6 +41,7 @@ export function ButtonsGroup({buttons = [], select, className, onClick}: Buttons
         <div className={clsx('buttons-group', className)}>
             {buttons.map(b => (
                 <Button
+                    key={b.id}
                     className={clsx('bg-btn', {selected: b.id === selected})}
                     onClick={() => handleButtonClick(b)}
                 >{b.name}</Button>
