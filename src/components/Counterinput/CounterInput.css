@@ -1,0 +1,44 @@
+.counter{
+    position: relative;
+}
+
+.counter .input{
+    padding: 12px 32px;
+    text-align: center;
+    min-width: 0;
+}
+
+.counter-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 32px;
+    cursor: pointer;
+}
+
+.counter-button.minus{
+    left: 0;
+}
+
+.counter-button.plus{
+    right: 0;
+}
+
+.reservation-category{
+    padding: 20px 24px;
+    background-color: #fff;
+}
+
+.category-select{
+    flex: 1 0;
+    width: 216px;
+}
+
+.reservation-info{
+    color: var(--text-v1);
+    font-size: 0.75rem;
+}

@@ -130,8 +130,8 @@ export class Property {
         this.index          = property.index !== undefined ? property.index : 0
         this.city           = property.city !== undefined ? property.city : ''
         this.address        = property.address !== undefined ? property.address : ''
-        this.checkin_date   = property.checkin_date !== undefined ? property.checkin_date : new Date(0)
-        this.checkout_date  = property.checkout_date !== undefined ? property.checkout_date : new Date(0)
+        this.checkin_date   = property.checkin_date !== undefined ? new Date(property.checkin_date) : new Date(0)
+        this.checkout_date  = property.checkout_date !== undefined ? new Date(property.checkout_date) : new Date(0)
         this.extraServices  = property.extraServices !== undefined ? property.extraServices : ''
         this.rooms          = property.rooms !== undefined ? property.rooms : []
         this.extraPayForEarlyCheckin   = property.extraPayForEarlyCheckin !== undefined ? property.extraPayForEarlyCheckin : ''

@@ -48,6 +48,7 @@
     --bg-v5: #F5F5F5;
     /* nav buttons */
     --bg-v6: #D4D4D4;
+    --bg-v7: #EDEDED;
 
     /*
         no active cell
@@ -59,6 +60,7 @@
 
     --text-main: #000000;
     --text-selected: #f22270;
+    --text-v1: #7E7E7E;
 
     --bg-disable: #999;
     --text-disable: #555;

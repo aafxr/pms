@@ -18,7 +18,10 @@ export interface SelectPropsType extends PropsWithChildren{
 
 function _Select({className, children, open, onClose}: SelectPropsType){
     const selectorRef = useRef<HTMLDivElement>(null)
-    useOutside(selectorRef, () => onClose?.())
+    useOutside(selectorRef, () => {
+        setIsOpen(false)
+        onClose?.()
+    })
     const [isOpen, setIsOpen] = useState(false)
 
 

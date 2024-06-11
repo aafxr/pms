@@ -9,4 +9,5 @@ export * from './Search'
 export * from './buttons'
 export * from './Blank'
 export * from './OrderBoard'
+export * from './Counterinput'
 

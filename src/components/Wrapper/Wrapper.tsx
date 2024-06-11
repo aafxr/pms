@@ -1,10 +1,10 @@
 import clsx from "clsx";
 import {PropsWithChildren} from "react";
 
-import './Wrapper.css'
 import {Header} from "./Header";
 import {Footer} from "./Footer";
 import {Content} from "./Content";
+import './Wrapper.css'
 
 
 interface WrapperType extends PropsWithChildren {

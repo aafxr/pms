@@ -1,4 +1,16 @@
-import {Blank, Button, ButtonsGroup, Container, Header, OrderBoard, Search, Select, Wrapper} from "../../components";
+import {useNavigate} from "react-router-dom";
+import {
+    Blank,
+    Button,
+    ButtonGroupType,
+    ButtonsGroup,
+    Container,
+    Header,
+    OrderBoard,
+    Search,
+    Select,
+    Wrapper
+} from "../../components";
 
 import NavButtons from "../../components/buttons/NavButtons/NavButtons";
 import {PrintIcon} from "../../components/svg";
@@ -6,7 +18,15 @@ import {Board} from "../../components/Board";
 import {Row} from "../../components/flex";
 import './Main.css'
 
+
 export function Main() {
+    const navigate = useNavigate()
+
+    function handleButtonGroupClick(e: ButtonGroupType){
+        if(e.id === 2) navigate('/reservation')
+    }
+
+
     return (
         <Wrapper className='main'>
             <Wrapper.Header>
@@ -42,8 +62,10 @@ export function Main() {
                                     select={1}
                                     buttons={[
                                         {id: 1, name: 'Шахматка'},
-                                        {id: 2, name: 'Бронированиеы'}
-                                    ]}/>
+                                        {id: 2, name: 'Бронирование'}
+                                    ]}
+                                    onClick={handleButtonGroupClick}
+                                />
                                 <Button className='print'>
                                     <PrintIcon className='icon-24' />
                                 </Button>

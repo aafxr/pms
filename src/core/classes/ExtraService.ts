@@ -64,8 +64,8 @@ export class ExtraService {
     constructor(extraService: Partial<ExtraService> = {}) {
         this.name           = extraService.name !== undefined ? extraService.name : ''
         this.type           = extraService.type !== undefined ? extraService.type : []
-        this.propertie      = extraService.propertie !== undefined ? extraService.propertie : new Property()
-        this.company        = extraService.company !== undefined ? extraService.company : new IP_Company()
+        this.propertie      = extraService.propertie !== undefined ? new Property(extraService.propertie) : new Property()
+        this.company        = extraService.company !== undefined ? new IP_Company(extraService.company) : new IP_Company()
         this.photos         = extraService.photos !== undefined ? extraService.photos : []
         this.description    = extraService.description !== undefined ? extraService.description : ''
     }

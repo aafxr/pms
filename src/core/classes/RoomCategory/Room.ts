@@ -73,10 +73,10 @@ export class Room {
         this.value                          = room.value !== undefined ? room.value : 0
         this.floor                          = room.floor !== undefined ? room.floor : 0
         this.info                           = room.info !== undefined ? room.info : ''
-        this.category                       = room.category !== undefined ? room.category : new RoomCategory()
+        this.category                       = room.category !== undefined ? new RoomCategory(room.category) : new RoomCategory()
         this.available                      = room.available !== undefined ? room.available : false
-        this.unavailableFrom_date           = room.unavailableFrom_date !== undefined ? room.unavailableFrom_date : new Date(0)
-        this.unavailableTo_date             = room.unavailableTo_date !== undefined ? room.unavailableTo_date : new Date(0)
+        this.unavailableFrom_date           = room.unavailableFrom_date !== undefined ? new Date(room.unavailableFrom_date) : new Date(0)
+        this.unavailableTo_date             = room.unavailableTo_date !== undefined ? new Date(room.unavailableTo_date) : new Date(0)
         this.unavailableWithoutTimeRange    = room.unavailableWithoutTimeRange !== undefined ? room.unavailableWithoutTimeRange : false
     }
 }

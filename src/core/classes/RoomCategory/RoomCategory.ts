@@ -104,12 +104,12 @@ export class RoomCategory {
         this.bedType               = roomCategory.bedType !== undefined ? roomCategory.bedType : BedType.UNSET
         this.photo                 = roomCategory.photo !== undefined ? roomCategory.photo : []
         this.comfortInfo           = roomCategory.comfortInfo !== undefined ? roomCategory.comfortInfo : ''
-        this.bathroomSettings      = roomCategory.bathroomSettings !== undefined ? roomCategory.bathroomSettings : new BathroomSettings()
-        this.livingSpace           = roomCategory.livingSpace !== undefined ? roomCategory.livingSpace : new LivingSpaceSettings()
-        this.mediaAndTechnology    = roomCategory.mediaAndTechnology !== undefined ? roomCategory.mediaAndTechnology : new MediaAndTechnologySettings()
-        this.security              = roomCategory.security !== undefined ? roomCategory.security : new RoomSecuritySettings()
-        this.services              = roomCategory.services !== undefined ? roomCategory.services : new RoomServicesSettings()
-        this.other                 = roomCategory.other !== undefined ? roomCategory.other : new RoomOtheSettings()
+        this.bathroomSettings      = roomCategory.bathroomSettings !== undefined ? new BathroomSettings(roomCategory.bathroomSettings) : new BathroomSettings()
+        this.livingSpace           = roomCategory.livingSpace !== undefined ? new LivingSpaceSettings(roomCategory.livingSpace) : new LivingSpaceSettings()
+        this.mediaAndTechnology    = roomCategory.mediaAndTechnology !== undefined ? new MediaAndTechnologySettings(roomCategory.mediaAndTechnology) : new MediaAndTechnologySettings()
+        this.security              = roomCategory.security !== undefined ? new RoomSecuritySettings(roomCategory.security) : new RoomSecuritySettings()
+        this.services              = roomCategory.services !== undefined ? new RoomServicesSettings(roomCategory.services) : new RoomServicesSettings()
+        this.other                 = roomCategory.other !== undefined ? new RoomOtheSettings(roomCategory.other) : new RoomOtheSettings()
     }
 
 }

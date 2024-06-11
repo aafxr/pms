@@ -1,9 +1,10 @@
 import clsx from "clsx";
 import {useState} from "react";
+import {useNavigate} from "react-router-dom";
 
 import {BellIcon, GearIcon, PlusIcon, UserIcon} from "../svg";
-import {Container} from "../Container";
 import {Button, RoundButton} from "../buttons";
+import {Container} from "../Container";
 import {Select} from "../Selector";
 import {Search} from "../Search";
 import {Logo} from "../Logo";
@@ -20,6 +21,13 @@ export interface HeaderPropsType {
 
 export function Header({className}: HeaderPropsType) {
     const [open, setOpen] = useState(false)
+    const navigate = useNavigate()
+
+
+    function handleReservationButtonClick(){
+        navigate('/reservation')
+    }
+
 
     return (
         <div className={clsx('header', className)}>
@@ -47,7 +55,10 @@ export function Header({className}: HeaderPropsType) {
                                 <Nav.Item to={'/tasks'}>Задачи</Nav.Item>
                                 <Nav.Item to={'/notification_MVD'}>Уведомления в МВД</Nav.Item>
                             </Nav>
-                            <Button className='reservation'>
+                            <Button
+                                className='reservation'
+                                onClick={handleReservationButtonClick}
+                            >
                                 Добавить бронь
                                 <div className='icon'>
                                     <PlusIcon className='icon-24' />
