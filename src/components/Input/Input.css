@@ -3,4 +3,5 @@
     background-color: inherit;
     border: 1px solid var(--bg-v2);
     border-radius: var(--br-main);
+    min-width: 0;
 }

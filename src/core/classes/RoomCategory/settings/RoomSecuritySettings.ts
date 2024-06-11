@@ -24,7 +24,7 @@ export class RoomSecuritySettings {
     securityAlarm = false;
     [key:string]: boolean
 
-    constructor(options: Partial<RoomSecuritySettings>) {
+    constructor(options: Partial<RoomSecuritySettings> = {}) {
         const keys =  Object.keys(options) as Array<keyof RoomSecuritySettings>
         for (const key of keys) {
             this[key] = options[key]!

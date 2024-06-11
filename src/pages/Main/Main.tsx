@@ -1,9 +1,10 @@
 import {Blank, Button, ButtonsGroup, Container, Header, OrderBoard, Search, Select, Wrapper} from "../../components";
 
-import './Main.css'
-import {Row} from "../../components/flex";
-import {PrintIcon} from "../../components/svg";
 import NavButtons from "../../components/buttons/NavButtons/NavButtons";
+import {PrintIcon} from "../../components/svg";
+import {Board} from "../../components/Board";
+import {Row} from "../../components/flex";
+import './Main.css'
 
 export function Main() {
     return (
@@ -51,6 +52,7 @@ export function Main() {
                     </Blank>
 
                     <OrderBoard />
+                    {/*<Board />*/}
                 </Container>
             </Wrapper.Content>
             <Wrapper.Footer>

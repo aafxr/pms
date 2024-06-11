@@ -22,7 +22,7 @@ export class MediaAndTechnologySettings {
     telephone = false;
     [key: string]: boolean
 
-    constructor(options:Partial<MediaAndTechnologySettings>) {
+    constructor(options:Partial<MediaAndTechnologySettings> = {}) {
         const keys =  Object.keys(options) as Array<keyof MediaAndTechnologySettings>
         for (const key of keys) {
             this[key] = options[key]!

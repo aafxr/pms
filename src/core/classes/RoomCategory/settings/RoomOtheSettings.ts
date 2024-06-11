@@ -16,7 +16,7 @@ export class RoomOtheSettings {
     terrace = false;
     [key: string]: boolean
 
-    constructor(options: Partial<RoomOtheSettings>) {
+    constructor(options: Partial<RoomOtheSettings> = {}) {
         const keys =  Object.keys(options) as Array<keyof RoomOtheSettings>
         for (const key of keys) {
             this[key] = options[key]!

@@ -9,28 +9,28 @@ export class Room {
      * Данные для этого списка формируются из
      * созданных в системе Объектов размещения
      */
-    property?: Property
+    property: Property
 
     /**
      * Номер
      * Редактируемое
      * Обязательное
      */
-    value?: number
+    value: number
 
     /**
      * Этаж
      * Редактируемое
      * Обязательное
      */
-    floor?: number
+    floor: number
 
     /**
      * Дополнительная информация
      * Редактируемое
      * Обязательное
      */
-    info?:string
+    info:string
 
     /**
      * Категория номера
@@ -39,7 +39,7 @@ export class Room {
      * Данные для этого списка формируются из
      * созданных в системе Категории номеров
      */
-    category?: RoomCategory
+    category: RoomCategory
 
     /**
      * Доступность номера
@@ -47,23 +47,36 @@ export class Room {
      * Обязательное
      * Значение: Доступен/Не доступен
      */
-    available?: boolean
+    available: boolean
 
     /**
      * Период недоступности номера (с)
      * Редактируемое
      */
-    unavailableFrom_date?:Date
+    unavailableFrom_date:Date
 
     /**
      * Период недоступности номера (по)
      * Редактируемое
      */
-    unavailableTo_date?:Date
+    unavailableTo_date:Date
 
     /**
      * Номер недоступен без периода
      * Редактируемое
      */
-    unavailableWithoutTimeRange?: boolean
+    unavailableWithoutTimeRange: boolean
+
+
+    constructor(room: Partial<Room> = {}) {
+        this.property                       = room.property !== undefined ? room.property : new Property()
+        this.value                          = room.value !== undefined ? room.value : 0
+        this.floor                          = room.floor !== undefined ? room.floor : 0
+        this.info                           = room.info !== undefined ? room.info : ''
+        this.category                       = room.category !== undefined ? room.category : new RoomCategory()
+        this.available                      = room.available !== undefined ? room.available : false
+        this.unavailableFrom_date           = room.unavailableFrom_date !== undefined ? room.unavailableFrom_date : new Date(0)
+        this.unavailableTo_date             = room.unavailableTo_date !== undefined ? room.unavailableTo_date : new Date(0)
+        this.unavailableWithoutTimeRange    = room.unavailableWithoutTimeRange !== undefined ? room.unavailableWithoutTimeRange : false
+    }
 }

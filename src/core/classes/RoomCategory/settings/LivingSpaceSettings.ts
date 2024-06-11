@@ -50,7 +50,7 @@ export class LivingSpaceSettings {
     garbageBins = false;
     [key: string]: boolean
 
-    constructor(options: Partial<LivingSpaceSettings>) {
+    constructor(options: Partial<LivingSpaceSettings> = {}) {
         const keys =  Object.keys(options) as Array<keyof LivingSpaceSettings>
         for (const key of keys) {
             this[key] = options[key]!

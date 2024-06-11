@@ -1,12 +1,20 @@
 .board{
-    --bgap: 4px;
+    position: relative;
+}
 
+.board-container{
+    position: absolute;
+    --bgap: 4px;
+    margin-right: 0;
     display: grid;
     grid-template-columns: 190px 1fr;
     grid-gap: var(--bgap);
+    overflow-x: scroll;
 }
 
 .board .filter{
+    position: sticky;
+    left: 0;
     padding: 8px;
     display: flex;
     flex-direction: column;
@@ -40,6 +48,7 @@
 
 .board .filter .filter-month,
 .board .filter .filter-day{
+    position: relative;
     flex: 1 1 auto;
     padding-left: 4px;
     padding-right: 4px;
@@ -48,9 +57,13 @@
     overflow: hidden;
 }
 
+.board .filter .filter-month span,
+.board .filter .filter-day span{
+    position: sticky;
+    left: 0;
+}
+
 .board .property{
-    display: flex;
-    align-items: center;
     padding: 12px 20px;
     grid-column: 2 / 3;
     font-size: 1.25rem;
@@ -77,7 +90,8 @@
 
 .board .room,
 .board .room-category{
-    position: relative;
+    position: sticky;
+    left: 0;
     padding: 8px 32px;
     border: 1px solid var(--bg-v2);
     border-radius: var(--br-main);

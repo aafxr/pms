@@ -20,7 +20,7 @@ export class RoomServicesSettings {
     elevator = false;
     [key: string]: boolean
 
-    constructor(options: Partial<RoomServicesSettings>) {
+    constructor(options: Partial<RoomServicesSettings> = {}) {
         const keys =  Object.keys(options) as Array<keyof RoomServicesSettings>
         for (const key of keys) {
             this[key] = options[key]!

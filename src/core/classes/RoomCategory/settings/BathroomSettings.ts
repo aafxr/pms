@@ -34,7 +34,7 @@ export class BathroomSettings {
     bathrobeAndSlippers = false;
     [key:string]: boolean
 
-    constructor(options: Partial<BathroomSettings>) {
+    constructor(options: Partial<BathroomSettings> = {}) {
         const keys =  Object.keys(options) as Array<keyof BathroomSettings>
         for (const key of keys) {
             this[key] = options[key]!
