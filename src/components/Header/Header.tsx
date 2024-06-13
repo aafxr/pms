@@ -29,6 +29,11 @@ export function Header({className}: HeaderPropsType) {
     }
 
 
+    function handleSettingsButtonClick(){
+        navigate('/settings/propertyList')
+    }
+
+
     return (
         <div className={clsx('header', className)}>
             <Container>
@@ -66,12 +71,12 @@ export function Header({className}: HeaderPropsType) {
                             </Button>
                         </div>
                         <div className='right gap-1'>
-                            <Search placeholder='Поиск по сервису'/>
+                            <Search size={1} placeholder='Поиск по сервису'/>
                             <Row>
                                 <RoundButton>
                                     <BellIcon className='icon-24'/>
                                 </RoundButton>
-                                <RoundButton>
+                                <RoundButton onClick={handleSettingsButtonClick}>
                                     <GearIcon className='icon-24'/>
                                 </RoundButton>
                                 <RoundButton>

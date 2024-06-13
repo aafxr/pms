@@ -6,11 +6,13 @@
 .header .left{
     display: flex;
     align-items: center;
-    flex: 1;
+    flex: 1 1;
 }
 
 .header .right{
+    margin-left: auto;
     display: flex;
+    justify-content: flex-end;
     align-items: center;
 }
 
@@ -22,6 +24,7 @@
 }
 
 .header .search .input{
+    flex: 1 1;
     border-color: var(--bg-main);
 }
 

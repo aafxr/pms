@@ -11,9 +11,9 @@ export interface RoundButtonPropsType extends ButtonHTMLAttributes<HTMLButtonEle
 /**
  * круглая кнопка
  */
-export const RoundButton = forwardRef<HTMLButtonElement, RoundButtonPropsType>(({className, children}, ref) => {
+export const RoundButton = forwardRef<HTMLButtonElement, RoundButtonPropsType>(({className, children, ...props}, ref) => {
     return (
-        <button ref={ref} className={clsx('round-button', className)}>{children}</button>
+        <button {...props} ref={ref} className={clsx('round-button', className)}>{children}</button>
     );
 })
 
