@@ -1,5 +1,5 @@
 import React from 'react';
-import {Container, Header, Wrapper} from "../../components";
+import {Container, Header, SettingsMenu, Wrapper} from "../../components";
 
 import './PropertyList.scss'
 
@@ -12,7 +12,9 @@ export function PropertyListPage() {
             <Wrapper.Content>
                 <Container>
                     <div className='property-list-grid'>
-                        <div className='property-list-menu'></div>
+                        <div className='property-list-menu'>
+                            <SettingsMenu initState={{company: true}}/>
+                        </div>
                         <div className='property-list-content'></div>
                     </div>
 

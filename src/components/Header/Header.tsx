@@ -38,7 +38,7 @@ export function Header({className}: HeaderPropsType) {
         <div className={clsx('header', className)}>
             <Container>
                 <div className='header-inner'>
-                    <Row justify='between' align='center' full>
+                    <Row justify='between' align='center' full wrap>
                         <div className='left gap-1'>
                             <Logo/>
                             <Select className='flex-0' open={open} onClose={() => setOpen(false)}>

@@ -1,6 +1,6 @@
 import React, {HTMLAttributes} from 'react';
 
-function MenuArrowIcon(props: HTMLAttributes<SVGSVGElement>) {
+export function MenuArrowIcon(props: HTMLAttributes<SVGSVGElement>) {
     return (
         <svg {...props} viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clipPath="url(#clip0_468_356)">
