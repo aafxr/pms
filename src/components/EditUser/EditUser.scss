@@ -1,0 +1,74 @@
+.editeUser {
+  &-inner {
+    width: 738px;
+    max-width: 738px;
+  }
+
+  &-photo {
+    margin-top: var(--offset-2);
+    position: relative;
+    width: 120px;
+    height: 120px;
+    background-color: var(--bg-v1);
+    border-radius: var(--br-main);
+  }
+
+  &-content{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: var(--offset-2);
+  }
+
+  &-property{
+    flex: 1 0 240px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+
+    &-2{
+      margin-top: var(--offset-main);
+      flex: 1 0 360px;
+    }
+  }
+
+  &-input{
+    width: 100%;
+  }
+
+  &-select{
+    width: 100%;
+    .select{
+      &-title{
+        background-color: var(--bg-main);
+        border: 1px solid var(--border-color);
+      }
+
+      &-items{
+        background-color: var(--bg-main);
+      }
+    }
+    .select.open .select-items{
+        border: 1px solid var(--border-color);
+    }
+  }
+
+  &-buttons{
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+
+  &-button {
+    min-width: 210px;
+
+    &-cancel{
+      background-color: var(--bg-main);
+      border: 1px solid var(--border-color);
+    }
+  }
+
+}

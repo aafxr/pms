@@ -14,7 +14,7 @@ function Item({className, children, selected, ...props}: SelectorItemPropsType) 
     return (
         <div
             {...props}
-            className={clsx('selector-item', className, {selected})}
+            className={clsx('select-item', className, {selected})}
         >{children}</div>
     );
 }

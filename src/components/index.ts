@@ -12,4 +12,6 @@ export * from './OrderBoard'
 export * from './Counterinput'
 export * from './SettingsMenu'
 export * from './UserInfoCard'
+export * from './Modal'
+export * from './EditUser'
 

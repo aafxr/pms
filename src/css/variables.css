@@ -7,8 +7,8 @@
 
     --pd-main: 20px;
     --offset-main: 20px;
-    --offdet-2: 28px;
-    --offdet-3: 32px;
+    --offset-2: 28px;
+    --offset-3: 32px;
 
     --icon-sz-15: 15px;
     --icon-sz-16: 16px;
@@ -17,4 +17,5 @@
 
     --tr-time: 0.3s;
     --z-popup: 100;
+    --z-modal: 110;
 }

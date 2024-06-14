@@ -43,7 +43,7 @@ export function Accordion({title, open, onOpenChanged, className, children}: Acc
 
 
     function handleOpenChange() {
-        const value = !open
+        const value = !isOpen
         setOpen(value)
         onOpenChanged?.(value)
         handleAccordionState()

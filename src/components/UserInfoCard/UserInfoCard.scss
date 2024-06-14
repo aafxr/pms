@@ -7,13 +7,13 @@
   }
 
   &-inner {
-    margin-top: var(--offdet-2);
+    margin-top: var(--offset-2);
   }
 
   &-data {
     display: flex;
     align-items: stretch;
-    gap: var(--offdet-3);
+    gap: var(--offset-3);
 
   }
 
@@ -64,7 +64,7 @@
   }
 
   &-buttons{
-    margin-top: var(--offdet-3);
+    margin-top: var(--offset-3);
     display: flex;
     flex-direction: column;
   }

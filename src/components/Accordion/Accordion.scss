@@ -30,15 +30,19 @@
   }
 
   &-content{
-    padding-top: 28px;
+    padding-top: 8px;
     overflow: hidden;
     max-height: 0;
-    transition: max-height var(--tr-time) linear;
+    transition: max-height var(--tr-time) linear, padding-top var(--tr-time) linear;
   }
 
   &.open{
     .accordion-icon svg{
       transform: rotate(-180deg);
+    }
+
+    .accordion-content {
+      padding-top: 28px;
     }
   }
 

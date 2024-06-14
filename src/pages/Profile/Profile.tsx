@@ -1,28 +1,20 @@
-import React from 'react';
-import {Blank, Container, Header, UserInfoCard, Wrapper} from "../../components";
+import React, {useState} from 'react';
+import {Blank, Container, EditUser, Header, Modal, UserInfoCard, Wrapper} from "../../components";
+import {Accordion} from "../../components/Accordion";
+import {useUser} from "../../hooks/useUser";
 
 import './Profile.scss'
-import {User} from "../../core/classes/employee/User";
-import {EmployeeRole} from "../../core/classes/employee/Employee";
-
-
-const user = new User({
-    jobTitle: 'manager',
-    email: 'user@gmail.com',
-    firstName: 'ivan',
-    secondName: 'ivanovich',
-    lastName: 'ivanov',
-    phoneNumber: '89998887766',
-    photo: '',
-    role: EmployeeRole.ADMINISTRATOR,
-})
 
 
 export function Profile() {
+    const {user} = useUser()
+    const [isEditModal, setIsEditeModal] = useState(false);
+
+
     return (
         <Wrapper className='profile'>
             <Wrapper.Header>
-                <Header />
+                <Header/>
             </Wrapper.Header>
             <Wrapper.Content>
                 <Container>
@@ -31,8 +23,27 @@ export function Profile() {
                     </Blank>
 
                     <section className='profile-content'>
-                        <UserInfoCard user={user} />
+                        {user && <UserInfoCard user={user} onEdit={() => setIsEditeModal(true)} />}
+
+                        <section className='profile-spaces'>
+                            <Accordion className='profile-space profile-space-user' title={'Мои рабочие пространства'}>
+
+                            </Accordion>
+                            <Accordion className='profile-space profile-space-availabler'
+                                       title={'Доступные рабочие пространства'}>
+
+                            </Accordion>
+                        </section>
                     </section>
+                    {isEditModal && !!user && (
+                        <Modal open={isEditModal} onClose={() => setIsEditeModal(false)}>
+                            <EditUser user={user}
+                                      onCancel={() => setIsEditeModal(false)}
+                                      onSave={() => {
+                                      }}
+                            />
+                        </Modal>
+                    )}
                 </Container>
             </Wrapper.Content>
         </Wrapper>

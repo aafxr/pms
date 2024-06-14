@@ -1,10 +1,12 @@
+import clsx from "clsx";
 import React from 'react';
+
+import {ChengPassKeyIcon, ExitIcon, MailIcon, PhoneIcon, RoleIcon} from "../svg";
+import {EmployeeRole} from "../../core/classes/employee/Employee";
 import {User} from "../../core/classes/employee/User";
 import {Button} from "../buttons";
 
 import './UserInfoCard.scss'
-import {EmployeeRole} from "../../core/classes/employee/Employee";
-import {ChengPassKeyIcon, ExitIcon, MailIcon, PhoneIcon, RoleIcon} from "../svg";
 
 export interface UserInfoCardPropsType {
     className?: string;
@@ -14,9 +16,9 @@ export interface UserInfoCardPropsType {
     onLogout?: (user: User) => void
 }
 
-export function UserInfoCard({user, className, onEdit, onChangePass, onLogout}: UserInfoCardPropsType): JSX.Element {
+export function UserInfoCard({user, className, onEdit, onChangePass, onLogout}: UserInfoCardPropsType){
     return (
-        <div className='userInfo'>
+        <div className={clsx('userInfo', className)}>
             <div className='userInfo-title title'>Профиль</div>
             <div className='userInfo-inner'>
                 <div className='userInfo-data'>
