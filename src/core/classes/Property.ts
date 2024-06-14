@@ -1,4 +1,5 @@
 import {Room} from "./RoomCategory/Room";
+import {Company, UR_Company} from "./Company";
 
 /**
  * имущество / собственность
@@ -30,14 +31,14 @@ export class Property {
      * Данные для этого списка формируются
      * из созданных в системе Компаний
      */
-    company: unknown
+    company: Company
 
     /**
      * Редактируемое
      *
      * файл
      */
-    logo:unknown
+    logo:string
 
     /**
      * Редактируемое
@@ -56,7 +57,7 @@ export class Property {
      * Редактируемое
      * Обязательное
      */
-    country: unknown
+    country: string
 
     /**
      * Редактируемое
@@ -122,7 +123,7 @@ export class Property {
     constructor(property: Partial<Property> = {}) {
         this.name           = property.name !== undefined ? property.name : ''
         this.type           = property.type !== undefined ? property.type : ''
-        this.company        = property.company !== undefined ? property.company : ''
+        this.company        = property.company !== undefined ? new UR_Company(property.company) : new UR_Company()
         this.logo           = property.logo !== undefined ? property.logo : ''
         this.stars          = property.stars !== undefined ? property.stars : 0
         this.timeZone       = property.timeZone !== undefined ? property.timeZone : ''

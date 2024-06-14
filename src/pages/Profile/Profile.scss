@@ -1,0 +1,19 @@
+.profile{
+  &-title{
+    margin-top: var(--offset-main);
+
+    h2{
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+  }
+
+  &-content{
+    margin-top: var(--offset-main);
+    padding: var(--pd-main);
+    border: 1px solid var(--border-color);
+    border-radius: var(--br-main);
+  }
+
+
+}

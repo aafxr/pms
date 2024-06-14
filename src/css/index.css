@@ -66,3 +66,18 @@ a{
 .gap-1{
     gap: var(--pd-main);
 }
+
+.title{
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.image{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background-color: var(--bg-v1);
+}

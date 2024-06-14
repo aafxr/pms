@@ -4,7 +4,7 @@ export class Employee {
     email: string;
 
     /** должность */
-    status: string
+    jobTitle: string
 
     /**
      * Редактируемое
@@ -27,7 +27,7 @@ export class Employee {
      * Выводится из профиля пользователя
      */
 
-    photo: unknown
+    photo: string
 
     /**
      * Редактируемое
@@ -55,7 +55,7 @@ export class Employee {
 
     constructor(options: Partial<Employee> = {}) {
         this.email = options.email !== undefined ? options.email : ''
-        this.status = options.status !== undefined ? options.status : ''
+        this.jobTitle = options.jobTitle !== undefined ? options.jobTitle : ''
         this.role = options.role !== undefined ? options.role : EmployeeRole.DEFAULT
         this.rules = options.rules !== undefined ? options.rules : new EmployeeRules()
         this.photo = options.photo !== undefined ? options.photo : ''
@@ -70,5 +70,6 @@ export class Employee {
 export enum EmployeeRole {
     OPERATOR,
     MANAGER,
+    ADMINISTRATOR,
     DEFAULT
 }

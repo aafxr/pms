@@ -57,6 +57,8 @@ export abstract class Company /* implements IFieldsCheck*/{
     /** Логотип */
     logo: any
 
+    created_at: Date
+
 
     constructor(company: Partial<Company> = {}) {
         this.name           = company.name !== undefined ? company.name : ''
@@ -67,6 +69,7 @@ export abstract class Company /* implements IFieldsCheck*/{
         this.bankName       = company.bankName !== undefined ? company.bankName : ''
         this.BIK            = company.BIK !== undefined ? company.BIK : ''
         this.logo           = company.logo !== undefined ? company.logo : ''
+        this.created_at     = company.created_at !== undefined ? new Date(company.created_at) : new Date(0)
     }
 
 

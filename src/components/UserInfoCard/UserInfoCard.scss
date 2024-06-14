@@ -1,0 +1,87 @@
+.userInfo {
+  padding: var(--offset-main);
+  border-radius: var(--br-main);
+  border: 1px solid var(--border-color);
+  max-width: 850px;
+  &-title {
+  }
+
+  &-inner {
+    margin-top: var(--offdet-2);
+  }
+
+  &-data {
+    display: flex;
+    align-items: stretch;
+    gap: var(--offdet-3);
+
+  }
+
+  &-photo {
+    position: relative;
+    width: 224px;
+    height: 234px;
+    border-radius: var(--br-main);
+    overflow: hidden;
+  }
+
+  &-content {
+    display: flex;
+    flex-direction: column;
+    font-weight: 600;
+  }
+
+  &-name {
+    font-size: 1.25rem;
+  }
+
+  &-jobTitle {
+    margin-top: 12px;
+    font-size: 0.875rem;
+    color: var(--text-v1);
+  }
+
+  &-role {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+  }
+
+  &-email {
+    display: flex;
+    align-items: center;
+    margin-top: 8px;
+  }
+
+  &-phone {
+    display: flex;
+    align-items: center;
+    margin-top: 8px;
+  }
+
+  &-icon{
+    margin-right: 8px;
+  }
+
+  &-buttons{
+    margin-top: var(--offdet-3);
+    display: flex;
+    flex-direction: column;
+  }
+
+  &-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: auto;
+    align-self: flex-start;
+    background-color: var(--bg-main);
+
+    &-edite {
+      border: 1px solid var(--border-color);
+    }
+    &-footer{
+      padding: 0;
+    }
+  }
+}

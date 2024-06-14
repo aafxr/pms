@@ -1,3 +1,4 @@
 export * from './Main'
 export * from './ReservationPage'
-export * from './PropertyListPage'
+export * from './CompanyListPage'
+export * from './Profile'

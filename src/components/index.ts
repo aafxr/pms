@@ -11,4 +11,5 @@ export * from './Blank'
 export * from './OrderBoard'
 export * from './Counterinput'
 export * from './SettingsMenu'
+export * from './UserInfoCard'
 

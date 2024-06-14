@@ -30,7 +30,11 @@ export function Header({className}: HeaderPropsType) {
 
 
     function handleSettingsButtonClick(){
-        navigate('/settings/propertyList')
+        navigate('/settings/companyList')
+    }
+
+    function handleProfileClick(){
+        navigate('/profile')
     }
 
 
@@ -79,7 +83,7 @@ export function Header({className}: HeaderPropsType) {
                                 <RoundButton onClick={handleSettingsButtonClick}>
                                     <GearIcon className='icon-24'/>
                                 </RoundButton>
-                                <RoundButton>
+                                <RoundButton onClick={handleProfileClick}>
                                     <UserIcon className='icon-24'/>
                                 </RoundButton>
                             </Row>
