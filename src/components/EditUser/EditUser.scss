@@ -13,48 +13,41 @@
     border-radius: var(--br-main);
   }
 
-  &-content{
+  &-content {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
     margin-top: var(--offset-2);
   }
 
-  &-property{
+  &-property {
     flex: 1 0 240px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: 8px;
 
-    &-2{
+    &-2 {
       margin-top: var(--offset-main);
       flex: 1 0 360px;
     }
   }
 
-  &-input{
+  &-input {
     width: 100%;
   }
 
-  &-select{
-    width: 100%;
-    .select{
-      &-title{
-        background-color: var(--bg-main);
-        border: 1px solid var(--border-color);
-      }
-
-      &-items{
-        background-color: var(--bg-main);
-      }
-    }
-    .select.open .select-items{
-        border: 1px solid var(--border-color);
-    }
+  &-message{
+    line-height: 1;
+    color: var(--text-v1);
+    font-size: 0.75rem;
   }
 
-  &-buttons{
+  &-select {
+    width: 100%;
+  }
+
+  &-buttons {
     margin-top: 40px;
     display: flex;
     justify-content: space-between;
@@ -65,7 +58,7 @@
   &-button {
     min-width: 210px;
 
-    &-cancel{
+    &-cancel {
       background-color: var(--bg-main);
       border: 1px solid var(--border-color);
     }

@@ -43,14 +43,11 @@ export function Main() {
                                         {id: 1, name: 'Основные объекты'},
                                         {id: 2, name: 'Дополнительные объекты'}
                                     ]}/>
-                                <Select>
-                                    <Select.Title>Статус</Select.Title>
-                                    <Select.Items>
-                                        <Select.Item>Статус 1</Select.Item>
-                                        <Select.Item>Статус 2</Select.Item>
-                                        <Select.Item>Статус 3</Select.Item>
-                                        <Select.Item>Статус 4</Select.Item>
-                                    </Select.Items>
+                                <Select value={1}>
+                                        <option value={1}>Статус 1</option>
+                                        <option value={2}>Статус 2</option>
+                                        <option value={3}>Статус 3</option>
+                                        <option value={4}>Статус 4</option>
                                 </Select>
                                 <Button className='reset'>
                                     <span>Сбросить фильтр</span>

@@ -15,13 +15,10 @@ export function ReservationPage() {
                         <ReservationHeader/>
                         <section>
                             <div className='title'>Объект размещения</div>
-                            <Select>
-                                <Select.Title>Отель Эрмитаж</Select.Title>
-                                <Select.Items>
-                                    <Select.Item>Отель 1</Select.Item>
-                                    <Select.Item>Отель 2</Select.Item>
-                                    <Select.Item>Отель 3</Select.Item>
-                                </Select.Items>
+                            <Select value={1}>
+                                <option value={1}>Отель 1</option>
+                                <option value={2}>Отель 2</option>
+                                <option value={3}>Отель 3</option>
                             </Select>
                         </section>
 
@@ -41,18 +38,10 @@ export function ReservationPage() {
                                     <div className='title'>Заезд</div>
                                     <div className='reservation-time'>
                                         <Input value='16.04.2024'/>
-                                        <Select>
-                                            <Select.Title>
-                                                {new Date().toLocaleTimeString(navigator.language, {
-                                                    minute: "2-digit",
-                                                    hour: "2-digit"
-                                                })}
-                                            </Select.Title>
-                                            <Select.Items>
-                                                <Select.Item>Отель 1</Select.Item>
-                                                <Select.Item>Отель 2</Select.Item>
-                                                <Select.Item>Отель 3</Select.Item>
-                                            </Select.Items>
+                                        <Select value={1}>
+                                            <option value={1}>Отель 1</option>
+                                            <option value={2}>Отель 2</option>
+                                            <option value={3}>Отель 3</option>
                                         </Select>
                                     </div>
                                 </Column>
@@ -60,18 +49,10 @@ export function ReservationPage() {
                                     <div className='title'>Выезд</div>
                                     <div className='reservation-time'>
                                         <Input value='16.04.2024'/>
-                                        <Select>
-                                            <Select.Title>
-                                                {new Date().toLocaleTimeString(navigator.language, {
-                                                    minute: "2-digit",
-                                                    hour: "2-digit"
-                                                })}
-                                            </Select.Title>
-                                            <Select.Items>
-                                                <Select.Item>Отель 1</Select.Item>
-                                                <Select.Item>Отель 2</Select.Item>
-                                                <Select.Item>Отель 3</Select.Item>
-                                            </Select.Items>
+                                        <Select value={1}>
+                                            <option value={1}>Отель 1</option>
+                                            <option value={2}>Отель 2</option>
+                                            <option value={3}>Отель 3</option>
                                         </Select>
                                     </div>
                                 </Column>
@@ -101,13 +82,10 @@ export function ReservationPage() {
                             <Row className='reservation-row'>
                                 <Column>
                                     <div className='title'>Категория</div>
-                                    <Select className='category-select'>
-                                        <Select.Title>Люкс</Select.Title>
-                                        <Select.Items>
-                                            <Select.Item>Отель 1</Select.Item>
-                                            <Select.Item>Отель 2</Select.Item>
-                                            <Select.Item>Отель 3</Select.Item>
-                                        </Select.Items>
+                                    <Select value={1}>
+                                        <option value={1}>Отель 1</option>
+                                        <option value={2}>Отель 2</option>
+                                        <option value={3}>Отель 3</option>
                                     </Select>
                                     <div className='reservation-info'>&nbsp;</div>
 
@@ -115,13 +93,10 @@ export function ReservationPage() {
 
                                 <Column>
                                     <div className='title'>Тариф</div>
-                                    <Select className='category-select'>
-                                        <Select.Title>Стандарт</Select.Title>
-                                        <Select.Items>
-                                            <Select.Item>Отель 1</Select.Item>
-                                            <Select.Item>Отель 2</Select.Item>
-                                            <Select.Item>Отель 3</Select.Item>
-                                        </Select.Items>
+                                    <Select value={1}>
+                                        <option value={1}>Отель 1</option>
+                                        <option value={2}>Отель 2</option>
+                                        <option value={3}>Отель 3</option>
                                     </Select>
                                     <div className='reservation-info'>Тариф не задан на: 17 апреля</div>
                                 </Column>
@@ -142,13 +117,10 @@ export function ReservationPage() {
 
                                 <Column>
                                     <div className='title'>Номер комнаты</div>
-                                    <Select className='category-select'>
-                                        <Select.Title>Номер не выбран</Select.Title>
-                                        <Select.Items>
-                                            <Select.Item>Отель 1</Select.Item>
-                                            <Select.Item>Отель 2</Select.Item>
-                                            <Select.Item>Отель 3</Select.Item>
-                                        </Select.Items>
+                                    <Select value={1}>
+                                        <option value={1}>Отель 1</option>
+                                        <option value={2}>Отель 2</option>
+                                        <option value={3}>Отель 3</option>
                                     </Select>
                                     <div className='reservation-info'>&nbsp;</div>
                                 </Column>
@@ -171,7 +143,7 @@ export function ReservationPage() {
                                 <Column>
                                     <div className='title'>Стоимость проживания</div>
                                     <Row className='reservation-row'>
-                                        <Input value={'0.00'} />&nbsp;<span>₽</span>
+                                        <Input value={'0.00'}/>&nbsp;<span>₽</span>
                                     </Row>
                                     <div className='reservation-info'>&nbsp;</div>
                                 </Column>

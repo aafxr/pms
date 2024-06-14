@@ -1,11 +1,11 @@
 import clsx from "clsx";
-import {useState} from "react";
+import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
 
 import {BellIcon, GearIcon, PlusIcon, UserIcon} from "../svg";
 import {Button, RoundButton} from "../buttons";
 import {Container} from "../Container";
-import {Select} from "../Selector";
+import {Select} from "../Select";
 import {Search} from "../Search";
 import {Logo} from "../Logo";
 import {Row} from "../flex";
@@ -45,16 +45,10 @@ export function Header({className}: HeaderPropsType) {
                     <Row justify='between' align='center' full wrap>
                         <div className='left gap-1'>
                             <Logo/>
-                            <Select className='flex-0' open={open} onClose={() => setOpen(false)}>
-                                <Select.Title onClick={() => setOpen(!open)}>
-                                    Объекты размещения
-                                </Select.Title>
-                                <Select.Items>
-                                    <Select.Item>1</Select.Item>
-                                    <Select.Item selected>2</Select.Item>
-                                    <Select.Item>3</Select.Item>
-                                    <Select.Item>4</Select.Item>
-                                </Select.Items>
+                            <Select value={1}>
+                                <option value={1}>Отель 1</option>
+                                <option value={2}>Отель 2</option>
+                                <option value={3}>Отель 3</option>
                             </Select>
 
                             <Nav>

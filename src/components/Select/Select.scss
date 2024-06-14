@@ -1,0 +1,18 @@
+.select{
+  display: block;
+  padding: 12px 16px;
+  background-color: var(--bg-main);
+  border: 1px solid var(--bg-v2);
+  border-radius: var(--br-main);
+
+  option{
+    padding: 12px 16px;
+    background-color: var(--bg-main);
+    border-radius: var(--br-main);
+    cursor: pointer;
+
+    &:hover{
+      background-color: var(--bg-v1);
+    }
+  }
+}
