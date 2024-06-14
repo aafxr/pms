@@ -10,7 +10,7 @@ export interface InputPropsType extends InputHTMLAttributes<HTMLInputElement> {
 
 export const Input = forwardRef<HTMLInputElement, InputPropsType>(({className, ...props}, ref) => {
     return (
-        <input {...props} className={clsx('input', className)}/>
+        <input ref={ref} {...props} className={clsx('input', className)}/>
     );
 })
 

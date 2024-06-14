@@ -36,7 +36,64 @@ export function EditUser({user, onSave, onCancel}: EditUserPropsType) {
         // onSave?.(editedUser)
     }
 
-    console.log(errors)
+
+    function handleJobTitleChange(e: React.ChangeEvent<HTMLInputElement>) {
+        const newState = new User(editedUser)
+        newState.jobTitle = e.target.value
+        setEditedUser(newState)
+    }
+
+
+    function handleEmailChange(e: React.ChangeEvent<HTMLInputElement>) {
+        const newState = new User(editedUser)
+        newState.email = e.target.value
+        setEditedUser(newState)
+    }
+
+
+    function handleFirstNameChange(e: React.ChangeEvent<HTMLInputElement>) {
+        const newState = new User(editedUser)
+        newState.firstName = e.target.value
+        setEditedUser(newState)
+    }
+
+
+    function handleSecondNameChange(e: React.ChangeEvent<HTMLInputElement>) {
+        const newState = new User(editedUser)
+        newState.secondName = e.target.value
+        setEditedUser(newState)
+    }
+
+
+    function handleLastNameChange(e: React.ChangeEvent<HTMLInputElement>) {
+        const newState = new User(editedUser)
+        newState.lastName = e.target.value
+        setEditedUser(newState)
+    }
+
+
+    function handlePhoneNumberChange(e: React.ChangeEvent<HTMLInputElement>) {
+        const newState = new User(editedUser)
+        newState.phoneNumber = e.target.value
+        setEditedUser(newState)
+    }
+
+
+    function handlePhotoChange(e: React.ChangeEvent<HTMLInputElement>) {
+        const newState = new User(editedUser)
+        newState.photo = e.target.value
+        setEditedUser(newState)
+    }
+
+
+    function handleRoleChange(e: React.ChangeEvent<HTMLSelectElement>) {
+        const newState = new User(editedUser)
+        newState.role = +e.target.value
+        setEditedUser(newState)
+    }
+
+
+    if (!editedUser) return null
 
 
     return (
@@ -54,84 +111,146 @@ export function EditUser({user, onSave, onCancel}: EditUserPropsType) {
                         <div className='editeUser-property'>
                             <div className='editeUser-label label'>Фамилия</div>
                             <Input
-                                {...register("lastName", {required: true})}
+                                {...register("lastName", {
+                                    required: {
+                                        value: true,
+                                        message: "Необходимо указать Фамилию"
+                                    },
+                                })}
                                 className={'editeUser-input'}
-                                placeholder='Фамилия' value={editedUser?.lastName}/>
-                            {errors.firstName && <div className='editeUser-message'>
-                                this field is required
-                            </div>}
+                                placeholder='Фамилия'
+                                name={'lastName'}
+                                value={editedUser?.lastName}
+                                onChange={handleLastNameChange}
+                            />
+                            {errors.firstName &&
+                                <div className='editeUser-message'>
+                                    {errors.firstName.message}
+                                </div>
+                            }
                         </div>
 
                         <div className='editeUser-property'>
                             <div className='editeUser-label label'>Имя</div>
                             <Input
-                                {...register("firstName", {required: true})}
+                                {...register("firstName", {required: {value: true, message: "Необходимо указать Имя"}})}
                                 className={'editeUser-input'}
-                                placeholder='Имя' value={editedUser?.firstName}/>
-                            {errors.firstName && <div className='editeUser-message'>
-                                this field is required
-                            </div>}
+                                placeholder='Имя'
+                                name={'firstName'}
+                                value={editedUser?.firstName}
+                                onChange={handleFirstNameChange}
+                            />
+                            {errors.firstName &&
+                                <div className='editeUser-message'>
+                                    {errors.firstName.message}
+                                </div>
+                            }
                         </div>
 
                         <div className='editeUser-property'>
                             <div className='editeUser-label label'>Отчество</div>
                             <Input
-                                {...register("secondName", {required: true})}
+                                {...register("secondName", {
+                                    required: {
+                                        value: true,
+                                        message: "Необходимо указать Отчкство"
+                                    }
+                                })}
                                 className={'editeUser-input'}
-                                placeholder='Отчество' value={editedUser?.secondName}/>
-                            {errors.firstName && <div className='editeUser-message'>
-                                this field is required
-                            </div>}
+                                placeholder='Отчество'
+                                name={'secondName'}
+                                value={editedUser?.secondName}
+                                onChange={handleSecondNameChange}
+                            />
+                            {errors.firstName &&
+                                <div className='editeUser-message'>
+                                    {errors.firstName.message}
+                                </div>
+                            }
                         </div>
 
                         <div className='editeUser-property editeUser-property-2'>
                             <div className='editeUser-label label'>Телефон</div>
                             <Input
-                                {...register("phoneNumber", {required: true})}
+                                {...register("phoneNumber", {
+                                    required: {
+                                        value: true,
+                                        message: "Необходимо указать номер телефона"
+                                    }, pattern: /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/
+                                })}
                                 className={'editeUser-input'}
                                 type={'tel'} placeholder='Телефон'
-                                value={editedUser?.phoneNumber}/>
-                            {errors.firstName && <div className='editeUser-message'>
-                                this field is required
-                            </div>}
+                                name={'phoneNumber'}
+                                value={editedUser?.phoneNumber}
+                                onChange={handlePhoneNumberChange}
+                            />
+                            {errors.firstName &&
+                                <div className='editeUser-message'>
+                                    {errors.firstName.message}
+                                </div>
+                            }
                         </div>
 
                         <div className='editeUser-property editeUser-property-2'>
                             <div className='editeUser-label label'>Эл. почта</div>
                             <Input
-                                {...register("email", {required: true})}
+                                {...register("email", {
+                                    required: {value: true, message: "Необходимо указать email"},
+                                    pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g
+                                })}
                                 className={'editeUser-input'}
                                 type={'email'} placeholder='Эл. почта'
-                                value={editedUser?.email}/>
-                            {errors.firstName && <div className='editeUser-message'>
-                                this field is required
-                            </div>}
+                                name={'email'}
+                                value={editedUser?.email}
+                                onChange={handleEmailChange}
+                            />
+                            {errors.firstName &&
+                                <div className='editeUser-message'>
+                                    {errors.firstName.message}
+                                </div>
+                            }
                         </div>
 
                         <div className='editeUser-property editeUser-property-2'>
                             <div className='editeUser-label label'>Должность</div>
                             <Input
-                                {...register("jobTitle", {required: true})}
+                                {...register("jobTitle", {
+                                    required: {
+                                        value: true,
+                                        message: "Необходимо указать должность"
+                                    }
+                                })}
                                 className={'editeUser-input'}
                                 type={'text'} placeholder='Должность'
-                                value={editedUser?.jobTitle}/>
-                            {errors.firstName && <div className='editeUser-message'>
-                                this field is required
-                            </div>}
+                                name={'jobTitle'}
+                                value={editedUser?.jobTitle}
+                                onChange={handleJobTitleChange}
+                            />
+                            {errors.firstName &&
+                                <div className='editeUser-message'>
+                                    {errors.firstName.message}
+                                </div>
+                            }
                         </div>
 
                         <div className='editeUser-property editeUser-property-2'>
                             <div className='editeUser-label label'>Роль</div>
                             <Select
-                                {...register("role", {required: true})}
-                                className='editeUser-select'>
+                                {...register("role", {required: {value: true, message: "Необходимо выбрать роль"}})}
+                                className='editeUser-select'
+                                name={'role'}
+                                value={editedUser?.role}
+                                onChange={handleRoleChange}
+                            >
                                 <option value={EmployeeRole.ADMINISTRATOR}>{EmployeeRole[0]}</option>
                                 <option value={EmployeeRole.MANAGER}>{EmployeeRole[1]}</option>
                                 <option value={EmployeeRole.OPERATOR}>{EmployeeRole[2]}</option>
                             </Select>
-                            {errors.firstName && <div className='editeUser-message'>
-                                this field is required
-                            </div>}
+                            {errors.firstName &&
+                                <div className='editeUser-message'>
+                                    {errors.firstName.message}
+                                </div>
+                            }
                         </div>
                     </div>
 
