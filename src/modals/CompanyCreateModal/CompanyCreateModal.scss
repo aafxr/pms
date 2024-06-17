@@ -1,0 +1,76 @@
+.companyCreate{
+  &-inner{
+  }
+
+  &-name{
+    margin-top: var(--offset-2);
+
+  }
+
+  &-input{
+    width: 100%;
+  }
+
+  &-director{
+    margin-top: var(--offset-2);
+    display: flex;
+    gap: 8px;
+    justify-content: stretch;
+  }
+
+  &-country{
+    margin-top: var(--offset-2);
+  }
+
+  &-logo{
+    margin-top: var(--offset-2);
+  }
+
+  .accordion-inner{
+    border: none;
+    padding: 0;
+  }
+
+  &-requizites{
+    margin-top: var(--offset-2);
+
+    &-content{
+      display: grid;
+      grid-template-columns:  1fr 1fr 1fr;
+      grid-auto-columns: 1fr 1fr;
+      gap: var(--offset-2) 8px;
+    }
+  }
+
+  &-tax{
+    grid-column: 1 /-1;
+  }
+
+  select {
+    width: 100%;
+  }
+
+  &-bank{
+    margin-top: var(--offset-2);
+
+    &-content{
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: var(--offset-2) 8px;
+    }
+  }
+
+  &-bankName{
+    grid-column: 1 / -1;
+  }
+
+  &-buttons{
+    display: flex;
+    justify-content: space-between;
+
+    .button{
+      flex: none;
+      width: 208px;
+    }
+  }
+}

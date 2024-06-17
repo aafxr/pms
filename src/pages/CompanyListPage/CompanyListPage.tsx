@@ -1,12 +1,20 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Blank, Button, Container, Header, Search, SettingsMenu, Wrapper} from "../../components";
 import {PropertiesList} from "../../components/PropertiesList";
 
 import './CompanyListPage.scss'
 import {Row} from "../../components/flex";
 import {PlusIcon} from "../../components/svg";
+import {CompanyCreateModal} from "../../modals";
 
 export function CompanyListPage() {
+    const [showCreateCompanyModel, setShowCreateCompanyModel] = useState(false)
+
+
+    function handleCreateCompanyClick(){
+        setShowCreateCompanyModel(true)
+    }
+
     return (
         <Wrapper className='company-list'>
             <Wrapper.Header>
@@ -23,7 +31,7 @@ export function CompanyListPage() {
                                 <Row full justify={'between'}>
                                     <h2 className='company-list-title'>Управление компаниями</h2>
                                     <Row justify='end'>
-                                        <Button className='company-list-button'>
+                                        <Button className='company-list-button' onClick={handleCreateCompanyClick}>
                                             Добавить компанию
                                             <span className='company-list-icon'>
                                                 <PlusIcon className='icon-24'/>
@@ -36,6 +44,7 @@ export function CompanyListPage() {
                             <PropertiesList/>
                         </div>
                     </div>
+                    <CompanyCreateModal open={showCreateCompanyModel} onClose={() => setShowCreateCompanyModel(false)} />
 
                 </Container>
             </Wrapper.Content>
