@@ -102,12 +102,17 @@ export class UR_Company extends Company {
      */
     OGRN_date: Date
 
+    ur_address: string
+    fizics_address: string
+
 
     constructor(ur_company: Partial<UR_Company> = {}) {
         super(ur_company);
         this.KPP        = ur_company.KPP !== undefined ? ur_company.KPP : 0
         this.OGRN       = ur_company.OGRN !== undefined ? ur_company.OGRN : 0
         this.OGRN_date  = ur_company.OGRN_date !== undefined ? ur_company.OGRN_date : new Date(0)
+        this.ur_address = ur_company.ur_address !== undefined ? ur_company.ur_address : ''
+        this.fizics_address = ur_company.fizics_address !== undefined ? ur_company.fizics_address : ''
     }
 }
 

@@ -15,4 +15,5 @@ export * from './UserInfoCard'
 export * from './Modal'
 export * from './EditUser'
 export * from './Select'
+export * from './DateInput'
 
