@@ -1,0 +1,36 @@
+.date{
+
+  &-inner{
+    display: inline-block;
+    position: relative;
+    flex: none;
+  }
+
+  &-day{
+    width: 208px;
+    padding: 10px 12px;
+    border-radius: var(--br-main);
+  }
+
+  &-time{
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    padding-left: 12px;
+    padding-right: 12px;
+    display: flex;
+    align-items: center;
+    border-radius: var(--br-main);
+    background-color: var(--bg-v1);
+  }
+
+  input{
+    border: none;
+    outline: none;
+  }
+
+  &-hidden{
+    display: none;
+  }
+}

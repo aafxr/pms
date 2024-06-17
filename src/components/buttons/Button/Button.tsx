@@ -5,13 +5,19 @@ import './Button.css'
 
 
 export interface ButtonPropsType extends ButtonHTMLAttributes<HTMLButtonElement> {
+    variant?: 'active' | 'regular' | 'cancel'
 }
 
 
 export const Button = forwardRef<HTMLButtonElement, ButtonPropsType>(
-    ({className, children, ...props}: ButtonPropsType, ref) => {
+    ({className, children, variant = 'regular', ...props}: ButtonPropsType, ref) => {
+        const cn = clsx('button',
+            {
+                [variant]: true
+            }
+            , className)
         return (
-            <button ref={ref} {...props} className={clsx('button', className)}>{children}</button>
+            <button ref={ref} {...props} className={cn}>{children}</button>
         );
     }
 )

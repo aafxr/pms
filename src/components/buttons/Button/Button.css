@@ -15,3 +15,15 @@
     pointer-events: none;
     cursor: auto;
 }
+
+
+.button.active{
+    background-color: var(--bg-v2);
+}
+.button.regular{
+    background-color: var(--bg-v1);
+}
+.button.cancel{
+    background-color: var(--bg-main);
+    border: 1px solid var(--border-color);
+}

@@ -45,7 +45,7 @@ export function Header({className}: HeaderPropsType) {
                     <Row justify='between' align='center' full wrap>
                         <div className='left gap-1'>
                             <Logo/>
-                            <Select value={1}>
+                            <Select className='header-select' value={1}>
                                 <option value={1}>Отель 1</option>
                                 <option value={2}>Отель 2</option>
                                 <option value={3}>Отель 3</option>

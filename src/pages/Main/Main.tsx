@@ -14,7 +14,6 @@ import {
 
 import NavButtons from "../../components/buttons/NavButtons/NavButtons";
 import {PrintIcon} from "../../components/svg";
-import {Board} from "../../components/Board";
 import {Row} from "../../components/flex";
 import './Main.css'
 

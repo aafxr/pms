@@ -24,6 +24,12 @@
     gap: var(--pd-main);
 }
 
+.header .header-select{
+    flex: none;
+    width: 208px;
+    font-weight: 600;
+}
+
 .header .search .input{
     flex: 1 1;
     border-color: var(--bg-main);
