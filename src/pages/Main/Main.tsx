@@ -17,6 +17,8 @@ import {PrintIcon} from "../../components/svg";
 import {Row} from "../../components/flex";
 
 import './Main.css'
+import {useEffect} from "react";
+import {fetchRooms} from "../../api/fetchRooms";
 
 
 export function Main() {
@@ -25,6 +27,16 @@ export function Main() {
     function handleButtonGroupClick(e: ButtonGroupType){
         if(e.id === 2) navigate('/reservation')
     }
+
+    useEffect(() => {
+        const d = new Date()
+        fetchRooms({
+            start_date: d,
+            end_date: new Date(d.getFullYear(), d.getMonth(), d.getDate())
+        })
+            .then(console.log)
+            .catch(console.error)
+    }, []);
 
 
     return (

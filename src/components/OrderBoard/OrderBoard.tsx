@@ -44,6 +44,8 @@ export function OrderBoard({className}: OrderBoardPropsType) {
 
 
     function handleScroll(e: React.WheelEvent<HTMLDivElement>) {
+        e.defaultPrevented = true
+        e.stopPropagation()
         const $el = e.currentTarget as HTMLDivElement
         $el.scrollBy({left: e.deltaY})
     }

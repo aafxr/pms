@@ -1,3 +1,5 @@
+import {axiosFetch} from "../axios";
+
 type APIResponseType<T> = {
     message: string
     data: T
@@ -63,7 +65,27 @@ type FetchRoomsResponse = {
 
 
 
+export type FetchRoomsRequestParams = {
+    page?: number
+    per_page?: number
+    daily?: 'daily'
+    start_date: Date
+    end_date: Date
+}
 
-export async function fetchRooms(){
-    const response = {} as APIResponseType<FetchRoomsResponse>
+export async function fetchRooms(params: FetchRoomsRequestParams): Promise<APIResponseType<FetchRoomsResponse> | undefined>{
+    const query = new URLSearchParams()
+    for (const key in params){
+        if(key.endsWith('_date')){
+            // @ts-ignore
+            query.set(key, params[key].toISOString().split('.')[0])
+        }else {
+            // @ts-ignore
+            query.set(key, params[key])
+        }
+    }
+    const response = await axiosFetch.get<APIResponseType<FetchRoomsResponse>>(`/api/v1/timetable-bookings/rooms?${query}`)
+    if (response.status === 200){
+        return response.data
+    }
 }
