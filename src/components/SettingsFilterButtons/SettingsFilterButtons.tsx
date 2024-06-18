@@ -25,7 +25,7 @@ export function SettingsFilterButtons({
                                    value,
                                    onChange
                                }: SettingsFilterButtonsPropsType) {
-    const [selected, setSelected] = useState(SettingsFilterButtonsVariant.ACTIVE)
+    const [selected, setSelected] = useState(() => +localStorage[SETTINGS_FILTER_BUTTON] as SettingsFilterButtonsVariant)
 
 
     useEffect(() => {

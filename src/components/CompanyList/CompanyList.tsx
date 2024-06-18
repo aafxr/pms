@@ -17,15 +17,7 @@ export function CompanyList() {
     function handleCreateCompanyClick(){
         setShowCreateCompanyModel(true)
     }
-    const buttons: ButtonGroupType[] = [
-        {id: 0, name: 'Действующие'},
-        {id: 1, name: 'Архив'},
-        {id: 2, name: 'Журнал изменений'},
-    ]
 
-    function handleFilterButtonClick(v: ButtonGroupType){
-
-    }
 
     return (
         <div className='companyList'>
