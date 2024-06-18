@@ -1,4 +1,4 @@
-.companyList{
+.companyList {
   &-title {
     font-size: 1.25rem;
     font-weight: 600;
@@ -23,5 +23,43 @@
     margin-left: 24px;
   }
 
+
+  &-companies {
+    margin-top: var(--offset-main);
+    display: grid;
+    grid-template-columns: repeat( 8, 1fr);
+    grid-gap: 4px 0;
+  }
+
+  &-header {
+    padding: 20px 18px;
+    color: var(--text-disable);
+    background-color: var(--bg-v1);
+
+    &:first-child {
+      border-radius: var(--br-v2) 0 0 var(--br-v2);
+    }
+
+    &:last-child {
+      border-radius: 0 var(--br-v2) var(--br-v2) 0;
+    }
+  }
+
+  &-item{
+    padding: var(--offset-main);
+    border: 1px solid var(--border-color);
+    border-left: none;
+    border-right: none;
+
+    &-first{
+      border-radius: var(--br-v2) 0 0 var(--br-v2);
+      border-left: 1px solid var(--border-color);
+    }
+
+    &-last{
+      border-radius: 0 var(--br-v2) var(--br-v2) 0;
+      border-right: 1px solid var(--border-color);
+    }
+  }
 
 }

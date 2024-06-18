@@ -27,3 +27,8 @@
     background-color: var(--bg-main);
     border: 1px solid var(--border-color);
 }
+
+.button.bgTransparent{
+    background-color: inherit;
+    border: none;
+}

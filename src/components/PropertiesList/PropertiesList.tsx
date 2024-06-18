@@ -40,15 +40,15 @@ export function PropertiesList() {
         <div className="properties">
             <Blank>
                 <Row full justify={'between'}>
-                    <h2 className='companyList-title'>Управление компаниями</h2>
+                    <h2 className='companyList-title'>Управление объектами размещения</h2>
                     <Row justify='end'>
                         <Button className='companyList-button' >
-                            Добавить компанию
+                            Добавить объект аренды
                             <span className='companyList-icon'>
                                 <PlusIcon className='icon-24'/>
                             </span>
                         </Button>
-                        <Search className='companyList-search' placeholder='Компания'/>
+                        <Search className='companyList-search' placeholder='объект размещения'/>
                     </Row>
                 </Row>
             </Blank>

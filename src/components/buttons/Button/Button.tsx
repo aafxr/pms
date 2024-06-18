@@ -5,7 +5,7 @@ import './Button.css'
 
 
 export interface ButtonPropsType extends ButtonHTMLAttributes<HTMLButtonElement> {
-    variant?: 'active' | 'regular' | 'cancel'
+    variant?: 'active' | 'regular' | 'cancel' | 'bgTransparent'
 }
 
 

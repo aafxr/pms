@@ -65,5 +65,5 @@ type FetchRoomsResponse = {
 
 
 export async function fetchRooms(){
-    const response = {} as APIResponseType<FetchRoomsResponse>\
+    const response = {} as APIResponseType<FetchRoomsResponse>
 }

@@ -61,6 +61,7 @@ export abstract class Company /* implements IFieldsCheck*/{
 
     director: string
     directorPhone: string
+    city: string
 
 
     constructor(company: Partial<Company> = {}) {
@@ -75,6 +76,8 @@ export abstract class Company /* implements IFieldsCheck*/{
         this.created_at     = company.created_at !== undefined ? new Date(company.created_at) : new Date(0)
         this.director       = company.director !== undefined ? company.director : ''
         this.directorPhone  = company.directorPhone !== undefined ? company.directorPhone : ''
+        this.city           = company.city !== undefined ? company.city : ''
+
     }
 
 
