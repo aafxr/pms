@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import React, {useState, ChangeEvent} from 'react';
+import React, {useState, ChangeEvent, useEffect} from 'react';
 import {Button, Input, Modal, Select, Wrapper} from "../../components";
 import {Company, UR_Company} from "../../core/classes/Company";
 import {Accordion} from "../../components/Accordion";
@@ -37,7 +37,6 @@ export interface CompanyCreateModal {
     open?: boolean
     className?: string
     onCreate?: (company: ModalStateType) => unknown
-    onCancel?: () => unknown
     onClose?: () => unknown
 }
 
@@ -46,7 +45,6 @@ export function CompanyCreateModal({
                                        className,
                                        onCreate,
                                        onClose,
-                                       onCancel
                                    }: CompanyCreateModal) {
     const [state, setState] = useState(defaultState)
     const [requisitesOpen, setRequisitesOpen] = useState(true)
@@ -176,13 +174,19 @@ export function CompanyCreateModal({
         onCreate?.(state)
     }
 
+    function handleCancelButtonClick(){
+        onClose?.()
+    }
+
 
     return (
         <Modal open={open} className={clsx('companyCreate', className)} onClose={onClose}>
             <Wrapper>
+                <Wrapper.Header>
+                    <h2 className='companyCreate-title title'>Создание компании</h2>
+                </Wrapper.Header>
                 <Wrapper.Content>
                     <div className='companyCreate-inner'>
-                        <h2 className='companyCreate-title title'>Создание компании</h2>
                         <div className='companyCreate-name'>
                             <div className='companyCreate-label label'>Название компании</div>
                             <Input className={'companyCreate-input'} value={state.companyName}
@@ -283,7 +287,11 @@ export function CompanyCreateModal({
 
                                 <div className='companyCreate-tax'>
                                     <div className='companyCreate-label label'>Система налогооблажения</div>
-                                    <Select></Select>
+                                    <Select 
+                                        className='companyCreate-tax-select'
+                                    >
+                                        <option value=""></option>
+                                    </Select>
                                 </div>
                             </div>
 
@@ -323,7 +331,7 @@ export function CompanyCreateModal({
                 <Wrapper.Footer>
                     <div className='companyCreate-buttons'>
                         <Button variant={'active'} onClick={handleCreateButtonClick}>Создать</Button>
-                        <Button variant={'cancel'} onClick={onCancel}>Отмена</Button>
+                        <Button variant={'cancel'} onClick={handleCancelButtonClick}>Отмена</Button>
                     </div>
                 </Wrapper.Footer>
             </Wrapper>

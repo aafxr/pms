@@ -5,14 +5,14 @@ import clsx from "clsx";
 import './Modal.scss'
 
 
-export interface ModalPropstype extends PropsWithChildren {
+export interface ModalPropsType extends PropsWithChildren {
     className?: string;
     open?:boolean
     onClose?: () => void
 }
 
 
-export function Modal({className, open, onClose, children}: ModalPropstype) {
+export function Modal({className, open, onClose, children}: ModalPropsType) {
 
 
     useEffect(() => {

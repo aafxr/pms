@@ -1,24 +1,4 @@
-.company-list{
-  .container{
-    padding-top: var(--pd-main);
-  }
-
-  &-grid{
-    display: grid;
-    height: 100%;
-    grid-template-areas: 'menu content';
-    grid-template-columns: auto 1fr;
-    gap: var(--offset-main);
-  }
-
-  &-menu{
-    grid-area: menu;
-  }
-
-  &-content{
-    grid-area: content;
-  }
-
+.companyList{
   &-title {
     font-size: 1.25rem;
     font-weight: 600;
@@ -42,4 +22,6 @@
   &-search {
     margin-left: 24px;
   }
+
+
 }

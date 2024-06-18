@@ -75,7 +75,7 @@
     gap: 8px;
     margin-top: auto;
     align-self: flex-start;
-    background-color: var(--bg-main);
+    background-color: var(--bg-main)!important;
 
     &-edite {
       border: 1px solid var(--border-color);

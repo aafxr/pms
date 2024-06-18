@@ -33,9 +33,8 @@ export function Accordion({title, open, onOpenChanged, className, children}: Acc
     function handleAccordionState(){
         const el = contentRef.current
         if (!el) return
-
         if (isOpen) {
-            el.style.maxHeight = el.scrollHeight + 'px'
+            el.style.maxHeight = el.scrollHeight + 28 + 'px'
         } else {
             el.style.maxHeight = 0 + 'px'
         }
