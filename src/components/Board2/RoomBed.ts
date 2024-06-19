@@ -20,7 +20,7 @@ export class RoomBed{
     room_bed_id: number
     room_type_id: number
 
-    constructor(roomBed: Partial<RoomBed>) {
+    constructor(roomBed: Partial<RoomBed> = {}) {
         this.id = roomBed.id !== undefined ? roomBed.id : 0
         this.is_main = roomBed.is_main !== undefined ? roomBed.is_main : false
         this.room_bed = roomBed.room_bed !== undefined ? roomBed.room_bed : new BedGlossary()

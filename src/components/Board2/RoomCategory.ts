@@ -23,7 +23,7 @@ export class RoomCategory{
     property?: Property
     room_type_beds: RoomBed[]
 
-    constructor(category: Partial<RoomCategory>) {
+    constructor(category: Partial<RoomCategory> = {}) {
         this.id = category.id !== undefined ? category.id : 0
         this.area = category.area !== undefined ? category.area : 0
         this.desc = category.desc !== undefined ? category.desc : ''

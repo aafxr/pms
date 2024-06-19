@@ -1,6 +1,12 @@
 import React, {useEffect, useRef, WheelEvent, MouseEvent} from 'react';
 
 import './Board2.scss'
+import {fetchRooms} from "../../api/fetchRooms";
+import {BedGlossary} from "./BedGlossary";
+import {RoomBed} from "./RoomBed";
+import {Property} from "./Property";
+import {RoomCategory} from "./RoomCategory";
+import {Room} from "./Room";
 
 
 export interface Board2PropsType {
@@ -11,6 +17,80 @@ export interface Board2PropsType {
 
 function _Board2({onScrollToLeftSide, onScrollToRightSide}: Board2PropsType) {
     const boardRef = useRef<HTMLDivElement>(null);
+
+
+    useEffect(() => {
+        const d = new Date()
+        fetchRooms({
+            end_date: d,
+            start_date: new Date(d.getFullYear() - 26, d.getMonth(), d.getDate())
+        })
+            .then(r => {
+                if (!r) return
+                console.log(r)
+                const bedGlossaryMap = new Map<number, BedGlossary>()
+                const roomsMap = new Map<number, Room>()
+                const propertyMap = new Map<number, Property>()
+                const roomCategoryMap = new Map<number, RoomCategory>()
+                const roomTypeMap = new Map<number, RoomBed>
+
+                r.data.room_types.forEach(roomCategory => {
+                    roomCategory.room_type_beds
+                        .forEach(room => bedGlossaryMap.set(room.room_bed_id, new BedGlossary(room.room_bed)))
+                })
+
+                r.data.properties.forEach(p => propertyMap.set(p.id, new Property(p)))
+
+                for (const room of r.data.room_types) {
+                    for (const br of room.room_type_beds) {
+                        const bed = br.room_bed
+                        if (!bedGlossaryMap.has(bed.id)) {
+                            bedGlossaryMap.set(bed.id, new BedGlossary(bed))
+                        }
+                    }
+                }
+
+                for (const room of r.data.room_types) {
+
+                    room.room_type_beds.forEach(r => {
+                        const bed = r.room_bed
+                        if (!bedGlossaryMap.has(bed.id)) {
+                            bedGlossaryMap.set(bed.id, new BedGlossary(bed))
+                        }
+                    })
+
+                    room.room_type_beds.forEach(r => {
+                        if (!roomTypeMap.has(r.id)) {
+                            const room = new RoomBed(r)
+                            if (bedGlossaryMap.has(r.room_bed_id)) {
+                                r.room_bed = bedGlossaryMap.get(r.room_bed_id)!
+                            }
+                        }
+                    })
+
+                    const category = new RoomCategory({
+                        ...room,
+                        room_type_beds: room.room_type_beds.map(r => roomTypeMap.has(r.id)
+                            ? roomTypeMap.get(r.id)!
+                            : new RoomBed()
+                        )
+                    })
+                    if (roomCategoryMap.has(category.property_id)) {
+                        category.property = roomCategoryMap.get(category.property_id)!
+                    }
+                }
+
+
+                console.log('bedGlossaryMap', bedGlossaryMap)
+                console.log('roomsMap', roomsMap)
+                console.log('roomTypeMap', roomTypeMap)
+                console.log('propertyMap', propertyMap)
+                console.log('roomCategoryMap', roomCategoryMap)
+
+
+            })
+            .catch(console.error)
+    }, []);
 
 
     useEffect(() => {
@@ -32,14 +112,13 @@ function _Board2({onScrollToLeftSide, onScrollToRightSide}: Board2PropsType) {
         el.querySelectorAll<HTMLDivElement>(".syncWheel")
             .forEach(el => {
                 el.scrollBy({left: Number(e.deltaY)})
-                if(e.deltaY < 0 && el.scrollLeft === 0) scrollToLeftSide = true
-                else if(e.deltaY > 0 && el.scrollLeft >= el.scrollWidth - el.offsetWidth) scrollToRightSide = true
+                if (e.deltaY < 0 && el.scrollLeft === 0) scrollToLeftSide = true
+                else if (e.deltaY > 0 && el.scrollLeft >= el.scrollWidth - el.offsetWidth) scrollToRightSide = true
             })
-        if(scrollToLeftSide) onScrollToLeftSide?.()
-        if(scrollToRightSide) onScrollToRightSide?.()
+        if (scrollToLeftSide) onScrollToLeftSide?.()
+        if (scrollToRightSide) onScrollToRightSide?.()
 
     }
-
 
 
     return (

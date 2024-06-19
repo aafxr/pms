@@ -31,12 +31,12 @@ export function Main() {
 
     useEffect(() => {
         const d = new Date()
-        fetchRooms({
-            end_date: d,
-            start_date: new Date(d.getFullYear() - 26, d.getMonth(), d.getDate())
-        })
-            .then(console.log)
-            .catch(console.error)
+        // fetchRooms({
+        //     end_date: d,
+        //     start_date: new Date(d.getFullYear() - 26, d.getMonth(), d.getDate())
+        // })
+        //     .then(console.log)
+        //     .catch(console.error)
     }, []);
 
 
