@@ -1,0 +1,74 @@
+.board {
+  --border: 1px solid black;
+  --rad: 8px;
+  --gap: 4px;
+
+  margin: 8px;
+  display: grid;
+  grid-gap: var(--gap) var(--gap);
+  grid-template-areas:
+        "filter header"
+        "filter date"
+        "content content";
+  grid-template-columns: 190px 1fr;
+  grid-template-rows: 56px 56px 1fr;
+
+  .cell {
+    flex: none;
+    width: 56px;
+    height: 56px;
+    border: var(--border);
+    border-radius: var(--rad);
+  }
+
+  .filter {
+    grid-area: filter;
+  }
+
+  .header {
+    grid-area: header;
+  }
+
+  .date {
+    grid-area: date;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: 56px;
+    grid-auto-columns: 56px;
+    column-gap: var(--gap);
+    overflow: hidden;
+
+    .day,
+    .month {
+      position: relative;
+      span{
+        position: sticky;
+        left: 10px;
+      }
+    }
+  }
+
+  .content {
+    grid-area: content;
+    display: grid;
+    grid-template-columns: 190px 1fr;
+    grid-gap: var(--gap) var(--gap);
+  }
+
+  .category {
+    height: 56px;
+  }
+
+  .cells {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 56px;
+    column-gap: var(--gap);
+    overflow: hidden;
+  }
+}
+
+.boarder {
+  border: var(--border);
+  border-radius: var(--rad);
+}

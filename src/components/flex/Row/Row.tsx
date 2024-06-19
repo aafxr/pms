@@ -17,7 +17,7 @@ export function Row({
                         className,
                         children,
                         full = false,
-                        wrap = false,
+                        wrap = true,
                         ...props
                     }: RowPropsType) {
     return (

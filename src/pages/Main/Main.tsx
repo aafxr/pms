@@ -19,6 +19,7 @@ import {Row} from "../../components/flex";
 import './Main.css'
 import {useEffect} from "react";
 import {fetchRooms} from "../../api/fetchRooms";
+import {Board2} from "../../components/Board2";
 
 
 export function Main() {
@@ -31,8 +32,8 @@ export function Main() {
     useEffect(() => {
         const d = new Date()
         fetchRooms({
-            start_date: d,
-            end_date: new Date(d.getFullYear(), d.getMonth(), d.getDate())
+            end_date: d,
+            start_date: new Date(d.getFullYear() - 26, d.getMonth(), d.getDate())
         })
             .then(console.log)
             .catch(console.error)
@@ -82,8 +83,12 @@ export function Main() {
                         </Row>
                     </Blank>
 
-                    <OrderBoard />
+                    {/*<OrderBoard />*/}
                     {/*<Board />*/}
+                    <Board2
+                        onScrollToLeftSide={() => console.log('left')}
+                        onScrollToRightSide={() => console.log('right')}
+                    />
                 </Container>
             </Wrapper.Content>
             <Wrapper.Footer>
