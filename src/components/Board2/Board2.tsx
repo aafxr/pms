@@ -28,13 +28,12 @@ function _Board2({onScrollToLeftSide, onScrollToRightSide}: Board2PropsType) {
             end_date: d,
             start_date: new Date(d.getFullYear() - 26, d.getMonth(), d.getDate())
         })
-            .then(r => {
-                if (!r) return
-                const data = r.data
-                const roomTypes = RoomTypes.instance
-                data.room_types.forEach(r=> roomTypes.add(new RoomType(r)))
+            .then(data => {
+                if (!data) return
+
+                // @ts-ignore
+                window.data = data
                 console.log(data)
-                console.log(roomTypes)
             })
             .catch(console.error)
     }, []);

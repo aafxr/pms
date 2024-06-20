@@ -9,6 +9,13 @@ export class RoomBlockPeriods {
         this.blocks = new Map()
     }
 
+    static get instance(){
+        if(!this._instance){
+            this._instance = new this()
+        }
+        return this._instance
+    }
+
     add(rbp: RoomBlockPeriod) {
         if (!this.blocks.has(rbp.room_id)) {
             this.blocks.set(rbp.room_id, new Map())
