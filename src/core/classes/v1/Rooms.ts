@@ -66,4 +66,10 @@ export class Rooms{
     list(){
         return Array.from(this.rooms.values()).map(r => new Room(r))
     }
+
+    clear(){
+        this.rooms.clear()
+        this.properties.clear()
+        this.roomTypes.clear()
+    }
 }

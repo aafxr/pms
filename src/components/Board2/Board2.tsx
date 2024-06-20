@@ -1,14 +1,15 @@
 import React, {useEffect, useRef, WheelEvent, useState} from 'react';
 import {fetchRooms} from "../../api/fetchRooms";
 
-import './Board2.scss'
-import {Rooms} from "../../core/classes/v1/Rooms";
+import {RoomBlockPeriods} from "../../core/classes/v1/RoomBlockPeriods";
+import {BookingItems} from "../../core/classes/v1/BookingItems";
 import {Properties} from "../../core/classes/v1/Properties";
 import {RoomTypes} from "../../core/classes/v1/RoomTypes";
-import {RoomBlockPeriods} from "../../core/classes/v1/RoomBlockPeriods";
-import {Persons} from "../../core/classes/v1/Persons";
-import {BookingItems} from "../../core/classes/v1/BookingItems";
 import {Bookings} from "../../core/classes/v1/Bookings";
+import {Persons} from "../../core/classes/v1/Persons";
+import {Rooms} from "../../core/classes/v1/Rooms";
+
+import './Board2.scss'
 
 
 export interface Board2PropsType {
@@ -111,10 +112,10 @@ function _Board2({onScrollToLeftSide, onScrollToRightSide}: Board2PropsType) {
                         </div>
                         {state.rooms.getRoomsByRoomTypeId(roomType.id).map(room => (
                             <>
-                                <div className="category boarder">{room.name} {room.id}</div>
+                                <div className="room boarder">{room.name} {room.id}</div>
                                 <div className="cells syncWheel">
                                     {Array.from({length: 25}).map((_, i) => (
-                                        <div className="cell">{i + 1}</div>
+                                        <div className="cell cell-room">{i + 1}</div>
 
                                     ))}
                                 </div>

@@ -1,3 +1,4 @@
+import {useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 import {
     Blank,
@@ -6,7 +7,6 @@ import {
     ButtonsGroup,
     Container,
     Header,
-    OrderBoard,
     Search,
     Select,
     Wrapper
@@ -16,10 +16,8 @@ import NavButtons from "../../components/buttons/NavButtons/NavButtons";
 import {PrintIcon} from "../../components/svg";
 import {Row} from "../../components/flex";
 
-import './Main.css'
-import {useEffect} from "react";
-import {fetchRooms} from "../../api/fetchRooms";
 import {Board2} from "../../components/Board2";
+import './Main.css'
 
 
 export function Main() {

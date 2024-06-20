@@ -1,5 +1,6 @@
 import {RoomType} from "./RoomType";
 import {Property} from "./Property";
+import {Room} from "./Room";
 
 
 /**
@@ -12,6 +13,7 @@ export class RoomTypes{
 
     private roomTypes: Map<RoomType['id'], RoomType>
     private properties: Map<Property['id'], Map<RoomType['id'], RoomType>>
+    private roomName: Map<Room['name'], Map<Room['id'], Room>>
 
     private constructor() {
         this.roomTypes = new Map()

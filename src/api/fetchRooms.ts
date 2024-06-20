@@ -64,6 +64,7 @@ export async function fetchRooms(params: FetchRoomsRequestParams) {
     if (response.status === 200) {
         const data = response.data.data
 
+
         const rooms = Rooms.instance
         const properties = Properties.instance
         const roomTypes = RoomTypes.instance
