@@ -7,6 +7,8 @@ import {RoomBed} from "./RoomBed";
 import {Property} from "./Property";
 import {RoomCategory} from "./RoomCategory";
 import {Room} from "./Room";
+import {RoomTypes} from "../../core/classes/v1/RoomTypes";
+import {RoomType} from "../../core/classes/v1/RoomType";
 
 
 export interface Board2PropsType {
@@ -19,6 +21,7 @@ function _Board2({onScrollToLeftSide, onScrollToRightSide}: Board2PropsType) {
     const boardRef = useRef<HTMLDivElement>(null);
 
 
+
     useEffect(() => {
         const d = new Date()
         fetchRooms({
@@ -27,67 +30,11 @@ function _Board2({onScrollToLeftSide, onScrollToRightSide}: Board2PropsType) {
         })
             .then(r => {
                 if (!r) return
-                console.log(r)
-                const bedGlossaryMap = new Map<number, BedGlossary>()
-                const roomsMap = new Map<number, Room>()
-                const propertyMap = new Map<number, Property>()
-                const roomCategoryMap = new Map<number, RoomCategory>()
-                const roomTypeMap = new Map<number, RoomBed>
-
-                r.data.room_types.forEach(roomCategory => {
-                    roomCategory.room_type_beds
-                        .forEach(room => bedGlossaryMap.set(room.room_bed_id, new BedGlossary(room.room_bed)))
-                })
-
-                r.data.properties.forEach(p => propertyMap.set(p.id, new Property(p)))
-
-                for (const room of r.data.room_types) {
-                    for (const br of room.room_type_beds) {
-                        const bed = br.room_bed
-                        if (!bedGlossaryMap.has(bed.id)) {
-                            bedGlossaryMap.set(bed.id, new BedGlossary(bed))
-                        }
-                    }
-                }
-
-                for (const room of r.data.room_types) {
-
-                    room.room_type_beds.forEach(r => {
-                        const bed = r.room_bed
-                        if (!bedGlossaryMap.has(bed.id)) {
-                            bedGlossaryMap.set(bed.id, new BedGlossary(bed))
-                        }
-                    })
-
-                    room.room_type_beds.forEach(r => {
-                        if (!roomTypeMap.has(r.id)) {
-                            const room = new RoomBed(r)
-                            if (bedGlossaryMap.has(r.room_bed_id)) {
-                                r.room_bed = bedGlossaryMap.get(r.room_bed_id)!
-                            }
-                        }
-                    })
-
-                    const category = new RoomCategory({
-                        ...room,
-                        room_type_beds: room.room_type_beds.map(r => roomTypeMap.has(r.id)
-                            ? roomTypeMap.get(r.id)!
-                            : new RoomBed()
-                        )
-                    })
-                    if (roomCategoryMap.has(category.property_id)) {
-                        category.property = roomCategoryMap.get(category.property_id)!
-                    }
-                }
-
-
-                console.log('bedGlossaryMap', bedGlossaryMap)
-                console.log('roomsMap', roomsMap)
-                console.log('roomTypeMap', roomTypeMap)
-                console.log('propertyMap', propertyMap)
-                console.log('roomCategoryMap', roomCategoryMap)
-
-
+                const data = r.data
+                const roomTypes = RoomTypes.instance
+                data.room_types.forEach(r=> roomTypes.add(new RoomType(r)))
+                console.log(data)
+                console.log(roomTypes)
             })
             .catch(console.error)
     }, []);
