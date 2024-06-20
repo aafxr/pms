@@ -27,7 +27,7 @@ export class RoomType{
     property_id: number
     room_type_beds: Bed[]
 
-    properties: Properties
+    private properties: Properties
 
 
     constructor(r: RoomType){

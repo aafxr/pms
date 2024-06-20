@@ -1,0 +1,1 @@
+export type BookingStatus = "awaiting" | "checked_in" |"closed"| "canceled"

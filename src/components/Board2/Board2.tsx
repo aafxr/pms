@@ -1,14 +1,14 @@
-import React, {useEffect, useRef, WheelEvent, MouseEvent} from 'react';
+import React, {useEffect, useRef, WheelEvent, useState} from 'react';
+import {fetchRooms} from "../../api/fetchRooms";
 
 import './Board2.scss'
-import {fetchRooms} from "../../api/fetchRooms";
-import {BedGlossary} from "./BedGlossary";
-import {RoomBed} from "./RoomBed";
-import {Property} from "./Property";
-import {RoomCategory} from "./RoomCategory";
-import {Room} from "./Room";
+import {Rooms} from "../../core/classes/v1/Rooms";
+import {Properties} from "../../core/classes/v1/Properties";
 import {RoomTypes} from "../../core/classes/v1/RoomTypes";
-import {RoomType} from "../../core/classes/v1/RoomType";
+import {RoomBlockPeriods} from "../../core/classes/v1/RoomBlockPeriods";
+import {Persons} from "../../core/classes/v1/Persons";
+import {BookingItems} from "../../core/classes/v1/BookingItems";
+import {Bookings} from "../../core/classes/v1/Bookings";
 
 
 export interface Board2PropsType {
@@ -17,9 +17,20 @@ export interface Board2PropsType {
 }
 
 
+const boardState = {
+    rooms: Rooms.instance,
+    properties: Properties.instance,
+    roomTypes: RoomTypes.instance,
+    blocking: RoomBlockPeriods.instance,
+    persons: Persons.instance,
+    bookingItems: BookingItems.instance,
+    bookings: Bookings.instance,
+}
+
+
 function _Board2({onScrollToLeftSide, onScrollToRightSide}: Board2PropsType) {
     const boardRef = useRef<HTMLDivElement>(null);
-
+    const [state, setState] = useState<typeof boardState>(boardState)
 
 
     useEffect(() => {
@@ -30,10 +41,9 @@ function _Board2({onScrollToLeftSide, onScrollToRightSide}: Board2PropsType) {
         })
             .then(data => {
                 if (!data) return
-
                 // @ts-ignore
                 window.data = data
-                console.log(data)
+                setState(data)
             })
             .catch(console.error)
     }, []);
@@ -67,6 +77,9 @@ function _Board2({onScrollToLeftSide, onScrollToRightSide}: Board2PropsType) {
     }
 
 
+    const property = state.properties.list()[0]
+    console.log(state)
+
     return (
         <div
             ref={boardRef}
@@ -87,276 +100,28 @@ function _Board2({onScrollToLeftSide, onScrollToRightSide}: Board2PropsType) {
                 </div>
             </div>
             <div className="content">
-                <div className="category boarder">category</div>
-                <div className="cells syncWheel">
-                    <div className="cell">1</div>
-                    <div className="cell">2</div>
-                    <div className="cell">3</div>
-                    <div className="cell">4</div>
-                    <div className="cell">5</div>
-                    <div className="cell">6</div>
-                    <div className="cell">7</div>
-                    <div className="cell">8</div>
-                    <div className="cell">9</div>
-                    <div className="cell">10</div>
-                    <div className="cell">11</div>
-                    <div className="cell">12</div>
-                    <div className="cell">13</div>
-                    <div className="cell">14</div>
-                    <div className="cell">15</div>
-                    <div className="cell">16</div>
-                    <div className="cell">17</div>
-                    <div className="cell">18</div>
-                    <div className="cell">19</div>
-                    <div className="cell">20</div>
-                    <div className="cell">21</div>
-                    <div className="cell">22</div>
-                    <div className="cell">23</div>
-                    <div className="cell">24</div>
-                </div>
-                <div className="category boarder">category</div>
-                <div className="cells syncWheel">
-                    <div className="cell">1</div>
-                    <div className="cell">2</div>
-                    <div className="cell">3</div>
-                    <div className="cell">4</div>
-                    <div className="cell">5</div>
-                    <div className="cell">6</div>
-                    <div className="cell">7</div>
-                    <div className="cell">8</div>
-                    <div className="cell">9</div>
-                    <div className="cell">10</div>
-                    <div className="cell">11</div>
-                    <div className="cell">12</div>
-                    <div className="cell">13</div>
-                    <div className="cell">14</div>
-                    <div className="cell">15</div>
-                    <div className="cell">16</div>
-                    <div className="cell">17</div>
-                    <div className="cell">18</div>
-                    <div className="cell">19</div>
-                    <div className="cell">20</div>
-                    <div className="cell">21</div>
-                    <div className="cell">22</div>
-                    <div className="cell">23</div>
-                    <div className="cell">24</div>
-                </div>
-                <div className="category boarder">category</div>
-                <div className="cells syncWheel">
-                    <div className="cell">1</div>
-                    <div className="cell">2</div>
-                    <div className="cell">3</div>
-                    <div className="cell">4</div>
-                    <div className="cell">5</div>
-                    <div className="cell">6</div>
-                    <div className="cell">7</div>
-                    <div className="cell">8</div>
-                    <div className="cell">9</div>
-                    <div className="cell">10</div>
-                    <div className="cell">11</div>
-                    <div className="cell">12</div>
-                    <div className="cell">13</div>
-                    <div className="cell">14</div>
-                    <div className="cell">15</div>
-                    <div className="cell">16</div>
-                    <div className="cell">17</div>
-                    <div className="cell">18</div>
-                    <div className="cell">19</div>
-                    <div className="cell">20</div>
-                    <div className="cell">21</div>
-                    <div className="cell">22</div>
-                    <div className="cell">23</div>
-                    <div className="cell">24</div>
-                </div>
-                <div className="category boarder">category</div>
-                <div className="cells syncWheel">
-                    <div className="cell">1</div>
-                    <div className="cell">2</div>
-                    <div className="cell">3</div>
-                    <div className="cell">4</div>
-                    <div className="cell">5</div>
-                    <div className="cell">6</div>
-                    <div className="cell">7</div>
-                    <div className="cell">8</div>
-                    <div className="cell">9</div>
-                    <div className="cell">10</div>
-                    <div className="cell">11</div>
-                    <div className="cell">12</div>
-                    <div className="cell">13</div>
-                    <div className="cell">14</div>
-                    <div className="cell">15</div>
-                    <div className="cell">16</div>
-                    <div className="cell">17</div>
-                    <div className="cell">18</div>
-                    <div className="cell">19</div>
-                    <div className="cell">20</div>
-                    <div className="cell">21</div>
-                    <div className="cell">22</div>
-                    <div className="cell">23</div>
-                    <div className="cell">24</div>
-                </div>
-                <div className="category boarder">category</div>
-                <div className="cells syncWheel">
-                    <div className="cell">1</div>
-                    <div className="cell">2</div>
-                    <div className="cell">3</div>
-                    <div className="cell">4</div>
-                    <div className="cell">5</div>
-                    <div className="cell">6</div>
-                    <div className="cell">7</div>
-                    <div className="cell">8</div>
-                    <div className="cell">9</div>
-                    <div className="cell">10</div>
-                    <div className="cell">11</div>
-                    <div className="cell">12</div>
-                    <div className="cell">13</div>
-                    <div className="cell">14</div>
-                    <div className="cell">15</div>
-                    <div className="cell">16</div>
-                    <div className="cell">17</div>
-                    <div className="cell">18</div>
-                    <div className="cell">19</div>
-                    <div className="cell">20</div>
-                    <div className="cell">21</div>
-                    <div className="cell">22</div>
-                    <div className="cell">23</div>
-                    <div className="cell">24</div>
-                </div>
-                <div className="category boarder">category</div>
-                <div className="cells syncWheel">
-                    <div className="cell">1</div>
-                    <div className="cell">2</div>
-                    <div className="cell">3</div>
-                    <div className="cell">4</div>
-                    <div className="cell">5</div>
-                    <div className="cell">6</div>
-                    <div className="cell">7</div>
-                    <div className="cell">8</div>
-                    <div className="cell">9</div>
-                    <div className="cell">10</div>
-                    <div className="cell">11</div>
-                    <div className="cell">12</div>
-                    <div className="cell">13</div>
-                    <div className="cell">14</div>
-                    <div className="cell">15</div>
-                    <div className="cell">16</div>
-                    <div className="cell">17</div>
-                    <div className="cell">18</div>
-                    <div className="cell">19</div>
-                    <div className="cell">20</div>
-                    <div className="cell">21</div>
-                    <div className="cell">22</div>
-                    <div className="cell">23</div>
-                    <div className="cell">24</div>
-                </div>
-                <div className="category boarder">category</div>
-                <div className="cells syncWheel">
-                    <div className="cell">1</div>
-                    <div className="cell">2</div>
-                    <div className="cell">3</div>
-                    <div className="cell">4</div>
-                    <div className="cell">5</div>
-                    <div className="cell">6</div>
-                    <div className="cell">7</div>
-                    <div className="cell">8</div>
-                    <div className="cell">9</div>
-                    <div className="cell">10</div>
-                    <div className="cell">11</div>
-                    <div className="cell">12</div>
-                    <div className="cell">13</div>
-                    <div className="cell">14</div>
-                    <div className="cell">15</div>
-                    <div className="cell">16</div>
-                    <div className="cell">17</div>
-                    <div className="cell">18</div>
-                    <div className="cell">19</div>
-                    <div className="cell">20</div>
-                    <div className="cell">21</div>
-                    <div className="cell">22</div>
-                    <div className="cell">23</div>
-                    <div className="cell">24</div>
-                </div>
-                <div className="category boarder">category</div>
-                <div className="cells syncWheel">
-                    <div className="cell">1</div>
-                    <div className="cell">2</div>
-                    <div className="cell">3</div>
-                    <div className="cell">4</div>
-                    <div className="cell">5</div>
-                    <div className="cell">6</div>
-                    <div className="cell">7</div>
-                    <div className="cell">8</div>
-                    <div className="cell">9</div>
-                    <div className="cell">10</div>
-                    <div className="cell">11</div>
-                    <div className="cell">12</div>
-                    <div className="cell">13</div>
-                    <div className="cell">14</div>
-                    <div className="cell">15</div>
-                    <div className="cell">16</div>
-                    <div className="cell">17</div>
-                    <div className="cell">18</div>
-                    <div className="cell">19</div>
-                    <div className="cell">20</div>
-                    <div className="cell">21</div>
-                    <div className="cell">22</div>
-                    <div className="cell">23</div>
-                    <div className="cell">24</div>
-                </div>
-                <div className="category boarder">category</div>
-                <div className="cells syncWheel">
-                    <div className="cell">1</div>
-                    <div className="cell">2</div>
-                    <div className="cell">3</div>
-                    <div className="cell">4</div>
-                    <div className="cell">5</div>
-                    <div className="cell">6</div>
-                    <div className="cell">7</div>
-                    <div className="cell">8</div>
-                    <div className="cell">9</div>
-                    <div className="cell">10</div>
-                    <div className="cell">11</div>
-                    <div className="cell">12</div>
-                    <div className="cell">13</div>
-                    <div className="cell">14</div>
-                    <div className="cell">15</div>
-                    <div className="cell">16</div>
-                    <div className="cell">17</div>
-                    <div className="cell">18</div>
-                    <div className="cell">19</div>
-                    <div className="cell">20</div>
-                    <div className="cell">21</div>
-                    <div className="cell">22</div>
-                    <div className="cell">23</div>
-                    <div className="cell">24</div>
-                </div>
-                <div className="category boarder">category</div>
-                <div className="cells syncWheel">
-                    <div className="cell">1</div>
-                    <div className="cell">2</div>
-                    <div className="cell">3</div>
-                    <div className="cell">4</div>
-                    <div className="cell">5</div>
-                    <div className="cell">6</div>
-                    <div className="cell">7</div>
-                    <div className="cell">8</div>
-                    <div className="cell">9</div>
-                    <div className="cell">10</div>
-                    <div className="cell">11</div>
-                    <div className="cell">12</div>
-                    <div className="cell">13</div>
-                    <div className="cell">14</div>
-                    <div className="cell">15</div>
-                    <div className="cell">16</div>
-                    <div className="cell">17</div>
-                    <div className="cell">18</div>
-                    <div className="cell">19</div>
-                    <div className="cell">20</div>
-                    <div className="cell">21</div>
-                    <div className="cell">22</div>
-                    <div className="cell">23</div>
-                    <div className="cell">24</div>
-                </div>
+                {property && state.roomTypes.getByPropertyID(property.id).map(roomType => (
+                    <>
+                        <div className="category boarder">{roomType.name}</div>
+                        <div className="cells syncWheel">
+                            {Array.from({length: 25}).map((_, i) => (
+                                <div className="cell">{i+1}</div>
+
+                            ))}
+                        </div>
+                        {state.rooms.getRoomsByRoomTypeId(roomType.id).map(room => (
+                            <>
+                                <div className="category boarder">{room.name} {room.id}</div>
+                                <div className="cells syncWheel">
+                                    {Array.from({length: 25}).map((_, i) => (
+                                        <div className="cell">{i + 1}</div>
+
+                                    ))}
+                                </div>
+                            </>
+                        ))}
+                    </>
+                ))}
             </div>
         </div>
     );

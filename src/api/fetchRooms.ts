@@ -7,6 +7,11 @@ import {Rooms} from "../core/classes/v1/Rooms";
 import {Properties} from "../core/classes/v1/Properties";
 import {RoomTypes} from "../core/classes/v1/RoomTypes";
 import {RoomBlockPeriods} from "../core/classes/v1/RoomBlockPeriods";
+import {Person} from "../core/classes/v1/Person";
+import {Persons} from "../core/classes/v1/Persons";
+import {BookingItem} from "../core/classes/v1/BookingItem";
+import {BookingItems} from "../core/classes/v1/BookingItems";
+import {Bookings} from "../core/classes/v1/Bookings";
 
 type APIResponseType<T> = {
     message: string
@@ -29,8 +34,8 @@ type FetchRoomsResponse = {
     properties: Property[]
     room_types: RoomType[]
 
-    booking_items: [],
-    individual_persons: [],
+    booking_items: BookingItem[],
+    individual_persons: Person[],
     legal_entities: [],
     room_block_periods: RoomBlockPeriod[]
 }
@@ -63,12 +68,17 @@ export async function fetchRooms(params: FetchRoomsRequestParams) {
         const properties = Properties.instance
         const roomTypes = RoomTypes.instance
         const blocking = RoomBlockPeriods.instance
+        const persons = Persons.instance
+        const bookingItems = BookingItems.instance
+        const bookings = Bookings.instance
 
         data.rooms.rooms.forEach(r => rooms.add(r))
         data.properties.forEach(p => properties.add(p))
         data.room_types.forEach(rt => roomTypes.add(rt))
         data.room_block_periods.forEach(b => blocking.add(b))
+        data.individual_persons.forEach(p => persons.add(p))
+        data.booking_items.forEach(b => bookingItems.add(b))
 
-        return {rooms, properties, roomTypes, blocking}
+        return {rooms, properties, roomTypes, blocking, persons, bookingItems, bookings}
     }
 }
