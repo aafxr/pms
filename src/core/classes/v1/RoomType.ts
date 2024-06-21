@@ -1,5 +1,6 @@
 import {Bed} from "./Bed";
 import {Properties} from "./Properties";
+import {Rooms} from "./Rooms";
 
 
 /**
@@ -28,6 +29,7 @@ export class RoomType{
     room_type_beds: Bed[]
 
     private properties: Properties
+    private rooms: Rooms
 
 
     constructor(r: RoomType){
@@ -41,6 +43,7 @@ export class RoomType{
             : []
 
         this.properties = Properties.instance
+        this.rooms = Rooms.instance
     }
 
 
@@ -48,4 +51,9 @@ export class RoomType{
     get property(){
         return this.properties.getById(this.property_id)
     }
+
+    get roomsByName(){
+        return this.rooms.getRoomsNames(this.id)
+    }
+
 }

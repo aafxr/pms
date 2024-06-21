@@ -13,6 +13,8 @@
 
 
 .row.jc-start{
+    margin-right: auto;
+    margin-right: auto;
     justify-content: flex-start;
 }
 
@@ -21,6 +23,7 @@
 }
 
 .row.jc-end{
+    margin-left: auto;
     justify-content: flex-end;
 }
 

@@ -63,23 +63,24 @@ export async function fetchRooms(params: FetchRoomsRequestParams) {
     const response = await axiosFetch.get<APIResponseType<FetchRoomsResponse>>(`/api/v1/timetable-bookings/rooms?${query}`)
     if (response.status === 200) {
         const data = response.data.data
+        return data
 
 
-        const rooms = Rooms.instance
-        const properties = Properties.instance
-        const roomTypes = RoomTypes.instance
-        const blocking = RoomBlockPeriods.instance
-        const persons = Persons.instance
-        const bookingItems = BookingItems.instance
-        const bookings = Bookings.instance
-
-        data.rooms.rooms.forEach(r => rooms.add(r))
-        data.properties.forEach(p => properties.add(p))
-        data.room_types.forEach(rt => roomTypes.add(rt))
-        data.room_block_periods.forEach(b => blocking.add(b))
-        data.individual_persons.forEach(p => persons.add(p))
-        data.booking_items.forEach(b => bookingItems.add(b))
-
-        return {rooms, properties, roomTypes, blocking, persons, bookingItems, bookings}
+        // const rooms = Rooms.instance
+        // const properties = Properties.instance
+        // const roomTypes = RoomTypes.instance
+        // const blocking = RoomBlockPeriods.instance
+        // const persons = Persons.instance
+        // const bookingItems = BookingItems.instance
+        // const bookings = Bookings.instance
+        //
+        // data.rooms.rooms.forEach(r => rooms.add(r))
+        // data.properties.forEach(p => properties.add(p))
+        // data.room_types.forEach(rt => roomTypes.add(rt))
+        // data.room_block_periods.forEach(b => blocking.add(b))
+        // data.individual_persons.forEach(p => persons.add(p))
+        // data.booking_items.forEach(b => bookingItems.add(b))
+        //
+        // return {rooms, properties, roomTypes, blocking, persons, bookingItems, bookings}
     }
 }

@@ -31,4 +31,8 @@ export class Persons{
     list(){
         return Array.from(this.persons.values())
     }
+
+    clear(){
+        this.persons.clear()
+    }
 }

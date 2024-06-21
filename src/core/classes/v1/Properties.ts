@@ -22,7 +22,7 @@ export class Properties{
 
     add(p: Property){
         if(this.properties.has(p.id)) return
-        this.properties.set(p.id, new Property(p.id, p.name))
+        this.properties.set(p.id, new Property(p))
     }
 
     count(){
@@ -30,7 +30,11 @@ export class Properties{
     }
 
     list(){
-        return Array.from(this.properties.values()).map(p => new Property(p.id,p.name))
+        return Array.from(this.properties.values()).map(p => new Property(p))
+    }
+
+    clear(){
+        this.properties.clear()
     }
 
 }

@@ -29,4 +29,8 @@ export class RoomBlockPeriods {
     getBlockPeriods(room_id: Room['id']): RoomBlockPeriod[] {
         return Array.from(this.blocks.get(room_id)?.values() || [])
     }
+
+    clear(){
+        this.blocks.clear()
+    }
 }

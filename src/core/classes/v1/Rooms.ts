@@ -9,11 +9,15 @@ export class Rooms{
     private rooms: Map<Room['id'], Room>
     private properties: Map<Property['id'], Map<Room['id'], Room>>
     private roomTypes: Map<RoomType['id'], Map<Room['id'], Room>>
+    private roomName: Map<Room['name'], Map<Room['id'], Room>>
+
+
 
     private constructor() {
         this.rooms = new Map()
         this.properties = new Map()
         this.roomTypes = new Map()
+        this.roomName = new Map()
     }
 
 
@@ -36,11 +40,26 @@ export class Rooms{
         return Array.from(this.roomTypes.get(id)?.values() || [])
     }
 
+    getByRoomName(roomType: RoomType['id'],name: Room['name']){
+        return Array.from(this.roomName.get(roomType + name)?.values() || [])
+    }
+
+    getRoomsNames(id: RoomType['id']){
+        const key = '' + id
+        const names = Array.from(this.roomName.keys()).filter(n => n.startsWith(key))
+        const result: { [key: string] : Room[] } = {}
+        for (const name of names){
+            result[name] = Array.from(this.roomName.get(name)?.values() || [])
+        }
+        return result
+    }
+
     add(r:Room){
         if(this.rooms.has(r.id)) return
         this.rooms.set(r.id, new Room(r))
         this.addByPropertyID(this.rooms.get(r.id)!)
         this.addByRoomTypeID(this.rooms.get(r.id)!)
+        this.addByRoomName(this.rooms.get(r.id)!)
     }
 
 
@@ -56,6 +75,14 @@ export class Rooms{
             this.roomTypes.set(r.room_type_id, new Map())
         }
         this.roomTypes.get(r.room_type_id)!.set(r.id, r)
+    }
+
+    private addByRoomName(r:Room){
+        const key = r.room_type_id + '_' + r.name
+        if(!this.roomName.has(key)){
+            this.roomName.set(key, new Map())
+        }
+        this.roomName.get(key)!.set(r.id, r)
     }
 
 

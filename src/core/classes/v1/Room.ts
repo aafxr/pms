@@ -2,7 +2,7 @@ import {Properties} from "./Properties";
 import {RoomTypes} from "./RoomTypes";
 import {RoomBlockPeriods} from "./RoomBlockPeriods";
 
-export class Room{
+export class Room {
     id: string
     name: string
     property_id: number
@@ -24,15 +24,19 @@ export class Room{
         this._blocking = RoomBlockPeriods.instance
     }
 
-    get roomType(){
+    get roomType() {
         return this._roomTypes.getById(this.room_type_id)
     }
 
-    get property(){
+    get property() {
         return this._properties.getById(this.property_id)
     }
 
-    get blocking(){
+    get blocking() {
         return this._blocking.getBlockPeriods(this.id)
+    }
+
+    isBlock(d: Date) {
+        return this.blocking.some(b => b.from.getTime() <= d.getTime() && d.getTime() <= b.to.getTime())
     }
 }

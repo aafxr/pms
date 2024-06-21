@@ -11,7 +11,7 @@ export class RoomBlockPeriod{
 
     private rooms: Rooms
 
-    constructor(rbp: RoomBlockPeriodConstructorType) {
+    constructor(rbp: RoomBlockPeriod | RoomBlockPeriodConstructorType) {
         this.id = rbp.id
         this.room_id = rbp.room_id
         this.from = new Date(rbp.from)

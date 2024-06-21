@@ -32,4 +32,8 @@ export class Bookings{
     list(){
         return Array.from(this.bookings.values())
     }
+
+    clear(){
+        this.bookings.clear()
+    }
 }

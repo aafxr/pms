@@ -47,7 +47,7 @@ export function Main() {
                 <Container>
                     <Blank className='options-panel'>
                         <Row justify='between' full>
-                            <Row className='gap-1' full>
+                            <Row className='gap-1'>
                                 <ButtonsGroup
                                     select={1}
                                     buttons={[
@@ -64,7 +64,7 @@ export function Main() {
                                     <span>Сбросить фильтр</span>
                                 </Button>
                             </Row>
-                            <Row className='gap-1' justify='end' full>
+                            <Row className='gap-1' justify='end'>
                                 <Search placeholder='Гость, номер или id бронирования'/>
                                 <ButtonsGroup
                                     select={1}

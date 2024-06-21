@@ -25,12 +25,58 @@
     }
   }
 
+  .cell-category{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+  }
+
   .filter {
+    padding: 8px;
     grid-area: filter;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-gap: var(--gap) var(--gap);
+    background-color: var(--bg-v1);
+    border-radius: var(--br-main);
+
+    .buttons-group{
+      .button{
+        flex: 1;
+      }
+    }
+
+    .info{
+      height: 100%;
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: stretch;
+      gap: 4px;
+       .button{
+         background-color: var(--bg-main);
+       }
+    }
+
+    &-month,
+    &-day{
+      padding-left: 4px;
+      padding-right: 4px;
+      flex: 1 1 auto;
+      text-wrap: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
   }
 
   .header {
+    padding: 13px var(--offset-main);
     grid-area: header;
+    vertical-align: middle;
+    font-size: 1.25rem;
+    font-weight: 600;
+    background-color: var(--bg-main);
   }
 
   .date {
@@ -45,9 +91,13 @@
     .day,
     .month {
       position: relative;
+      padding: 13px var(--offset-main);
+
       span{
         position: sticky;
         left: 10px;
+        font-weight: 1.125rem;
+        font-weight: 600;
       }
     }
   }
@@ -61,10 +111,17 @@
 
   .category {
     height: 56px;
+    font-size: 1.125rem;
+    font-weight: 600;
+    padding: 0 var(--offset-2);
+    text-wrap: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
 
   .room{
     height: 46px;
+    padding: 0 var(--offset-2);
   }
 
   .cells {
