@@ -36,7 +36,19 @@ export class Room {
         return this._blocking.getBlockPeriods(this.id)
     }
 
-    isBlock(d: Date) {
+    isBlockTime(d: Date) {
         return this.blocking.some(b => b.from.getTime() <= d.getTime() && d.getTime() <= b.to.getTime())
+    }
+
+    isBlockDay(d:Date){
+        const check = (date : Date) =>{
+            const s = new Date(date.getFullYear(), date.getMonth(), date.getDate())
+            const e = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 23, 59, 59, 999)
+            if(s.getTime() < d.getTime() && d.getTime() < e.getTime()) return true
+            return false
+        }
+
+
+        return this.blocking.some(b => check(b.from) || check(b.to))
     }
 }

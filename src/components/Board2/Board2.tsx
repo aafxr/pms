@@ -56,8 +56,8 @@ function _Board2({onScrollToLeftSide, onScrollToRightSide}: Board2PropsType) {
     const [board, setBoard] = useState(new Board())
     const [days, setDays] = useState(0)
 
-    const d = new Date(Date.now() - 1000 * 60 * 60 * 24 * 130)
-    const range = new DateRange(new Date(), 130)
+    const d = new Date(Date.now() - 1000 * 60 * 60 * 24 * 250)
+    const range = new DateRange(new Date(), 250)
         //Array.from({length: days}).map((_, i, arr) => new Date().setDate(d.getDate() - (arr.length / 2 + i)))
 
     console.log(range)
@@ -143,7 +143,7 @@ function _Board2({onScrollToLeftSide, onScrollToRightSide}: Board2PropsType) {
                         <Button className='filter-day'><span>Сегодня</span></Button>
                     </Row>
                 </div>
-                <div className="header boarder">{property.name}</div>
+                <div className="header boarder">{property?.name}</div>
                 <BoardDateComponent rang={range} />
                 <div className="content">
                     {property && board.getPropertyRoomTypes(property.id).map(roomType => (

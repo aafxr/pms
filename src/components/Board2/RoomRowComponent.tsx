@@ -17,7 +17,7 @@ export function RoomRowComponent({room, range}: RoomRowComponent) {
             <div className="cells syncWheel">
                 {Array.from({length: range.size}).map((_, i) => (
                     <div className={clsx("cell cell-room", {
-                        reserved: (range.getDate(i) && room.isBlock(range.getDate(i)!))
+                        reserved: (range.getDate(i) && room.isBlockDay(range.getDate(i)!))
                     })}></div>
 
                 ))}

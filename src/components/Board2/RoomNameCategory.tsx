@@ -15,7 +15,7 @@ export function RoomNameCategory({name, rooms, range}: RoomNameCategoryPropsType
             <div className="cells syncWheel">
                 {Array.from({length: range.size}).map((_, i) => (
                     <div className="cell cell-category">
-                        {rooms.reduce((a, c) => (range.getDate(i) && c.isBlock(range.getDate(i)!)) ? a - 1 : a, rooms.length)}
+                        {rooms.reduce((a, c) => (range.getDate(i) && c.isBlockDay(range.getDate(i)!)) ? a - 1 : a, rooms.length)}
                     </div>
 
                 ))}
