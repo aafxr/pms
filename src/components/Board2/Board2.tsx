@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, WheelEvent, useState} from 'react';
+import React, {useEffect, useRef, WheelEvent, useState, Fragment} from 'react';
 import {fetchRooms} from "../../api/fetchRooms";
 
 import {RoomBlockPeriods} from "../../core/classes/v1/RoomBlockPeriods";
@@ -147,7 +147,7 @@ function _Board2({onScrollToLeftSide, onScrollToRightSide}: Board2PropsType) {
                 <BoardDateComponent rang={range} />
                 <div className="content">
                     {property && board.getPropertyRoomTypes(property.id).map(roomType => (
-                        <>
+                        <Fragment key={roomType.id}>
                             <CategoryComponent roomType={roomType} range={range} />
                             {Object.entries(roomType.roomsByName).map(([name, rooms]) => (
                                 <>
@@ -157,7 +157,7 @@ function _Board2({onScrollToLeftSide, onScrollToRightSide}: Board2PropsType) {
                                     ))}
                                 </>
                             ))}
-                        </>
+                        </Fragment>
                     ))}
                 </div>
             </div>

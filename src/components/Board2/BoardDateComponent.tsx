@@ -21,8 +21,8 @@ export function BoardDateComponent({rang}: BoardDateComponentPropsType) {
 
     return (
         <div ref={dateRef} className="date syncWheel">
-            {Object.entries(rang.getMonths).map(([month, span]) => (
-                <div className="month boarder" title={month} data-span={span}>
+            {Object.entries(rang.getMonths).map(([month, span], i) => (
+                <div key={i} className="month boarder" title={month} data-span={span}>
                     <span>{month}</span>
                 </div>
             ))}

@@ -14,7 +14,7 @@ export function RoomNameCategory({name, rooms, range}: RoomNameCategoryPropsType
             <div className="category boarder" title={name}>{name.split('_').pop()}</div>
             <div className="cells syncWheel">
                 {Array.from({length: range.size}).map((_, i) => (
-                    <div className="cell cell-category">
+                    <div key={range.getDate(i)?.getTime() || i} className="cell cell-category">
                         {rooms.reduce((a, c) => (range.getDate(i) && c.isBlockDay(range.getDate(i)!)) ? a - 1 : a, rooms.length)}
                     </div>
 
