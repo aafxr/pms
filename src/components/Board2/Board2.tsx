@@ -56,10 +56,11 @@ function _Board2({onScrollToLeftSide, onScrollToRightSide}: Board2PropsType) {
     const [board, setBoard] = useState(new Board())
     const [days, setDays] = useState(0)
 
-    const d = new Date()
-    const range = new DateRange()
+    const d = new Date(Date.now() - 1000 * 60 * 60 * 24 * 130)
+    const range = new DateRange(new Date(), 130)
         //Array.from({length: days}).map((_, i, arr) => new Date().setDate(d.getDate() - (arr.length / 2 + i)))
 
+    console.log(range)
 
     useEffect(() => {
         const el = boardRef.current
@@ -104,17 +105,6 @@ function _Board2({onScrollToLeftSide, onScrollToRightSide}: Board2PropsType) {
                 setBoard(board)
             })
             .catch(console.error)
-    }, []);
-
-
-    useEffect(() => {
-        const bel = boardRef.current;
-        if (!bel) return;
-
-        const elements = bel.querySelectorAll(".month") as unknown as Array<HTMLDivElement>;
-        elements.forEach(
-            (el) => (el.style.gridColumn = `span ${el.dataset.span}`)
-        );
     }, []);
 
 

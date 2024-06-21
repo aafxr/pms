@@ -13,7 +13,7 @@ export function RoomNameCategory({name, rooms, range}: RoomNameCategoryPropsType
         <>
             <div className="category boarder" title={name}>{name.split('_').pop()}</div>
             <div className="cells syncWheel">
-                {Array.from({length: 25}).map((_, i) => (
+                {Array.from({length: range.size}).map((_, i) => (
                     <div className="cell cell-category">
                         {rooms.reduce((a, c) => (range.getDate(i) && c.isBlock(range.getDate(i)!)) ? a - 1 : a, rooms.length)}
                     </div>

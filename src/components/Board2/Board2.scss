@@ -25,6 +25,10 @@
     }
   }
 
+  .cell.reserved{
+    background-color: var(--bg-v1);
+  }
+
   .cell-category{
     display: flex;
     justify-content: center;
@@ -92,11 +96,12 @@
     .month {
       position: relative;
       padding: 13px var(--offset-main);
+      overflow: hidden;
 
       span{
         position: sticky;
         left: 10px;
-        font-weight: 1.125rem;
+        font-size: 1.125rem;
         font-weight: 600;
       }
     }

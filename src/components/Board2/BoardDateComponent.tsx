@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
 import {DateRange} from "../../core/classes/v1/DateRange";
 
 
@@ -7,17 +7,25 @@ export interface BoardDateComponentPropsType{
 }
 
 export function BoardDateComponent({rang}: BoardDateComponentPropsType) {
+    const dateRef = useRef<HTMLDivElement>(null)
+
+
+    useEffect(() => {
+        const el = dateRef.current
+        if(!el) return
+        el.querySelectorAll<HTMLDivElement>('.month').forEach(el => {
+            el.style.gridColumn = `span ${el.dataset.span}`
+        })
+    }, []);
+
+
     return (
-        <div className="date syncWheel">
-            <div className="month boarder" data-span="8">
-                <span>april</span>
-            </div>
-            <div className="month boarder" data-span="8">
-                <span>may</span>
-            </div>
-            <div className="month boarder" data-span="8">
-                <span>june</span>
-            </div>
+        <div ref={dateRef} className="date syncWheel">
+            {Object.entries(rang.getMonths).map(([month, span]) => (
+                <div className="month boarder" title={month} data-span={span}>
+                    <span>{month}</span>
+                </div>
+            ))}
         </div>
     );
 }
