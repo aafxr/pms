@@ -8,8 +8,7 @@
   grid-gap: var(--gap) var(--gap);
   grid-template-areas:
         "filter header"
-        "filter date"
-        "content content";
+        "filter date";
   grid-template-columns: 190px 1fr;
   grid-template-rows: 56px 56px 1fr;
 
@@ -20,16 +19,16 @@
     border: var(--border);
     border-radius: var(--rad);
 
-    &-room{
+    &-room {
       height: 46px;
     }
   }
 
-  .cell.reserved{
+  .cell.reserved {
     background-color: var(--bg-v1);
   }
 
-  .cell-category{
+  .cell-category {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -46,31 +45,32 @@
     background-color: var(--bg-v1);
     border-radius: var(--br-main);
 
-    .buttons-group{
-      .button{
+    .buttons-group {
+      .button {
         flex: 1;
       }
     }
 
-    .info{
+    .info {
       height: 100%;
       display: flex;
       flex-wrap: nowrap;
       justify-content: stretch;
       gap: 4px;
-       .button{
-         background-color: var(--bg-main);
-       }
+
+      .button {
+        background-color: var(--bg-main);
+      }
     }
 
     &-month,
-    &-day{
+    &-day {
       padding-left: 4px;
       padding-right: 4px;
       flex: 1 1 auto;
       text-wrap: nowrap;
       text-overflow: ellipsis;
-      overflow: hidden;
+      overflow: scroll;
     }
   }
 
@@ -96,22 +96,14 @@
     .month {
       position: relative;
       padding: 13px var(--offset-main);
-      overflow: hidden;
 
-      span{
+      span {
         position: sticky;
         left: 10px;
         font-size: 1.125rem;
         font-weight: 600;
       }
     }
-  }
-
-  .content {
-    grid-area: content;
-    display: grid;
-    grid-template-columns: 190px 1fr;
-    grid-gap: var(--gap) var(--gap);
   }
 
   .category {
@@ -124,17 +116,48 @@
     overflow: hidden;
   }
 
-  .room{
+  .room {
     height: 46px;
     padding: 0 var(--offset-2);
   }
 
-  .cells {
+  .reservations {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cells,.orders {
     display: grid;
     grid-auto-flow: column;
     grid-auto-columns: 56px;
     column-gap: var(--gap);
-    overflow: hidden;
+  }
+
+  .orders {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+
+    z-index: 2;
+
+    .order {
+      position: relative;
+
+      &-inner {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: calc(100% - var(--gap) * 2);
+        height: calc(100% - var(--gap) * 2);
+        background-color: var(--bg-v3);
+        border-radius: var(--rad);
+        transform: translate(-50%, -50%);
+
+
+      }
+    }
   }
 }
 

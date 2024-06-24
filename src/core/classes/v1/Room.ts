@@ -42,13 +42,14 @@ export class Room {
 
     isBlockDay(d:Date){
         const check = (date : Date) =>{
-            const s = new Date(date.getFullYear(), date.getMonth(), date.getDate())
-            const e = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 23, 59, 59, 999)
-            if(s.getTime() < d.getTime() && d.getTime() < e.getTime()) return true
-            return false
+            return date.getFullYear() === d.getFullYear() && date.getMonth() === d.getMonth() && date.getDate() === d.getDate()
+            // const s = new Date(date.getFullYear(), date.getMonth(), date.getDate())
+            // const e = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 23, 59, 59, 999)
+            // return s.getTime() < d.getTime() && d.getTime() < e.getTime();
+
         }
 
 
-        return this.blocking.some(b => check(b.from) || check(b.to))
+        return this.blocking.filter(b => check(b.from) || check(b.to))
     }
 }

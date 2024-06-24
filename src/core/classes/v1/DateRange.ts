@@ -5,7 +5,7 @@ export class DateRange {
         this._list = []
         for (let i = 0; i < days; i++){
             const d = new Date(date.getFullYear(), date.getMonth(), date.getDate())
-            d.setDate(d.getDate() + i)
+            d.setDate(d.getDate() - days + i)
             this._list.push(d)
         }
     }
@@ -21,7 +21,7 @@ export class DateRange {
 
     get getMonths(){
         return this._list.reduce<{[key: string]: number}>((a, c) => {
-            const monthName = c.toLocaleDateString(navigator.language, {month: "long"})
+            const monthName = c.toLocaleDateString(navigator.language, {month: "long", year: "numeric"})
             if(a[monthName]){
                 a[monthName] += 1
             } else {

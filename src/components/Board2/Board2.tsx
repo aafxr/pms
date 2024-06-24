@@ -56,9 +56,9 @@ function _Board2({onScrollToLeftSide, onScrollToRightSide}: Board2PropsType) {
     const [board, setBoard] = useState(new Board())
     const [days, setDays] = useState(0)
 
-    const d = new Date(Date.now() - 1000 * 60 * 60 * 24 * 250)
-    const range = new DateRange(new Date(), 250)
-        //Array.from({length: days}).map((_, i, arr) => new Date().setDate(d.getDate() - (arr.length / 2 + i)))
+    const d = new Date()//Date.now() - 1000 * 60 * 60 * 24 * 250
+    const range = new DateRange(new Date(), 100)
+    //Array.from({length: days}).map((_, i, arr) => new Date().setDate(d.getDate() - (arr.length / 2 + i)))
 
     console.log(range)
 
@@ -74,7 +74,7 @@ function _Board2({onScrollToLeftSide, onScrollToRightSide}: Board2PropsType) {
         const d = new Date()
         fetchRooms({
             end_date: d,
-            start_date: new Date(d.getFullYear() - 2, d.getMonth(), d.getDate())
+            start_date: new Date(2024,4,1)
         })
             .then(data => {
                 if (!data) return
@@ -144,22 +144,20 @@ function _Board2({onScrollToLeftSide, onScrollToRightSide}: Board2PropsType) {
                     </Row>
                 </div>
                 <div className="header boarder">{property?.name}</div>
-                <BoardDateComponent rang={range} />
-                <div className="content">
-                    {property && board.getPropertyRoomTypes(property.id).map(roomType => (
-                        <Fragment key={roomType.id}>
-                            <CategoryComponent roomType={roomType} range={range} />
-                            {Object.entries(roomType.roomsByName).map(([name, rooms]) => (
-                                <>
-                                    <RoomNameCategory rooms={rooms} name={name.split('_').pop() || ''} range={range} />
-                                    {rooms.map(room => (
-                                        <RoomRowComponent range={range} room={room} />
-                                    ))}
-                                </>
-                            ))}
-                        </Fragment>
-                    ))}
-                </div>
+                <BoardDateComponent rang={range}/>
+                {property && board.getPropertyRoomTypes(property.id).map(roomType => (
+                    <Fragment key={roomType.id}>
+                        <CategoryComponent roomType={roomType} range={range}/>
+                        {Object.entries(roomType.roomsByName).map(([name, rooms]) => (
+                            <>
+                                <RoomNameCategory rooms={rooms} name={name.split('_').pop() || ''} range={range}/>
+                                {rooms.map(room => (
+                                    <RoomRowComponent range={range} room={room}/>
+                                ))}
+                            </>
+                        ))}
+                    </Fragment>
+                ))}
             </div>
         </BoardContext.Provider>
     );
