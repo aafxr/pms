@@ -11,6 +11,8 @@
         "filter date";
   grid-template-columns: 190px 1fr;
   grid-template-rows: 56px 56px 1fr;
+  overflow-y: hidden;
+  overflow-x: scroll;
 
   .cell {
     flex: none;

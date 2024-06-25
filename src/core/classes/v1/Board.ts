@@ -82,7 +82,8 @@ export class Board {
     }
 
     getPropertyRooms(id: Property['id']): Room[] {
-        return this._properties.getById(id)?.rooms || []
+        return []
+        // return this._properties.getById(id)?.rooms || []
     }
 
     getPropertyRoomTypes(id: Property['id']){

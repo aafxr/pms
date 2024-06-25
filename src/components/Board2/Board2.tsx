@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, WheelEvent, useState, Fragment} from 'react';
+import React, {useEffect, useRef, WheelEvent, MouseEvent, useState, Fragment} from 'react';
 import {fetchRooms} from "../../api/fetchRooms";
 
 import {RoomBlockPeriods} from "../../core/classes/v1/RoomBlockPeriods";
@@ -17,15 +17,17 @@ import {RoomType} from "../../core/classes/v1/RoomType";
 import {Person} from "../../core/classes/v1/Person";
 import {Room} from "../../core/classes/v1/Room";
 
-import {BoardContext} from './BoardContext/BoardContext'
-import './Board2.scss'
-import {Button, ButtonsGroup} from "../buttons";
-import {Row} from "../flex";
-import {CategoryComponent} from "./CategoryComponent";
+import {PropertiesService} from "../../core/classes/services/PropertiesService";
 import {DateRange} from "../../core/classes/v1/DateRange";
+import {BoardDateComponent} from "./BoardDateComponent";
+import {BoardContext} from './BoardContext/BoardContext'
+import {CategoryComponent} from "./CategoryComponent";
 import {RoomNameCategory} from "./RoomNameCategory";
 import {RoomRowComponent} from "./RoomRowComponent";
-import {BoardDateComponent} from "./BoardDateComponent";
+import {Button, ButtonsGroup} from "../buttons";
+import {Row} from "../flex";
+
+import './Board2.scss'
 
 
 export interface Board2PropsType {
@@ -72,43 +74,23 @@ function _Board2({onScrollToLeftSide, onScrollToRightSide}: Board2PropsType) {
 
     useEffect(() => {
         const d = new Date()
-        fetchRooms({
+        PropertiesService.getProperties({
             end_date: d,
             start_date: new Date(2024,4,1)
         })
-            .then(data => {
-                if (!data) return
-                // @ts-ignore
-                window.data = data
-                const {
-                    rooms,
-                    properties,
-                    booking_items,
-                    individual_persons,
-                    room_types,
-                    legal_entities,
-                    room_block_periods
-                } = data
-
-                const board = new Board(true)
-                rooms.rooms.forEach(r => board.add(new Room(r)))
-                properties.forEach(p => board.add(new Property(p)))
-                booking_items.forEach(bi => board.add(new BookingItem(bi)))
-                individual_persons.forEach(p => board.add(new Person(p)))
-                room_types.forEach(rt => board.add(new RoomType(rt)))
-                room_block_periods.forEach(rbp => board.add(new RoomBlockPeriod(rbp)))
-
-                // @ts-ignore
-                window.board = board
-
-
-                setBoard(board)
+            .then(b => {
+                if (b){
+                    console.log(b)
+                }
             })
             .catch(console.error)
     }, []);
 
 
     function handleWheel(e: WheelEvent<HTMLDivElement>) {
+        e.preventDefault()
+        e.stopPropagation()
+
         const el = e.currentTarget;
         let scrollToLeftSide = false
         let scrollToRightSide = false
@@ -125,6 +107,12 @@ function _Board2({onScrollToLeftSide, onScrollToRightSide}: Board2PropsType) {
     }
 
 
+    function preventScroll(e: MouseEvent<HTMLDivElement>) {
+        e.stopPropagation()
+        e.preventDefault()
+    }
+
+
     const property = board.getProperties()[0]
     console.log(board)
 
@@ -135,6 +123,7 @@ function _Board2({onScrollToLeftSide, onScrollToRightSide}: Board2PropsType) {
                 ref={boardRef}
                 className="board"
                 onWheel={handleWheel}
+                onScroll={preventScroll}
             >
                 <div className='filter'>
                     <ButtonsGroup select={1} buttons={groupButtons}/>

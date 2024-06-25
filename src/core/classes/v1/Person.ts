@@ -1,4 +1,5 @@
 import {GenderType} from "../../types/GenderType";
+import {Board} from "./Board2";
 
 /**
  * Таблица: individual_persons
@@ -36,7 +37,9 @@ export class Person{
     /** Дата рождения */
     birthdate: string
 
-    constructor(p: Person) {
+    private _board: Board
+
+    constructor(b: Board, p: Person) {
         this.id = p.id
         this.workspace_id = p.workspace_id
         this.first_name = p.first_name
@@ -46,11 +49,8 @@ export class Person{
         this.email = p.email
         this.gender = p.gender
         this.birthdate = p.birthdate
+
+        this._board = b
+        this._board.persons.set(this.id, this)
     }
-
-    get workspace(){
-        return
-    }
-
-
 }

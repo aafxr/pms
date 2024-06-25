@@ -1,6 +1,7 @@
 import {Properties} from "./Properties";
 import {RoomTypes} from "./RoomTypes";
 import {RoomBlockPeriods} from "./RoomBlockPeriods";
+import {Board} from "./Board2";
 
 export class Room {
     id: string
@@ -8,36 +9,33 @@ export class Room {
     property_id: number
     room_type_id: number
 
-    private _properties: Properties
-    private _roomTypes: RoomTypes
-    private _blocking: RoomBlockPeriods
+    private _board: Board
 
 
-    constructor(r: Room) {
+    constructor(b: Board, r: Room) {
         this.id = r.id
         this.name = r.name
         this.property_id = r.property_id
         this.room_type_id = r.room_type_id
 
-        this._properties = Properties.instance
-        this._roomTypes = RoomTypes.instance
-        this._blocking = RoomBlockPeriods.instance
+        this._board = b
+        this._board.rooms.set(this.id, this)
     }
 
     get roomType() {
-        return this._roomTypes.getById(this.room_type_id)
+        return this._board.roomTypes.get(this.room_type_id)
     }
 
     get property() {
-        return this._properties.getById(this.property_id)
+        return this._board.properties.get(this.property_id)
     }
 
     get blocking() {
-        return this._blocking.getBlockPeriods(this.id)
+        return this._board.blocking.get(this.id)
     }
 
     isBlockTime(d: Date) {
-        return this.blocking.some(b => b.from.getTime() <= d.getTime() && d.getTime() <= b.to.getTime())
+        return !!this.blocking?.some(b => b.from.getTime() <= d.getTime() && d.getTime() <= b.to.getTime())
     }
 
     isBlockDay(d:Date){
@@ -50,6 +48,6 @@ export class Room {
         }
 
 
-        return this.blocking.filter(b => check(b.from) || check(b.to))
+        return this.blocking?.filter(b => check(b.from) || check(b.to)) || []
     }
 }

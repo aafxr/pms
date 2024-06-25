@@ -3,6 +3,8 @@ import {BookingStatus} from "../../types/BookingStatus";
 import {Bookings} from "./Bookings";
 import {RoomTypes} from "./RoomTypes";
 import {RoomType} from "./RoomType";
+import {Board} from "./Board2";
+import {Booking} from "./Booking";
 
 /**
  * Таблица: booking_items
@@ -35,7 +37,7 @@ export class BookingItem{
     /** Тип полиморфной связи “Объект бронирования”. Указывает, на какую таблицу базы данных ссылается связь. Либо room, либо additional_object.*/
     object_type: null | string
     /** Внешний ключ полиморфной сущности “Объект бронирования”.*/
-    object_id: number
+    object_id: number | null
     /** Статус бронирования.*/
     status: BookingStatus
     /** Время заезда*/
@@ -52,11 +54,10 @@ export class BookingItem{
     room_type_id: RoomType['id']
 
 
-    private bookings: Bookings
-    private roomTypes: RoomTypes
+    private _board: Board
 
 
-    constructor(b: BookingItem) {
+    constructor(board: Board, b: BookingItem) {
         this.id = b.id
         this.booking_id = b.booking_id
         this.tariff_id = b.tariff_id
@@ -64,25 +65,29 @@ export class BookingItem{
         this.object_type = b.object_type
         this.object_id = b.object_id
         this.status = b.status
-        this.checked_in_at = b.checked_in_at
-        this.checked_out_at = b.checked_out_at
+        this.checked_in_at = new Date(b.checked_in_at)
+        this.checked_out_at = new Date(b.checked_out_at)
         this.adults_count = b.adults_count
         this.kids_count = b.kids_count
         this.comment = b.comment
         this.price = b.price
         this.room_type_id = b.room_type_id
 
-        this.roomTypes = RoomTypes.instance
-        this.bookings = Bookings.instance
-        if(b.booking) this.bookings.add(b.booking)
+        this._board = board
+        this._board.bookingItems.set(this.id, this)
+
+        const booking = b.booking
+        if(booking) new Booking(board, booking)
+
     }
 
 
 
     get roomType(){
-        return this.roomTypes.getById(this.room_type_id)
+        return this._board.roomTypes.get(this.room_type_id)
     }
+
     get booking(){
-        return this.bookings.getById(this.booking_id)
+        return this._board.booking.get(this.booking_id)
     }
 }

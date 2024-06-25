@@ -1,6 +1,8 @@
 import {Bed} from "./Bed";
 import {Properties} from "./Properties";
 import {Rooms} from "./Rooms";
+import {Board} from "./Board2";
+import {Room} from "./Room";
 
 
 /**
@@ -28,32 +30,36 @@ export class RoomType{
     property_id: number
     room_type_beds: Bed[]
 
-    private properties: Properties
-    private rooms: Rooms
+    private _board: Board
 
 
-    constructor(r: RoomType){
+    constructor(b: Board, r: RoomType){
         this.id = r.id
         this.desc = r.desc
         this.name = r.name
         this.area = r.area
         this.property_id = r.property_id
         this.room_type_beds = Array.isArray(r.room_type_beds)
-            ? r.room_type_beds.map(b => new Bed(b))
+            ? r.room_type_beds.map(bed => new Bed(b, bed))
             : []
 
-        this.properties = Properties.instance
-        this.rooms = Rooms.instance
+        this._board = b
+        this._board.roomTypes.set(this.id, this)
     }
 
 
 
     get property(){
-        return this.properties.getById(this.property_id)
+        return this._board.properties.get(this.property_id)
     }
 
     get roomsByName(){
-        return this.rooms.getRoomsNames(this.id)
+        const rooms = this.property?.getRooms().filter(r=> r.room_type_id === this.id) || []
+        return rooms.reduce<{[key: string]: Room[]}>((a,r) => {
+            if(!a[r.name]) a[r.name] = []
+            a[r.name].push(r)
+            return a
+        }, {})
     }
 
 }
