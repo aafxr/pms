@@ -1,7 +1,5 @@
 import {Bed} from "./Bed";
-import {Properties} from "./Properties";
-import {Rooms} from "./Rooms";
-import {Board} from "./Board2";
+import {Board} from "./Board";
 import {Room} from "./Room";
 
 

@@ -1,10 +1,9 @@
-import React, {memo} from 'react';
-import {Room} from "../../core/classes/v1/Room";
-import {DateRange} from "../../core/classes/v1/DateRange";
 import clsx from "clsx";
-import {Booking} from "../../core/classes/v1/Booking";
-import {BookingItem} from "../../core/classes/v1/BookingItem";
+import React, {memo} from 'react';
+
 import {RoomBlockPeriod} from "../../core/classes/v1/RoomBlockPeriod";
+import {DateRange} from "../../core/classes/v1/DateRange";
+import {Room} from "../../core/classes/v1/Room";
 
 
 export interface RoomRowComponent {
@@ -27,7 +26,7 @@ export function RoomRowComponent({room, range}: RoomRowComponent) {
                 <div className="orders">
                     {
                         room.blocking
-                            .map(b => <Reservation key={b.id} block={b} range={range}/>)
+                            ?.map(b => <Reservation key={b.id} block={b} range={range}/>)
                     }
                 </div>
 

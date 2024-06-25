@@ -1,13 +1,6 @@
 import React, {useEffect, useRef, WheelEvent, MouseEvent, useState, Fragment} from 'react';
 import {fetchRooms} from "../../api/fetchRooms";
 
-import {RoomBlockPeriods} from "../../core/classes/v1/RoomBlockPeriods";
-import {BookingItems} from "../../core/classes/v1/BookingItems";
-import {Properties} from "../../core/classes/v1/Properties";
-import {RoomTypes} from "../../core/classes/v1/RoomTypes";
-import {Bookings} from "../../core/classes/v1/Bookings";
-import {Persons} from "../../core/classes/v1/Persons";
-import {Rooms} from "../../core/classes/v1/Rooms";
 import {Board} from "../../core/classes/v1/Board";
 
 import {RoomBlockPeriod} from "../../core/classes/v1/RoomBlockPeriod";
@@ -33,17 +26,6 @@ import './Board2.scss'
 export interface Board2PropsType {
     onScrollToLeftSide?: () => unknown
     onScrollToRightSide?: () => unknown
-}
-
-
-const boardState = {
-    rooms: Rooms.instance,
-    properties: Properties.instance,
-    roomTypes: RoomTypes.instance,
-    blocking: RoomBlockPeriods.instance,
-    persons: Persons.instance,
-    bookingItems: BookingItems.instance,
-    bookings: Bookings.instance,
 }
 
 
@@ -76,11 +58,12 @@ function _Board2({onScrollToLeftSide, onScrollToRightSide}: Board2PropsType) {
         const d = new Date()
         PropertiesService.getProperties({
             end_date: d,
-            start_date: new Date(2024,4,1)
+            start_date: new Date(2024, 4, 1),
+            per_page: 5,
         })
             .then(b => {
-                if (b){
-                    console.log(b)
+                if (b) {
+                    setBoard(b)
                 }
             })
             .catch(console.error)
@@ -113,7 +96,7 @@ function _Board2({onScrollToLeftSide, onScrollToRightSide}: Board2PropsType) {
     }
 
 
-    const property = board.getProperties()[0]
+    const property = board.properties.values().next().value as Property
     console.log(board)
 
     return (
@@ -134,19 +117,20 @@ function _Board2({onScrollToLeftSide, onScrollToRightSide}: Board2PropsType) {
                 </div>
                 <div className="header boarder">{property?.name}</div>
                 <BoardDateComponent rang={range}/>
-                {property && board.getPropertyRoomTypes(property.id).map(roomType => (
-                    <Fragment key={roomType.id}>
-                        <CategoryComponent roomType={roomType} range={range}/>
-                        {Object.entries(roomType.roomsByName).map(([name, rooms]) => (
-                            <>
-                                <RoomNameCategory rooms={rooms} name={name.split('_').pop() || ''} range={range}/>
-                                {rooms.map(room => (
-                                    <RoomRowComponent range={range} room={room}/>
-                                ))}
-                            </>
-                        ))}
-                    </Fragment>
-                ))}
+                {property && property.getRoomTypes()
+                    .map(roomType => (
+                        <Fragment key={roomType.id}>
+                            <CategoryComponent roomType={roomType} range={range}/>
+                            {Object.entries(roomType.roomsByName).map(([name, rooms]) => (
+                                <>
+                                    <RoomNameCategory rooms={rooms} name={name.split('_').pop() || ''} range={range}/>
+                                    {rooms.map(room => (
+                                        <RoomRowComponent range={range} room={room}/>
+                                    ))}
+                                </>
+                            ))}
+                        </Fragment>
+                    ))}
             </div>
         </BoardContext.Provider>
     );

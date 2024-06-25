@@ -1,9 +1,7 @@
 import {BookingType} from "../../types/BookingType";
 import {BookingStatus} from "../../types/BookingStatus";
-import {Bookings} from "./Bookings";
-import {RoomTypes} from "./RoomTypes";
 import {RoomType} from "./RoomType";
-import {Board} from "./Board2";
+import {Board} from "./Board";
 import {Booking} from "./Booking";
 
 /**

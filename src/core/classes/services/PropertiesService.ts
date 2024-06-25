@@ -1,11 +1,11 @@
 import {fetchRooms, FetchRoomsRequestParams} from "../../../api/fetchRooms";
+import {RoomBlockPeriod} from "../v1/RoomBlockPeriod";
+import {BookingItem} from "../v1/BookingItem";
 import {Property} from "../v1/Property";
 import {RoomType} from "../v1/RoomType";
-import {Room} from "../v1/Room";
-import {Board} from "../v1/Board2";
-import {BookingItem} from "../v1/BookingItem";
 import {Person} from "../v1/Person";
-import {RoomBlockPeriod} from "../v1/RoomBlockPeriod";
+import {Board} from "../v1/Board";
+import {Room} from "../v1/Room";
 
 export class PropertiesService {
     static async getProperties(options: FetchRoomsRequestParams) {

@@ -1,4 +1,4 @@
-import {Board} from "./Board2";
+import {Board} from "./Board";
 
 export class BedDesc {
     id: number

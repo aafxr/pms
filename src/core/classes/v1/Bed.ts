@@ -1,5 +1,5 @@
 import {BedDesc} from "./BedDesc";
-import {Board} from "./Board2";
+import {Board} from "./Board";
 
 
 /**

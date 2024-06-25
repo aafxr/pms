@@ -1,7 +1,4 @@
-import {Properties} from "./Properties";
-import {RoomTypes} from "./RoomTypes";
-import {RoomBlockPeriods} from "./RoomBlockPeriods";
-import {Board} from "./Board2";
+import {Board} from "./Board";
 
 export class Room {
     id: string

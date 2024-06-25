@@ -1,6 +1,6 @@
 import {RoomBlockPeriod} from "./RoomBlockPeriod";
 import {RoomType} from "./RoomType";
-import {Board} from "./Board2";
+import {Board} from "./Board";
 import {Room} from "./Room";
 
 export class Property{
@@ -33,8 +33,8 @@ export class Property{
             .filter(r => r.property_id === this.id)
     }
 
-    getCategories(): RoomType[]{
-        return Array.from(this._board.categories.values())
+    getRoomTypes(): RoomType[]{
+        return Array.from(this._board.roomTypes.values())
             .filter(c => c.property_id === this.id)
     }
 

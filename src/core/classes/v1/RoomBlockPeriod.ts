@@ -1,6 +1,5 @@
-import {Rooms} from "./Rooms";
 import {Room} from "./Room";
-import {Board} from "./Board2";
+import {Board} from "./Board";
 
 type RoomBlockPeriodConstructorType = Omit<RoomBlockPeriod, 'from' | 'to'> & {from: string | Date, to: string | Date}
 

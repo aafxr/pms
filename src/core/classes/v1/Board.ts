@@ -1,118 +1,71 @@
-import {Properties} from "./Properties";
-import {RoomTypes} from "./RoomTypes";
-import {Bookings} from "./Bookings";
-import {Persons} from "./Persons";
-import {Rooms} from "./Rooms";
-import {Room} from "./Room";
+import {RoomBlockPeriod} from "./RoomBlockPeriod";
+import {BookingItem} from "./BookingItem";
 import {RoomType} from "./RoomType";
 import {Property} from "./Property";
+import {BedDesc} from "./BedDesc";
 import {Booking} from "./Booking";
 import {Person} from "./Person";
-import {BookingItems} from "./BookingItems";
-import {BookingItem} from "./BookingItem";
-import {RoomBlockPeriods} from "./RoomBlockPeriods";
-import {RoomBlockPeriod} from "./RoomBlockPeriod";
+import {Room} from "./Room";
+import {Bed} from "./Bed";
 
 export class Board {
-    private _rooms: Rooms
-    private _roomTypes: RoomTypes
-    private _properties: Properties
-    private _bookings: Bookings
-    private _persons: Persons
-    private _bookingItems: BookingItems
-    private _blockPeriods: RoomBlockPeriods
+    persons:  Map<Person['id'], Person>
+    bookingItems: Map<BookingItem['id'], BookingItem>
+    booking: Map<Booking['id'], Booking>
+    properties: Map<Property['id'], Property>
+    roomTypes: Map<RoomType['id'], RoomType>
+    beds: Map<Bed['id'], Bed>
+    rooms: Map<Room['id'], Room>
+    bedTypes: Map<BedDesc['id'], BedDesc>
+    blocking: Map<RoomBlockPeriod['room_id'], RoomBlockPeriod[]>
 
 
-    constructor(reset = false) {
-        this._rooms = Rooms.instance
-        this._roomTypes = RoomTypes.instance
-        this._properties = Properties.instance
-        this._bookings = Bookings.instance
-        this._persons = Persons.instance
-        this._bookingItems = BookingItems.instance
-        this._blockPeriods = RoomBlockPeriods.instance
-
-        if (reset) {
-            this.clear()
-        }
-    }
-
-    clear() {
-        this._rooms.clear()
-        this._roomTypes.clear()
-        this._properties.clear()
-        this._bookings.clear()
-        this._persons.clear()
-        this._bookingItems.clear()
-        this._blockPeriods.clear()
+    constructor() {
+        this.properties = new Map()//+
+        this.bedTypes = new Map() //+
+        this.persons = new Map() //+
+        this.bookingItems = new Map() //+
+        this.booking = new Map() //+
+        this.rooms = new Map() //+
+        this.roomTypes = new Map() //+
+        this.blocking = new Map() //+
+        this.beds = new Map() //+
     }
 
 
-    add(item: Room): void;
-    add(item: RoomType): void;
-    add(item: Property): void;
-    add(item: Booking): void;
-    add(item: Person): void;
-    add(item: BookingItem): void;
-    add(item: RoomBlockPeriod): void;
-    add(item: unknown) {
-        if (item instanceof Room) {
-            this._rooms.add(item)
-        } else if (item instanceof RoomType) {
-            this._roomTypes.add(item)
-        } else if (item instanceof Property) {
-            this._properties.add(item)
-        } else if (item instanceof Booking) {
-            this._bookings.add(item)
-        } else if (item instanceof BookingItem) {
-            this._bookingItems.add(item)
-        } else if (item instanceof Person) {
-            this._persons.add(item)
-        } else if (item instanceof RoomBlockPeriod) {
-            this._blockPeriods.add(item)
-        }
-    }
+    clone(){
+        const b = new Board()
+        Array.from(this.persons.values())
+            .forEach(el => new Person(b, el))
 
-    getProperties() {
-        return Array.from(this._properties.list())
-    }
+        Array.from(this.bookingItems.values())
+            .forEach(el => new BookingItem(b, el))
 
-    getProperty(id: Property['id']) {
-        return this._properties.getById(id)
-    }
+        Array.from(this.booking.values())
+            .forEach(el => new Booking(b, el))
 
-    getPropertyRooms(id: Property['id']): Room[] {
-        return []
-        // return this._properties.getById(id)?.rooms || []
-    }
+        Array.from(this.properties.values())
+            .forEach(el => new Property(b, el))
 
-    getPropertyRoomTypes(id: Property['id']){
-        return this._roomTypes.list().filter(rt => rt.property_id === id)
-    }
+        Array.from(this.roomTypes.values())
+            .forEach(el => new RoomType(b, el))
 
-    getRoomType(id: RoomType['id']) {
-        return this._roomTypes.getById(id)
-    }
+        Array.from(this.beds.values())
+            .forEach(el => new Bed(b, el))
 
-    getRoomTypes() {
-        return this._roomTypes.list()
-    }
+        Array.from(this.rooms.values())
+            .forEach(el => new Room(b, el))
 
-    getRoomTypeRooms(id: RoomType['id']) {
-        return this._rooms.list().filter(r => r.room_type_id === id)
-    }
+        Array.from(this.bedTypes.values())
+            .forEach(el => new BedDesc(b, el))
 
-    getRoomTypeRoomsSortByName(id: RoomType['id']) {
-        return this.getRoomTypeRooms(id).reduce<{ [key: string]: Room[] }>((a, c) => {
-            if (a[c.name]) {
-                a[c.name].push(c)
-            } else {
-                a[c.name] = [c]
-            }
-            return a
-        }, {})
-    }
+        Array.from(this.blocking.values())
+            .forEach(els =>
+                els.forEach(el => new RoomBlockPeriod(b, el))
+            )
 
+        return b
+    }
 
 }
 

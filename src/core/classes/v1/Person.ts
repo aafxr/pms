@@ -1,5 +1,5 @@
 import {GenderType} from "../../types/GenderType";
-import {Board} from "./Board2";
+import {Board} from "./Board";
 
 /**
  * Таблица: individual_persons

@@ -1,6 +1,6 @@
 import {CustomerType} from "../../types/CustomerType";
 import {Person} from "./Person";
-import {Board} from "./Board2";
+import {Board} from "./Board";
 
 export class Booking{
     id: number
