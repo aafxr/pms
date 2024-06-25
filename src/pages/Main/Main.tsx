@@ -1,4 +1,4 @@
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {
     Blank,
@@ -16,26 +16,41 @@ import NavButtons from "../../components/buttons/NavButtons/NavButtons";
 import {PrintIcon} from "../../components/svg";
 import {Row} from "../../components/flex";
 
-import {Board2} from "../../components/Board2";
-import './Main.css'
+import {PropertiesService} from "../../core/classes/services/PropertiesService";
+import {Property} from "../../core/classes/v1/Property";
+import {Board} from "../../core/classes/v1/Board";
 import {ChessBoard} from "../../components/Board";
+
+import './Main.css'
+import {DateRange} from "../../core/classes/v1/DateRange";
+import {Board2} from "../../components/Board2";
 
 
 export function Main() {
     const navigate = useNavigate()
+    const [board, setBoard] = useState<Board>()
+    const [property, setProperty] = useState<Property>()
+    const [range, setRange] = useState(() => new DateRange(new Date(), 100))
 
-    function handleButtonGroupClick(e: ButtonGroupType){
-        if(e.id === 2) navigate('/reservation')
+    function handleButtonGroupClick(e: ButtonGroupType) {
+        if (e.id === 2) navigate('/reservation')
     }
 
     useEffect(() => {
         const d = new Date()
-        // fetchRooms({
-        //     end_date: d,
-        //     start_date: new Date(d.getFullYear() - 26, d.getMonth(), d.getDate())
-        // })
-        //     .then(console.log)
-        //     .catch(console.error)
+        PropertiesService.getProperties({
+            end_date: range.end,
+            start_date: range.start,
+            per_page: 5,
+        })
+            .then(b => {
+                if (b) {
+                    const p = b.properties.values().next().value
+                    setBoard(b)
+                    if (p) setProperty(p)
+                }
+            })
+            .catch(console.error)
     }, []);
 
 
@@ -56,10 +71,10 @@ export function Main() {
                                         {id: 2, name: 'Дополнительные объекты'}
                                     ]}/>
                                 <Select value={1}>
-                                        <option value={1}>Статус 1</option>
-                                        <option value={2}>Статус 2</option>
-                                        <option value={3}>Статус 3</option>
-                                        <option value={4}>Статус 4</option>
+                                    <option value={1}>Статус 1</option>
+                                    <option value={2}>Статус 2</option>
+                                    <option value={3}>Статус 3</option>
+                                    <option value={4}>Статус 4</option>
                                 </Select>
                                 <Button className='reset'>
                                     <span>Сбросить фильтр</span>
@@ -76,12 +91,16 @@ export function Main() {
                                     onClick={handleButtonGroupClick}
                                 />
                                 <Button className='print'>
-                                    <PrintIcon className='icon-24' />
+                                    <PrintIcon className='icon-24'/>
                                 </Button>
                             </Row>
                         </Row>
                     </Blank>
-                    <ChessBoard />
+                    {board && property && <ChessBoard
+                        board={board}
+                        property={property}
+                        range={range}
+                    />}
                     {/*<Board2*/}
                     {/*    onScrollToLeftSide={() => console.log('left')}*/}
                     {/*    onScrollToRightSide={() => console.log('right')}*/}
@@ -89,7 +108,7 @@ export function Main() {
                 </Container>
             </Wrapper.Content>
             <Wrapper.Footer>
-                <NavButtons />
+                <NavButtons/>
             </Wrapper.Footer>
         </Wrapper>
     )

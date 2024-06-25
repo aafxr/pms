@@ -1,7 +1,8 @@
 import {Board} from "./Board";
+import {BookingItem} from "./BookingItem";
 
 export class Room {
-    id: string
+    id: number
     name: string
     property_id: number
     room_type_id: number
@@ -38,13 +39,30 @@ export class Room {
     isBlockDay(d:Date){
         const check = (date : Date) =>{
             return date.getFullYear() === d.getFullYear() && date.getMonth() === d.getMonth() && date.getDate() === d.getDate()
-            // const s = new Date(date.getFullYear(), date.getMonth(), date.getDate())
-            // const e = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 23, 59, 59, 999)
-            // return s.getTime() < d.getTime() && d.getTime() < e.getTime();
-
         }
-
-
         return this.blocking?.filter(b => check(b.from) || check(b.to)) || []
+    }
+
+    get booking(){
+        return Array.from(this._board.bookingItems.values())
+            .filter(b=> b.object_id === this.id)
+    }
+
+    getBookingOffset(date: Date){
+        return this.booking.reduce<Array<{ span: number, offset: number, bockingList: BookingItem[] }>>((acc, b, i) => {
+            const prev = acc[acc.length - 1]
+            const prev_offset = prev?.offset + prev?.span || 0
+            const offset = Math.ceil((b.checked_in_at.getTime() - date.getTime()) / 86_400_000)
+            const span = b.daysCount
+            if (prev && offset < prev_offset) {
+                if (offset + span > prev_offset) {
+                    prev.span = offset + span - prev.offset
+                }
+                prev.bockingList.push(b)
+                return acc
+            }
+            acc.push({offset, span, bockingList: [b]})
+            return acc
+        }, [])
     }
 }

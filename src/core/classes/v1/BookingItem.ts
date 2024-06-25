@@ -51,6 +51,8 @@ export class BookingItem{
     price: number
     room_type_id: RoomType['id']
 
+    private _days: number
+
 
     private _board: Board
 
@@ -70,6 +72,7 @@ export class BookingItem{
         this.comment = b.comment
         this.price = b.price
         this.room_type_id = b.room_type_id
+        this._days = 1
 
         this._board = board
         this._board.bookingItems.set(this.id, this)
@@ -77,9 +80,19 @@ export class BookingItem{
         const booking = b.booking
         if(booking) new Booking(board, booking)
 
+        this.calcDaysCount()
     }
 
 
+    private calcDaysCount(){
+        const s = new Date(this.checked_in_at.getFullYear(), this.checked_in_at.getMonth(), this.checked_in_at.getDate())
+        const e = new Date(this.checked_out_at.getFullYear(), this.checked_out_at.getMonth(), this.checked_out_at.getDate(), 23, 59, 59, 999)
+        this._days = Math.ceil((e.getTime() - s.getTime()) / 86_400_000)
+    }
+
+    get daysCount(){
+        return this._days
+    }
 
     get roomType(){
         return this._board.roomTypes.get(this.room_type_id)

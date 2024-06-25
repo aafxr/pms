@@ -1,52 +1,107 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {Fragment, useEffect, useRef, useState, WheelEvent, MouseEvent} from 'react';
 
+import {DateRange} from "../../core/classes/v1/DateRange";
+import {Property} from "../../core/classes/v1/Property";
 import {Board} from "../../core/classes/v1/Board";
 
 import './ChessBoard.scss'
+import {Button} from "../buttons";
+import {Row} from "../flex";
+import {BlockingComponent} from "./BlockingComponent";
+import {OrdersComponent} from "./OrdersComponent";
 
 
-export interface BoardPropsType {
-
+export interface ChessBoardPropsType {
+    board: Board
+    property: Property
+    range: DateRange
 }
 
 
-export function ChessBoard({}: BoardPropsType) {
+export function ChessBoard({board, property, range}: ChessBoardPropsType) {
     const boardRef = useRef<HTMLDivElement>(null);
-    const [board, setBoard] = useState(new Board())
+
+
+    function handleWheel(e: WheelEvent<HTMLDivElement>) {
+        const el = e.currentTarget
+        el.scrollBy({left: e.deltaY})
+    }
+
+    function handleScroll(e: MouseEvent<HTMLDivElement>) {
+
+    }
 
 
     return (
-        <div className='board'>
+        <div className='board'
+             onWheel={handleWheel}
+             onScroll={handleScroll}
+        >
+
             <div className="filter">
-                <button className="daily">Сутки</button>
-                <button className="hourly">Час</button>
-                <button className="month">
-                    {new Date().toLocaleDateString(navigator.language, {month: "long", year: "numeric"})}
-                </button>
-                <button className="today">Сегодня</button>
+                <Button variant={"cancel"} className="daily">Сутки</Button>
+                <Button variant={"cancel"} className="hourly">Час</Button>
+                <Row full>
+                    <Button variant={"cancel"} className="month">
+                        {new Date().toLocaleDateString(navigator.language, {month: "long", year: "numeric"})}
+                    </Button>
+                    <Button variant={"cancel"} className="today">Сегодня</Button>
+                </Row>
             </div>
-            <div className="propety border"></div>
-            <div className="date border"></div>
-            <div className="category border"></div>
-            <div className="category-row border">
-                <div className="cells">
-                    <div className="cell border"></div>
-                    <div className="cell border"></div>
-                    <div className="cell border"></div>
-                    <div className="cell border"></div>
-                    <div className="cell border"></div>
-                    <div className="cell border"></div>
-                    <div className="cell border"></div>
-                    <div className="cell border"></div>
-                    <div className="cell border"></div>
-                    <div className="cell border"></div>
-                    <div className="cell border"></div>
-                    <div className="cell border"></div>
-                    <div className="cell border"></div>
-                    <div className="cell border"></div>
-                    <div className="cell border"></div>
-                </div>
+
+            <div className="property border">
+                <span>{property.name}</span>
             </div>
+
+            <div className="date">
+                {Object.entries(range.getMonths)
+                    .map(([name, days]) => (
+                        <div className='date-month border' style={{gridColumn: `span ${days}`}}>
+                            <span>{name}</span>
+                        </div>
+                    ))}
+            </div>
+
+            {property.getRoomTypes()
+                .map(rt => (
+                    <Fragment key={rt.id}>
+
+                        <div className="category border">{rt.name}</div>
+                        <div className="category-row">
+                            <div className="cells">
+                                {Array.from({length: range.size})
+                                    .map((_, i) => (
+                                        <div className="cell">{property.getRoomsByCategory(rt.id).length}</div>
+                                    ))
+                                }
+                            </div>
+                        </div>
+
+                        {property.getRoomsByCategory(rt.id)
+                            .map(r => (
+                                <Fragment key={r.id}>
+                                    <div className="room-category border">{r.name}</div>
+                                    <div className="room-category-row">
+                                        <div className="cells">
+                                            {Array.from({length: range.size})
+                                                .map((_, i) => (
+                                                    <div className="cell"></div>
+                                                ))
+                                            }
+                                        </div>
+                                        <div className='orders'>
+                                            <div className='orders'>
+                                                <BlockingComponent key={r.id} room={r} range={range}/>
+                                                <OrdersComponent key={r.id} room={r} range={range} />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </Fragment>
+                            ))
+                        }
+                    </Fragment>
+                ))
+            }
         </div>
     );
 }

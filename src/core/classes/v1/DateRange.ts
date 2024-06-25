@@ -10,6 +10,14 @@ export class DateRange {
         }
     }
 
+    get start(){
+        return this._list[0]
+    }
+
+    get end(){
+        return this._list[this._list.length - 1]
+    }
+
 
     getDate(idx: number): Date | undefined{
         return this._list[idx]
