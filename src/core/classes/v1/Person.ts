@@ -53,4 +53,8 @@ export class Person{
         this._board = b
         this._board.persons.set(this.id, this)
     }
+
+    get fullName(){
+        return `${this.first_name} ${this.middle_name} ${this.last_name}`
+    }
 }

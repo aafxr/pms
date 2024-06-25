@@ -62,6 +62,20 @@ export function ChessBoard({board, property, range}: ChessBoardPropsType) {
                     ))}
             </div>
 
+            <div className="category border">Категории</div>
+            <div className="category-row">
+                <div className="cells">
+                    {Array.from({length: range.size})
+                        .map((_, i) => (
+                            <div className="cell">
+                                {range.getDate(i)?.getDate()}
+                            </div>
+                        ))
+                    }
+                </div>
+            </div>
+
+
             {property.getRoomTypes()
                 .map(rt => (
                     <Fragment key={rt.id}>
@@ -90,10 +104,10 @@ export function ChessBoard({board, property, range}: ChessBoardPropsType) {
                                             }
                                         </div>
                                         <div className='orders'>
-                                            <div className='orders'>
-                                                <BlockingComponent key={r.id} room={r} range={range}/>
-                                                <OrdersComponent key={r.id} room={r} range={range} />
-                                            </div>
+                                            <BlockingComponent key={r.id} room={r} range={range}/>
+                                        </div>
+                                        <div className='reserves'>
+                                            <OrdersComponent key={r.id} room={r} range={range}/>
                                         </div>
                                     </div>
                                 </Fragment>

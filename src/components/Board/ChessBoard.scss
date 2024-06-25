@@ -99,7 +99,8 @@
 
 
   .cells,
-  .orders{
+  .orders,
+  .reserves{
     display: grid;
     grid-auto-flow: column;
     grid-auto-columns: var(--b-cell-wz);
@@ -107,7 +108,8 @@
     grid-column-gap: var(--bgap);
   }
 
-  .orders{
+  .orders,
+  .reserves{
     position: absolute;
     left: 0;
     right: 0;
@@ -116,13 +118,14 @@
   }
 
   .cell,
-  .order{
+  .order,
+  .reserve{
     border: 1px solid var(--b-boarder-color);
     border-radius: var(--b-rad);
   }
 
   .order.service{
-    background-color: var(--bg-v1);
+    background-color: var(--bg-sw);
   }
 
   .cell{
@@ -147,6 +150,52 @@
   .border{
     border: 1px solid var(--b-boarder-color);
     border-radius: var(--b-rad);
+  }
+
+  .order-booking{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    padding: 4px;
+    max-height: 100%;
+    overflow: hidden;
+    background-color: var(--bg-v1);
+    border-radius: var(--br-main);
+    z-index: 12;
+  }
+
+  .order-booking:hover{
+    max-height: 300px;
+  }
+
+  .booking{
+    &-item{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    &-stat{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    &-count{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    &-price{
+      font-weight: 600;
+    }
+
+    &-person{
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
   }
 
 }

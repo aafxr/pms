@@ -1,6 +1,6 @@
 import React, {HTMLAttributes} from 'react';
 
-function HumanIcon(props:HTMLAttributes<SVGSVGElement>) {
+export function HumanIcon(props:HTMLAttributes<SVGSVGElement>) {
     return (
         <svg width="5" height="15" viewBox="0 0 5 15" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path opacity="0.8"

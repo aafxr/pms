@@ -1,6 +1,7 @@
 import React from 'react';
 import {Room} from "../../core/classes/v1/Room";
 import {DateRange} from "../../core/classes/v1/DateRange";
+import {HumanIcon} from '../svg'
 
 export type OrdersComponentPropsType ={
     room: Room
@@ -12,6 +13,34 @@ export function OrdersComponent({room, range}: OrdersComponentPropsType) {
     console.log(bl)
 
     return (
-        <div className='order'></div>
-    );
+        <>
+            {
+                bl.map(b=> (
+                    <div className='reserve' style={{gridColumn: `${b.offset} / span ${b.span}`}}>
+                        <div className="order-booking">
+                            {b.bockingList.map(bi => (
+                                <div className='booking'>
+                                    <div className='booking-item'>
+                                        <div className='booking-stat'>
+                                            <div className='booking-count'>
+                                                <HumanIcon className='icon-16'/>
+                                                <span>{bi.adults_count}</span>
+                                                +
+                                                <span>{bi.kids_count}</span>
+                                                + {bi.id}
+                                            </div>
+                                            <div className='booking-price'>{bi.price}</div>
+                                        </div>
+                                        <div className='booking-person'>{bi.booking?.customer?.fullName}</div>
+                                    </div>
+                                </div>
+                            ))}
+
+                        </div>
+                    </div>
+                ))
+            }
+        </>
+    )
+
 }

@@ -41,7 +41,7 @@ export function Main() {
         PropertiesService.getProperties({
             end_date: range.end,
             start_date: range.start,
-            per_page: 5,
+            per_page: 10,
         })
             .then(b => {
                 if (b) {
