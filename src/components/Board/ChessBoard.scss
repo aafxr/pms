@@ -1,0 +1,35 @@
+.board {
+  --b-boarder-color: #E6E6E6;
+  --b-category-sz: 190px;
+  --b-cell-wz: 56px;
+  --b-subcategory-sz: 46px;
+  --bgap: 4px;
+  --b-rad: 8px;
+
+  display: grid;
+  grid-template-areas:
+        "filter property"
+        "filter date";
+
+  grid-auto-columns: var(--b-category-sz) 1fr;
+  grid-auto-rows: var(--b-subcategory-sz);
+
+  .filter{
+    grid-area: filter;
+  }
+
+  .property{
+    grid-area: property;
+  }
+
+  .date{
+    grid-area: date;
+  }
+
+
+  .border{
+    border: 1px solid var(--b-boarder-color);
+    border-radius: var(--b-rad);
+  }
+
+}

@@ -18,6 +18,7 @@ import {Row} from "../../components/flex";
 
 import {Board2} from "../../components/Board2";
 import './Main.css'
+import {ChessBoard} from "../../components/Board";
 
 
 export function Main() {
@@ -80,13 +81,11 @@ export function Main() {
                             </Row>
                         </Row>
                     </Blank>
-
-                    {/*<OrderBoard />*/}
-                    {/*<Board />*/}
-                    <Board2
-                        onScrollToLeftSide={() => console.log('left')}
-                        onScrollToRightSide={() => console.log('right')}
-                    />
+                    <ChessBoard />
+                    {/*<Board2*/}
+                    {/*    onScrollToLeftSide={() => console.log('left')}*/}
+                    {/*    onScrollToRightSide={() => console.log('right')}*/}
+                    {/*/>*/}
                 </Container>
             </Wrapper.Content>
             <Wrapper.Footer>

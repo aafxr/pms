@@ -41,7 +41,7 @@ function _Board2({onScrollToLeftSide, onScrollToRightSide}: Board2PropsType) {
     const [days, setDays] = useState(0)
 
     const d = new Date()//Date.now() - 1000 * 60 * 60 * 24 * 250
-    const range = new DateRange(new Date(), 100)
+    const range = new DateRange(new Date(), 300)
     //Array.from({length: days}).map((_, i, arr) => new Date().setDate(d.getDate() - (arr.length / 2 + i)))
 
     console.log(range)
@@ -58,7 +58,7 @@ function _Board2({onScrollToLeftSide, onScrollToRightSide}: Board2PropsType) {
         const d = new Date()
         PropertiesService.getProperties({
             end_date: d,
-            start_date: new Date(2024, 4, 1),
+            start_date: new Date(d.getFullYear(), d.getMonth(), d.getDate() - range.size),
             per_page: 5,
         })
             .then(b => {
