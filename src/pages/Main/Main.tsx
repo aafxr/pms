@@ -33,11 +33,11 @@ export function Main() {
     const navigate = useNavigate()
     const [board, setBoard] = useState<Board>()
     const [property, setProperty] = useState<Property>()
-    const [range, setRange] = useState(() => new DateRange(new Date(), 100))
+    const [range, setRange] = useState(new DateRange(new Date(Date.now() - 86_400_000 * 120), 120))
     const [query, setQuery] = useState<FetchRoomsRequestParams>({
         end_date: range.end,
         start_date: range.start,
-        per_page: 5,
+        per_page: 50,
         page: 1,
         daily: "daily"
     })
@@ -47,11 +47,14 @@ export function Main() {
     }
 
     useEffect(() => {
-        const d = new Date()
         PropertiesService.getProperties(query)
             .then(b => {
                 if (b) {
                     const p = b.properties.values().next().value
+                    // @ts-ignore
+                    window.property = b.properties.get(1)
+                    // @ts-ignore
+                    window.board = b
                     setBoard(b)
                     if (p) setProperty(p)
                 }
@@ -123,7 +126,6 @@ export function Main() {
                         <ChessBoard
                             board={board}
                             property={property}
-                            range={range}
                             onBlockingClick={console.log}
                             onBookingItemClick={console.log}
                             onCellClick={console.log}

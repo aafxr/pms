@@ -23,6 +23,7 @@
   grid-gap: var(--bgap);
   overflow-x: hidden;
 
+
   .filter {
     position: sticky;
     left: 0;
@@ -39,9 +40,23 @@
       padding: 8px;
       width: 50%;
       flex: 1 1;
+      font-size: 0.75rem;
       text-overflow: ellipsis;
       text-wrap: nowrap;
+      overflow: hidden;
+      border: none;
     }
+
+    .month-btn,
+    .today-btn{
+      padding-left: 4px;
+      padding-right: 4px;
+      flex: 1 1;
+    }
+  }
+
+  .filter-date-select{
+    gap: var(--bgap);
   }
 
   .property {
@@ -83,10 +98,19 @@
         font-weight: 600;
         position: sticky;
         left: 210px;
+        white-space: nowrap;
       }
     }
   }
+  .category{
+    font-size: 1rem;
+    font-weight: 600;
+  }
 
+  .category-row{
+    font-size: 0.875rem;
+    font-weight: 400;
+  }
 
   .category,
   .category-row {
@@ -94,7 +118,18 @@
     position: sticky;
     left: 0;
     z-index: 5;
+  }
 
+  .category-row.daily{
+    .cell{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 600;
+      line-height: 1;
+    }
   }
 
   .room-category,
@@ -115,7 +150,7 @@
     &-inner{
       @include border;
       flex: 1;
-      padding: 8px 32px;
+      padding: 0 32px;
       white-space: nowrap;
       text-overflow: ellipsis;
       overflow: hidden;
@@ -151,12 +186,13 @@
     border: 1px solid var(--b-boarder-color);
     border-radius: var(--b-rad);
     pointer-events: all;
+    cursor: pointer;
   }
 
   .service {
     border: none;
     background-color: var(--bg-sw);
-    z-index: 13;
+    z-index: 10;
   }
 
   .cell {
@@ -166,11 +202,19 @@
     justify-content: center;
   }
 
+  .cell.weekend{
+    background-color: var(--bg-v1);
+  }
+
   .category,
   .room-category {
     background-color: var(--bg-main);
     font-weight: 600;
     z-index: 12;
+  }
+
+  .room-category{
+    font-size: 0.875rem;
   }
 
   .category-row,

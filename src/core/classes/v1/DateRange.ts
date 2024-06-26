@@ -2,10 +2,11 @@ export class DateRange {
     private _list: Date[]
 
     constructor(date: Date, days: number) {
+        // date = new Date(date.getFullYear(),date.getMonth(),date.getDate(), 23,59,59,999)
         this._list = []
-        for (let i = 0; i < days; i++){
+        for (let i = 0; i <= days; i++){
             const d = new Date(date.getFullYear(), date.getMonth(), date.getDate())
-            d.setDate(d.getDate() - days + i)
+            d.setDate(date.getDate() + i)
             this._list.push(d)
         }
     }
@@ -37,6 +38,13 @@ export class DateRange {
             }
             return a
         }, {})
+    }
+
+    isWeekend(idx: number){
+        const d = new Date(this.start)
+        d.setDate(d.getDate() + idx)
+        const day = d.getDay()
+        return day === 0 || day === 6;
     }
 }
 

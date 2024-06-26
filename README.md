@@ -1,3 +1,21 @@
+### Установка:
+
+- git clone https://github.com/aafxr/pms.git
+- npm i
+- npm run start
+
+
+---
+
+В devtools модно посмотреть на коллекции 
+полученных данныхданных
+
+property.getRooms() - список комнат объекта аренды
+
+property.getRoomTypes() - список категорий объекта аренды 
+
+
+---
 org-service - авторизация, регистрация и управление правами
 
 pms-service - бронирование , тарифы, контрагенты

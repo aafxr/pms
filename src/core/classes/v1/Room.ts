@@ -51,18 +51,30 @@ export class Room {
 
     getBookingOffset(date: Date){
         return this.booking.reduce<Array<{ span: number, offset: number, bocking: BookingItem }>>((acc, b, i) => {
-            const offset = Math.ceil((b.checked_in_at.getTime() - date.getTime()) / 86_400_000)
-            const span = b.daysCount
-            acc.push({offset, span, bocking: b})
+            if(b.checked_out_at.getTime() < date.getTime()) return acc
+
+            let span = Math.ceil((b.checked_out_at.getTime() - date.getTime())/ 86_400_000)//b.daysCount
+            span = Math.min(span, b.daysCount)
+            if(span > 0){
+                let offset = Math.ceil((b.checked_in_at.getTime() - date.getTime()) / 86_400_000)
+                offset = Math.max(1, offset)
+                acc.push({offset, span, bocking: b})
+            }
             return acc
         }, []) || []
     }
 
     getBlockingPeriods(date: Date){
         return this.blocking?.reduce<Array<{ span: number, offset: number, blocking: RoomBlockPeriod }>>((acc, rb, i) => {
-            const offset = Math.ceil((rb.from.getTime() - date.getTime()) / 86_400_000)
-            const span = rb.blockDays
-            acc.push({offset, span, blocking: rb})
+            if(rb.to.getTime() < date.getTime()) return acc
+
+            let span = Math.ceil((rb.to.getTime() - date.getTime())/ 86_400_000)
+            span = Math.min(span, rb.blockDays)
+            if(span > 0) {
+                let offset = Math.ceil((rb.from.getTime() - date.getTime()) / 86_400_000)
+                offset = Math.max(1, offset)
+                acc.push({offset, span, blocking: rb})
+            }
             return acc
         }, []) || []
 

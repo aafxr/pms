@@ -13,7 +13,6 @@ export type OrdersComponentPropsType = {
 
 export function OrdersComponent({room, range, onOrderClick}: OrdersComponentPropsType) {
     const bl = room.getBookingOffset(range.start)
-    console.log(bl)
 
 
     function handleOrderClick(e: MouseEvent<HTMLDivElement>, b: BookingItem){
@@ -30,7 +29,7 @@ export function OrdersComponent({room, range, onOrderClick}: OrdersComponentProp
                         className='reserve'
                         style={{
                             gridColumn: `${b.offset} / span ${b.span}`,
-                            gridRow: '1 span 1'
+                            gridRow: '1 / span 1'
                         }}
                     >
                         <div
