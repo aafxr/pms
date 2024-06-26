@@ -147,6 +147,7 @@
     align-items: stretch;
     justify-content: stretch;
     background-color: var(--bg-main);
+    overflow-y: scroll;
     &-inner{
       @include border;
       flex: 1;

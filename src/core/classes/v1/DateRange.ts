@@ -1,49 +1,49 @@
 export class DateRange {
-    private _list: Date[]
+    private _date: Date
+    private _days: number
 
     constructor(date: Date, days: number) {
         // date = new Date(date.getFullYear(),date.getMonth(),date.getDate(), 23,59,59,999)
-        this._list = []
-        for (let i = 0; i <= days; i++){
-            const d = new Date(date.getFullYear(), date.getMonth(), date.getDate())
-            d.setDate(date.getDate() + i)
-            this._list.push(d)
-        }
+        this._date = new Date(date)
+        this._days = days
     }
 
     get start(){
-        return this._list[0]
+        return new Date(this._date)
     }
 
     get end(){
-        return this._list[this._list.length - 1]
+        const d = this.start
+        d.setDate(d.getDate() + this._days)
+        return d
     }
 
 
-    getDate(idx: number): Date | undefined{
-        return this._list[idx]
+    getDate(idx: number): Date{
+        const d = this.start
+        d.setDate(d.getDate() + idx)
+        return d
     }
 
     get size(){
-        return this._list.length
+        return this._days
     }
 
-    get getMonths(){
-        return this._list.reduce<{[key: string]: number}>((a, c) => {
-            const monthName = c.toLocaleDateString(navigator.language, {month: "long", year: "numeric"})
-            if(a[monthName]){
-                a[monthName] += 1
+    get getMonths() {
+        const result: { [key: string]: number } = {}
+        for (let i = 0; i < this._days; i++) {
+            const monthName = this.getDate(i).toLocaleDateString(navigator.language, {month: "long", year: "numeric"})
+            if (result[monthName]) {
+                result[monthName] += 1
             } else {
-                a[monthName] = 1
+                result[monthName] = 1
             }
-            return a
-        }, {})
+        }
+        return result
     }
 
     isWeekend(idx: number){
-        const d = new Date(this.start)
-        d.setDate(d.getDate() + idx)
-        const day = d.getDay()
+        const day = this.getDate(idx).getDay()
         return day === 0 || day === 6;
     }
 }

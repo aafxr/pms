@@ -37,7 +37,7 @@ export function Main() {
     const [query, setQuery] = useState<FetchRoomsRequestParams>({
         end_date: range.end,
         start_date: range.start,
-        per_page: 50,
+        per_page: 10,
         page: 1,
         daily: "daily"
     })
