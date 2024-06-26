@@ -30,6 +30,8 @@ export class PropertiesService {
         individual_persons.forEach(p => new Person(b, p))
         room_block_periods.forEach(rb => new RoomBlockPeriod(b, rb))
 
+        b.pagination = rooms.pagination
+
         return b
     }
 }

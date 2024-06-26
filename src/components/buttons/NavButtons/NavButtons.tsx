@@ -17,10 +17,10 @@ export interface NavButtonsPropsType{
 function NavButtons({onPrev, onNext, className}: NavButtonsPropsType) {
     return (
         <div className={clsx('nav-buttons', className)}>
-            <RoundButton className='left' onClick={() => onPrev?.()}>
+            <RoundButton className='left' onClick={onPrev}>
                 <ChevronIcon className='icon icon-20' />
             </RoundButton>
-            <RoundButton className='right' onClick={() => onNext?.()}>
+            <RoundButton className='right' onClick={onNext}>
                 <ChevronIcon className='icon icon-20' />
             </RoundButton>
         </div>

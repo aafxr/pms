@@ -21,9 +21,12 @@ import {Property} from "../../core/classes/v1/Property";
 import {Board} from "../../core/classes/v1/Board";
 import {ChessBoard} from "../../components/Board";
 
-import './Main.css'
+import {FetchRoomsRequestParams} from "../../api/fetchRooms";
 import {DateRange} from "../../core/classes/v1/DateRange";
 import {Board2} from "../../components/Board2";
+
+import './Main.css'
+import {Pagination} from "../../core/classes/v1/Pagination";
 
 
 export function Main() {
@@ -31,6 +34,13 @@ export function Main() {
     const [board, setBoard] = useState<Board>()
     const [property, setProperty] = useState<Property>()
     const [range, setRange] = useState(() => new DateRange(new Date(), 100))
+    const [query, setQuery] = useState<FetchRoomsRequestParams>({
+        end_date: range.end,
+        start_date: range.start,
+        per_page: 5,
+        page: 1,
+        daily: "daily"
+    })
 
     function handleButtonGroupClick(e: ButtonGroupType) {
         if (e.id === 2) navigate('/reservation')
@@ -38,11 +48,7 @@ export function Main() {
 
     useEffect(() => {
         const d = new Date()
-        PropertiesService.getProperties({
-            end_date: range.end,
-            start_date: range.start,
-            per_page: 10,
-        })
+        PropertiesService.getProperties(query)
             .then(b => {
                 if (b) {
                     const p = b.properties.values().next().value
@@ -51,7 +57,24 @@ export function Main() {
                 }
             })
             .catch(console.error)
-    }, []);
+    }, [query]);
+
+
+    function handleNextButtonClick(){
+        if(!board) return
+        if(Number(query.page) >= board.pagination.last_page) return
+        const q = {...query}
+        q.page = (q.page || 1) + 1
+        setQuery(q)
+    }
+
+    function handlePrevButtonClick(){
+        if(!board) return
+        if(Number(query.page) <= 1) return
+        const q = {...query}
+        q.page = (q.page || 1) - 1
+        setQuery(q)
+    }
 
 
     return (
@@ -96,11 +119,17 @@ export function Main() {
                             </Row>
                         </Row>
                     </Blank>
-                    {board && property && <ChessBoard
-                        board={board}
-                        property={property}
-                        range={range}
-                    />}
+                    {board && property &&
+                        <ChessBoard
+                            board={board}
+                            property={property}
+                            range={range}
+                            onBlockingClick={console.log}
+                            onBookingItemClick={console.log}
+                            onCellClick={console.log}
+                            onNext={handleNextButtonClick}
+                            onPrev={handlePrevButtonClick}
+                        />}
                     {/*<Board2*/}
                     {/*    onScrollToLeftSide={() => console.log('left')}*/}
                     {/*    onScrollToRightSide={() => console.log('right')}*/}
@@ -108,7 +137,6 @@ export function Main() {
                 </Container>
             </Wrapper.Content>
             <Wrapper.Footer>
-                <NavButtons/>
             </Wrapper.Footer>
         </Wrapper>
     )

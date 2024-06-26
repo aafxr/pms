@@ -1,5 +1,6 @@
 import {RoomBlockPeriod} from "./RoomBlockPeriod";
 import {BookingItem} from "./BookingItem";
+import {Pagination} from "./Pagination";
 import {RoomType} from "./RoomType";
 import {Property} from "./Property";
 import {BedDesc} from "./BedDesc";
@@ -19,6 +20,8 @@ export class Board {
     bedTypes: Map<BedDesc['id'], BedDesc>
     blocking: Map<RoomBlockPeriod['room_id'], RoomBlockPeriod[]>
 
+    private _pagination: Pagination
+
 
     constructor() {
         this.properties = new Map()//+
@@ -30,6 +33,8 @@ export class Board {
         this.roomTypes = new Map() //+
         this.blocking = new Map() //+
         this.beds = new Map() //+
+
+        this._pagination = new Pagination()
     }
 
 
@@ -64,7 +69,17 @@ export class Board {
                 els.forEach(el => new RoomBlockPeriod(b, el))
             )
 
+        b.pagination = new Pagination(this.pagination)
+
         return b
+    }
+
+    get pagination(){
+        return this._pagination
+    }
+
+    set pagination(p: Pagination){
+        this._pagination = new Pagination(p)
     }
 
 }

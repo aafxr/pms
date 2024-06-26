@@ -1,5 +1,6 @@
 import {Board} from "./Board";
 import {BookingItem} from "./BookingItem";
+import {RoomBlockPeriod} from "./RoomBlockPeriod";
 
 export class Room {
     id: number
@@ -49,20 +50,21 @@ export class Room {
     }
 
     getBookingOffset(date: Date){
-        return this.booking.reduce<Array<{ span: number, offset: number, bockingList: BookingItem[] }>>((acc, b, i) => {
-            const prev = acc[acc.length - 1]
-            const prev_offset = prev?.offset + prev?.span || 0
+        return this.booking.reduce<Array<{ span: number, offset: number, bocking: BookingItem }>>((acc, b, i) => {
             const offset = Math.ceil((b.checked_in_at.getTime() - date.getTime()) / 86_400_000)
             const span = b.daysCount
-            if (prev && offset < prev_offset) {
-                if (offset + span > prev_offset) {
-                    prev.span = offset + span - prev.offset
-                }
-                prev.bockingList.push(b)
-                return acc
-            }
-            acc.push({offset, span, bockingList: [b]})
+            acc.push({offset, span, bocking: b})
             return acc
-        }, [])
+        }, []) || []
+    }
+
+    getBlockingPeriods(date: Date){
+        return this.blocking?.reduce<Array<{ span: number, offset: number, blocking: RoomBlockPeriod }>>((acc, rb, i) => {
+            const offset = Math.ceil((rb.from.getTime() - date.getTime()) / 86_400_000)
+            const span = rb.blockDays
+            acc.push({offset, span, blocking: rb})
+            return acc
+        }, []) || []
+
     }
 }

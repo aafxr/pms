@@ -1,5 +1,6 @@
-
-.board-container{
+@mixin border {
+  border: 1px solid var(--b-boarder-color);
+  border-radius: var(--b-rad);
 }
 
 .board {
@@ -22,7 +23,7 @@
   grid-gap: var(--bgap);
   overflow-x: hidden;
 
-  .filter{
+  .filter {
     position: sticky;
     left: 0;
     grid-area: filter;
@@ -34,7 +35,7 @@
     border-radius: var(--b-rad);
     z-index: 5;
 
-    .button{
+    .button {
       padding: 8px;
       width: 50%;
       flex: 1 1;
@@ -43,14 +44,16 @@
     }
   }
 
-  .property{
+  .property {
+    @include border;
     padding: auto var(--offset-main);
     height: 56px;
     grid-area: property;
     display: flex;
     align-items: center;
 
-    span{
+    span {
+      display: inline-block;
       grid-column: 1 / -1;
       font-size: 1.125rem;
       font-weight: 600;
@@ -59,7 +62,7 @@
     }
   }
 
-  .date{
+  .date {
     height: 56px;
     position: relative;
     grid-area: date;
@@ -69,18 +72,24 @@
     grid-column-gap: var(--bgap);
 
 
-    span{
-      font-size: 1.125rem;
-      font-weight: 600;
-      position: sticky;
-      left: 210px;
+    &-month {
+      @include border;
+      display: flex;
+      align-items: center;
+      padding-left: 20px;
 
+      span {
+        font-size: 1.125rem;
+        font-weight: 600;
+        position: sticky;
+        left: 210px;
+      }
     }
   }
 
 
   .category,
-  .category-row{
+  .category-row {
     height: 56px;
     position: sticky;
     left: 0;
@@ -89,7 +98,7 @@
   }
 
   .room-category,
-  .room-category-row{
+  .room-category-row {
     height: 46px;
     position: sticky;
     left: 0;
@@ -97,10 +106,26 @@
 
   }
 
+  .category,
+  .room-category{
+    display: flex;
+    align-items: stretch;
+    justify-content: stretch;
+    background-color: var(--bg-main);
+    &-inner{
+      @include border;
+      flex: 1;
+      padding: 8px 32px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+  }
+
 
   .cells,
-  .orders,
-  .reserves{
+  .services,
+  .reserves {
     display: grid;
     grid-auto-flow: column;
     grid-auto-columns: var(--b-cell-wz);
@@ -108,93 +133,106 @@
     grid-column-gap: var(--bgap);
   }
 
-  .orders,
-  .reserves{
+
+  .services,
+  .reserves {
     position: absolute;
     left: 0;
     right: 0;
     top: 0;
     bottom: 0;
+    pointer-events: none;
   }
 
   .cell,
-  .order,
-  .reserve{
+  .service,
+  .reserve {
+    position: relative;
     border: 1px solid var(--b-boarder-color);
     border-radius: var(--b-rad);
+    pointer-events: all;
   }
 
-  .order.service{
+  .service {
+    border: none;
     background-color: var(--bg-sw);
+    z-index: 13;
   }
 
-  .cell{
+  .cell {
+    @include border;
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
   .category,
-  .room-category{
+  .room-category {
     background-color: var(--bg-main);
     font-weight: 600;
     z-index: 12;
   }
 
   .category-row,
-  .room-category-row{
+  .room-category-row {
     overflow: hidden;
   }
 
-
-  .border{
-    border: 1px solid var(--b-boarder-color);
-    border-radius: var(--b-rad);
-  }
-
-  .order-booking{
+  .order-booking {
+    position: relative;
+    left: 2px;
+    top: 2px;
+    width: calc(100% - 5px);
+    height: calc(100% - 5px);
     display: flex;
     flex-wrap: wrap;
     gap: 2rem;
-    padding: 4px;
-    max-height: 100%;
+    padding: 0 4px;
     overflow: hidden;
     background-color: var(--bg-v1);
     border-radius: var(--br-main);
     z-index: 12;
   }
 
-  .order-booking:hover{
-    max-height: 300px;
-  }
 
-  .booking{
-    &-item{
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
+  .booking {
+    &-item {
     }
 
-    &-stat{
+    &-stat {
+      flex: 1;
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 1rem;
-    }
-
-    &-count{
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    &-price{
+      font-size: 0.5rem;
       font-weight: 600;
     }
 
-    &-person{
+    &-count {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    &-price {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
+      font-weight: 600;
+    }
+
+    &-price-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background-color: var(--text-main);
+    }
+
+    &-person {
       white-space: nowrap;
       text-overflow: ellipsis;
+      font-size: 0.75rem;
     }
   }
 
