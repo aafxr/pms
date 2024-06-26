@@ -1,3 +1,8 @@
+online версия
+
+https://main--astonishing-selkie-047c80.netlify.app/
+
+
 ### Установка:
 
 - git clone https://github.com/aafxr/pms.git
