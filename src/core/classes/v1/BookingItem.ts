@@ -1,4 +1,4 @@
-import {BookingType} from "../../types/BookingType";
+import {BookingTimeStrategyType} from "../../types/BookingTimeStrategyType";
 import {BookingStatus} from "../../types/BookingStatus";
 import {RoomType} from "./RoomType";
 import {Board} from "./Board";
@@ -31,7 +31,7 @@ export class BookingItem{
     /** Внешний ключ на сущность “Тариф”*/
     tariff_id: number
     /** Тип бронирования. Принимает одно из значений BookingItemType.*/
-    type: BookingType
+    type: BookingTimeStrategyType
     /** Тип полиморфной связи “Объект бронирования”. Указывает, на какую таблицу базы данных ссылается связь. Либо room, либо additional_object.*/
     object_type: null | string
     /** Внешний ключ полиморфной сущности “Объект бронирования”.*/

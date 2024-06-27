@@ -87,17 +87,19 @@
     grid-column-gap: var(--bgap);
 
 
-    &-month {
+    &-month,
+    &-day{
       @include border;
       display: flex;
       align-items: center;
       padding-left: 20px;
+      overflow: hidden;
 
       span {
         font-size: 1.125rem;
         font-weight: 600;
         position: sticky;
-        left: 210px;
+        left: 0;
         white-space: nowrap;
       }
     }
@@ -126,6 +128,19 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 600;
+      line-height: 1;
+    }
+  }
+
+  .category-row.hourly{
+    .cell{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: nowrap;
       font-size: 0.75rem;
       font-weight: 600;
       line-height: 1;

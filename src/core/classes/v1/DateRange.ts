@@ -1,37 +1,66 @@
+import {BookingTimeStrategyType} from "../../types/BookingTimeStrategyType";
+
 export class DateRange {
     private _date: Date
-    private _days: number
+    private _size: number
+    private _strategy: BookingTimeStrategyType
 
-    constructor(date: Date, days: number) {
+    constructor(date: Date, size: number, strategy: BookingTimeStrategyType = 'daily') {
         // date = new Date(date.getFullYear(),date.getMonth(),date.getDate(), 23,59,59,999)
         this._date = new Date(date)
-        this._days = days
+        this._size = size
+        this._strategy = strategy
     }
 
-    get start(){
+    get strategy() {
+        return this._strategy
+    }
+
+    set strategy(strategy: BookingTimeStrategyType) {
+        if(strategy === 'daily' || strategy === 'hourly') {
+            this._strategy = strategy
+        }
+    }
+
+    get start() {
         return new Date(this._date)
     }
 
-    get end(){
+    get end() {
+        return this.getStep(this._size)
+    }
+
+    getStep(idx: number) {
         const d = this.start
-        d.setDate(d.getDate() + this._days)
+        if (this._strategy === "daily") {
+            d.setDate(d.getDate() + idx)
+        } else {
+            const day = Math.floor(idx / 24)
+            const hours = idx % 24
+            d.setDate(d.getDate() + day)
+            d.setHours(d.getHours() + hours)
+        }
         return d
     }
 
 
-    getDate(idx: number): Date{
-        const d = this.start
-        d.setDate(d.getDate() + idx)
-        return d
+    getDate(idx: number): Date {
+        return this.getStep(idx)
     }
 
-    get size(){
-        return this._days
+    get size() {
+        return this._size
+    }
+
+    set size(s: number) {
+        if (s >= 0) {
+            this._size = s
+        }
     }
 
     get getMonths() {
         const result: { [key: string]: number } = {}
-        for (let i = 0; i < this._days; i++) {
+        for (let i = 0; i < this._size; i++) {
             const monthName = this.getDate(i).toLocaleDateString(navigator.language, {month: "long", year: "numeric"})
             if (result[monthName]) {
                 result[monthName] += 1
@@ -42,9 +71,33 @@ export class DateRange {
         return result
     }
 
-    isWeekend(idx: number){
+    get getDays(){
+        const result: { [key: string]: number } = {}
+        for (let i = 0; i < this._size; i++) {
+            const monthName = this.getDate(i).toLocaleDateString(navigator.language, {day: "numeric", month: "long"})
+            if (result[monthName]) {
+                result[monthName] += 1
+            } else {
+                result[monthName] = 1
+            }
+        }
+        return result
+    }
+
+    isWeekend(idx: number) {
         const day = this.getDate(idx).getDay()
         return day === 0 || day === 6;
+    }
+
+    [Symbol.iterator]() {
+        let idx = 0
+        return {
+            next: () => {
+                return idx === this._size
+                    ? {value: undefined, done: true}
+                    : {value: this.getStep(idx++), done: false}
+            }
+        }
     }
 }
 

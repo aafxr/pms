@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import React, {Fragment, useEffect, useRef, useState, WheelEvent, MouseEvent} from 'react';
 
 import {DateRange} from "../../core/classes/v1/DateRange";
@@ -13,9 +14,8 @@ import {Button} from "../buttons";
 import {Row} from "../flex";
 
 import './ChessBoard.scss'
-import {Simulate} from "react-dom/test-utils";
-import load = Simulate.load;
-import clsx from "clsx";
+import {useAppContext} from "../../contexts/AppContextProvider";
+import {BookingTimeStrategyType} from "../../core/types/BookingTimeStrategyType";
 
 
 export interface ChessBoardPropsType {
@@ -29,6 +29,13 @@ export interface ChessBoardPropsType {
     onRangeChange?: (range: DateRange) => unknown
 }
 
+let defaultStartDate = new Date()
+defaultStartDate = new Date(
+    defaultStartDate.getFullYear(),
+    defaultStartDate.getMonth(),
+    defaultStartDate.getDate()
+)
+
 
 export function ChessBoard({
                                board,
@@ -41,8 +48,17 @@ export function ChessBoard({
                                onRangeChange
                            }: ChessBoardPropsType) {
     const boardRef = useRef<HTMLDivElement>(null);
-    const [range, setRange] = useState<DateRange>(new DateRange(new Date(), 20))
+    const {appState, setAppState} = useAppContext()
+    const [range, setRange] = useState<DateRange>(new DateRange(defaultStartDate, 20, appState.timeStrategy))
 
+    const isDaily = appState.timeStrategy === 'daily'
+
+
+    useEffect(() => {
+        if(range.strategy !== appState.timeStrategy){
+            setRange(new DateRange(range.start, range.size, appState.timeStrategy))
+        }
+    }, [appState]);
 
 
     useEffect(() => {
@@ -63,9 +79,9 @@ export function ChessBoard({
             parseInt(cs.getPropertyValue('--b-cell-wz'))
             + parseInt(cs.getPropertyValue('--bgap'))
 
-        const cellsCount = Math.floor((b.offsetWidth - filter.offsetWidth) / width)
-        const d = new Date()
-        setRange(new DateRange(d, cellsCount))
+        const cellsCount = Math.floor((b.offsetWidth - filter.offsetWidth) / width) + 1
+        const d = range.start
+        setRange(new DateRange(d, cellsCount, range.strategy))
     }
 
 
@@ -75,13 +91,13 @@ export function ChessBoard({
         if( e.deltaY > 0){
             const d = range.getDate(k)
             if (d) {
-                r = new DateRange(d, range.size)
+                r = new DateRange(d, range.size, range.strategy)
             }
         } else{
             const d = range.start
             if (d) {
                 d.setDate(d.getDate() - k)
-                r = new DateRange(d, range.size)
+                r = new DateRange(d, range.size, range.strategy)
             }
         }
         if(r) {
@@ -91,22 +107,30 @@ export function ChessBoard({
     }
 
     function handleScroll(e: MouseEvent<HTMLDivElement>) {
-
+        e.stopPropagation()
+        e.preventDefault()
     }
 
 
     function handleClickToday(){
-        const r = new DateRange(new Date(), range.size)
+        const r = new DateRange(new Date(), range.size, range.strategy)
         setRange(r)
     }
 
     function handleMonthClick(){
         const s = range.start
         const d = new Date(s.getFullYear(), s.getMonth())
-        const r = new DateRange(d, range.size)
+        const r = new DateRange(d, range.size, range.strategy)
         setRange(r)
         onRangeChange?.(r)
     }
+
+
+    function handleTimeStrategyChange(st: BookingTimeStrategyType){
+        setAppState({...appState, timeStrategy: st})
+    }
+
+    console.log(range)
 
 
     return (
@@ -119,8 +143,20 @@ export function ChessBoard({
 
             <div className="filter">
                 <Row full>
-                    <Button variant={"cancel"} className="daily">Сутки</Button>
-                    <Button variant={"regular"} className="hourly">Час</Button>
+                    <Button
+                        variant={appState.timeStrategy === "daily" ? "cancel" : 'regular'}
+                        className="daily"
+                        onClick={() => handleTimeStrategyChange('daily')}
+                    >
+                        Сутки
+                    </Button>
+                    <Button
+                        variant={appState.timeStrategy === "hourly"? "cancel" : "regular"}
+                        className="hourly"
+                        onClick={() => handleTimeStrategyChange('hourly')}
+                    >
+                        Час
+                    </Button>
 
                 </Row>
                 <Row className='filter-date-select' full>
@@ -147,9 +183,15 @@ export function ChessBoard({
             </div>
 
             <div className="date">
-                {Object.entries(range.getMonths)
+                {appState.timeStrategy === "daily" && Object.entries(range.getMonths)
                     .map(([name, days]) => (
                         <div key={name} className='date-month' style={{gridColumn: `span ${days}`}}>
+                            <span>{name}</span>
+                        </div>
+                    ))}
+                {appState.timeStrategy === "hourly" && Object.entries(range.getDays)
+                    .map(([name, days]) => (
+                        <div key={name} className='date-day' style={{gridColumn: `span ${days}`}}>
                             <span>{name}</span>
                         </div>
                     ))}
@@ -158,7 +200,9 @@ export function ChessBoard({
             <div className="category">
                 <div className='category-inner'>Категории</div>
             </div>
-            <div className="category-row daily">
+            <div
+                className={clsx("category-row", appState.timeStrategy)}
+            >
                 <div className="cells">
                     {Array.from({length: range.size})
                         .map((_, i) => (
@@ -166,8 +210,17 @@ export function ChessBoard({
                                 key={range.getDate(i)?.getTime() || i}
                                 className={clsx("cell", {weekend: range.isWeekend(i)})}
                             >
-                                <span>{range.getDate(i)?.getDate()}</span>
-                                <span>{range.getDate(i)?.toLocaleDateString(navigator.language, {weekday: 'short'})}</span>
+                                {
+                                    isDaily
+                                        ? (
+                                            <>
+                                                <span>{range.getDate(i).getDate()}</span>
+                                                <span>{range.getDate(i).toLocaleDateString(navigator.language, {weekday: 'short'})}</span>
+                                            </>
+                                        ) : <span>{range.getDate(i).toLocaleTimeString(navigator.language, {hour: "numeric", minute: 'numeric'})}</span>
+
+                                }
+
                             </div>
                         ))
                     }

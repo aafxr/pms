@@ -74,6 +74,42 @@ export class Board {
         return b
     }
 
+
+    merge(b:Board){
+        Array.from(b.persons.values())
+            .forEach(el => new Person(this, el))
+
+        Array.from(b.bookingItems.values())
+            .forEach(el => new BookingItem(this, el))
+
+        Array.from(b.booking.values())
+            .forEach(el => new Booking(this, el))
+
+        Array.from(b.properties.values())
+            .forEach(el => new Property(this, el))
+
+        Array.from(b.roomTypes.values())
+            .forEach(el => new RoomType(this, el))
+
+        Array.from(b.beds.values())
+            .forEach(el => new Bed(this, el))
+
+        Array.from(b.rooms.values())
+            .forEach(el => new Room(this, el))
+
+        Array.from(b.bedTypes.values())
+            .forEach(el => new BedDesc(this, el))
+
+        Array.from(b.blocking.values())
+            .forEach(els =>
+                els.forEach(el => new RoomBlockPeriod(this, el))
+            )
+
+        this.pagination = new Pagination(b.pagination)
+
+        return this
+    }
+
     get pagination(){
         return this._pagination
     }
