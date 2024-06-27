@@ -31,11 +31,13 @@ export class DateRange {
     }
 
     getStep(idx: number) {
+        // if(idx < 0 ) debugger
         const d = this.start
         if (this._strategy === "daily") {
             d.setDate(d.getDate() + idx)
         } else {
-            const day = Math.floor(idx / 24)
+            let day = Math.floor(idx / 24)
+            if(idx < 0) day += 1
             const hours = idx % 24
             d.setDate(d.getDate() + day)
             d.setHours(d.getHours() + hours)

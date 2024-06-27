@@ -1,5 +1,6 @@
 import React, {MouseEvent} from 'react';
 
+import {BookingTimeStrategyType} from "../../core/types/BookingTimeStrategyType";
 import {BookingItem} from "../../core/classes/v1/BookingItem";
 import {DateRange} from "../../core/classes/v1/DateRange";
 import {Room} from "../../core/classes/v1/Room";
@@ -8,11 +9,12 @@ import {HumanIcon} from '../svg'
 export type OrdersComponentPropsType = {
     room: Room
     range: DateRange
+    strategy: BookingTimeStrategyType
     onOrderClick?: (b: BookingItem) => unknown
 }
 
-export function OrdersComponent({room, range, onOrderClick}: OrdersComponentPropsType) {
-    const bl = room.getBookingOffset(range.start)
+export function OrdersComponent({room, range,strategy, onOrderClick}: OrdersComponentPropsType) {
+    const bl = room.getBookingOffset(range.start, strategy)
 
 
     function handleOrderClick(e: MouseEvent<HTMLDivElement>, b: BookingItem){

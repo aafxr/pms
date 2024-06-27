@@ -1,6 +1,7 @@
 import {Board} from "./Board";
 import {BookingItem} from "./BookingItem";
 import {RoomBlockPeriod} from "./RoomBlockPeriod";
+import {BookingTimeStrategyType} from "../../types/BookingTimeStrategyType";
 
 export class Room {
     id: number
@@ -49,14 +50,20 @@ export class Room {
             .filter(b=> b.object_id === this.id)
     }
 
-    getBookingOffset(date: Date){
+    getBookingOffset(date: Date, strategy: BookingTimeStrategyType){
         return this.booking.reduce<Array<{ span: number, offset: number, bocking: BookingItem }>>((acc, b, i) => {
             if(b.checked_out_at.getTime() < date.getTime()) return acc
 
-            let span = Math.ceil((b.checked_out_at.getTime() - date.getTime())/ 86_400_000)//b.daysCount
+            const isHourly = strategy === 'hourly'
+            const divider = !isHourly ? 86_400_000 : 3_600_000
+
+            let span = Math.ceil((b.checked_out_at.getTime() - date.getTime())/ divider)//b.daysCount
+            // if(isHourly) span %= 24
             span = Math.min(span, b.daysCount)
+
             if(span > 0){
-                let offset = Math.ceil((b.checked_in_at.getTime() - date.getTime()) / 86_400_000)
+                let offset = Math.ceil((b.checked_in_at.getTime() - date.getTime()) / divider)
+                // if(isHourly) offset %= 24
                 offset = Math.max(1, offset)
                 acc.push({offset, span, bocking: b})
             }
@@ -64,19 +71,23 @@ export class Room {
         }, []) || []
     }
 
-    getBlockingPeriods(date: Date){
+    getBlockingPeriods(date: Date, strategy: BookingTimeStrategyType){
         return this.blocking?.reduce<Array<{ span: number, offset: number, blocking: RoomBlockPeriod }>>((acc, rb, i) => {
             if(rb.to.getTime() < date.getTime()) return acc
+            const isHourly = strategy === 'hourly'
+            const divider = !isHourly ? 86_400_000 : 3_600_000
 
-            let span = Math.ceil((rb.to.getTime() - date.getTime())/ 86_400_000)
+            let span = Math.ceil((rb.to.getTime() - date.getTime())/ divider)
+            // if(isHourly) span %= 24
             span = Math.min(span, rb.blockDays)
+
             if(span > 0) {
-                let offset = Math.ceil((rb.from.getTime() - date.getTime()) / 86_400_000)
+                let offset = Math.ceil((rb.from.getTime() - date.getTime()) / divider)
+                // if(isHourly) offset %= 24
                 offset = Math.max(1, offset)
                 acc.push({offset, span, blocking: rb})
             }
             return acc
         }, []) || []
-
     }
 }

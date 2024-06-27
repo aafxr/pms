@@ -21,11 +21,11 @@ import {Property} from "../../core/classes/v1/Property";
 import {Board} from "../../core/classes/v1/Board";
 import {ChessBoard} from "../../components/Board";
 
+import {useAppContext} from "../../contexts/AppContextProvider";
 import {FetchRoomsRequestParams} from "../../api/fetchRooms";
 import {DateRange} from "../../core/classes/v1/DateRange";
 
 import './Main.css'
-import {useAppContext} from "../../contexts/AppContextProvider";
 
 let defaultStartDate = new Date()
 defaultStartDate = new Date(
@@ -45,7 +45,7 @@ export function Main() {
     const [query, setQuery] = useState<FetchRoomsRequestParams>({
         end_date: range.end,
         start_date: range.start,
-        per_page: 10,
+        per_page: 8,
         page: 1,
         daily: "daily"
     })
@@ -102,7 +102,7 @@ export function Main() {
         const {time_from, time_to} = appState
 
         if(s.getTime() < time_from.getTime()){
-            const r = new DateRange(range.getDate(-range.size), range.size)
+            const r = new DateRange(range.getDate(-range.size), range.size, appState.timeStrategy)
             setAppState({...appState, time_from: r.start})
             setRange(r)
             setQuery({...query, start_date: r.start, end_date: r.end})
@@ -110,7 +110,7 @@ export function Main() {
         }
 
         if(time_to.getTime() < e.getTime()){
-            const r = new DateRange(range.getDate(range.size), range.size)
+            const r = new DateRange(range.getDate(range.size), range.size, appState.timeStrategy)
             setAppState({...appState, time_to: r.end})
             setRange(r)
             setQuery({...query, start_date: r.start, end_date: r.end})
