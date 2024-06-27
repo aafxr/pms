@@ -62,7 +62,7 @@ export class Room {
             span = Math.min(span, coef)
 
             if (span > 0) {
-                let offset = Math.ceil((b.checked_in_at.getTime() - date.getTime()) / divider)
+                let offset = Math.ceil(((b.checked_in_at.getTime() - date.getTime()) || 1) / divider)
                 offset = Math.max(1, offset)
                 acc.push({offset, span, bocking: b})
             }
@@ -85,7 +85,7 @@ export class Room {
             span = Math.min(span, coef)
 
             if (span > 0) {
-                let offset = Math.ceil((rb.from.getTime() - date.getTime()) / divider)
+                let offset = Math.ceil(((rb.from.getTime() - date.getTime()) || 1) / divider)
                 offset = Math.max(1, offset)
                 acc.push({offset, span, blocking: rb})
             }

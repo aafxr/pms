@@ -60,7 +60,7 @@ export class DateRange {
         }
     }
 
-    get getMonths() {
+    getMonths() {
         const result: { [key: string]: number } = {}
         for (let i = 0; i < this._size; i++) {
             const monthName = this.getDate(i).toLocaleDateString(navigator.language, {month: "long", year: "numeric"})
@@ -73,7 +73,7 @@ export class DateRange {
         return result
     }
 
-    get getDays(){
+    getDays(){
         const result: { [key: string]: number } = {}
         for (let i = 0; i < this._size; i++) {
             const monthName = this.getDate(i).toLocaleDateString(navigator.language, {day: "numeric", month: "long"})

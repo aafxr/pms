@@ -50,7 +50,7 @@ export function ChessBoard({
                                onTimeStrategyChange
                            }: ChessBoardPropsType) {
     const boardRef = useRef<HTMLDivElement>(null);
-    const [range, setRange] = useState<DateRange>(() => new DateRange(defaultStartDate, 20, strategy))
+    const [range, setRange] = useState<DateRange>(() => new DateRange(defaultStartDate, 1, strategy))
 
     const isDaily = strategy === 'daily'
 
@@ -173,13 +173,13 @@ export function ChessBoard({
             </div>
 
             <div className="date">
-                {strategy === "daily" && Object.entries(range.getMonths)
+                {strategy === "daily" && Object.entries(range.getMonths())
                     .map(([name, days]) => (
                         <div key={name} className='date-month' style={{gridColumn: `span ${days}`}}>
                             <span>{name}</span>
                         </div>
                     ))}
-                {strategy === "hourly" && Object.entries(range.getDays)
+                {strategy === "hourly" && Object.entries(range.getDays())
                     .map(([name, days]) => (
                         <div key={name} className='date-day' style={{gridColumn: `span ${days}`}}>
                             <span>{name}</span>
