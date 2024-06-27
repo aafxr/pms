@@ -38,32 +38,31 @@ export class Room {
         return !!this.blocking?.some(b => b.from.getTime() <= d.getTime() && d.getTime() <= b.to.getTime())
     }
 
-    isBlockDay(d:Date){
-        const check = (date : Date) =>{
+    isBlockDay(d: Date) {
+        const check = (date: Date) => {
             return date.getFullYear() === d.getFullYear() && date.getMonth() === d.getMonth() && date.getDate() === d.getDate()
         }
         return this.blocking?.filter(b => check(b.from) || check(b.to)) || []
     }
 
-    get booking(){
+    get booking() {
         return Array.from(this._board.bookingItems.values())
-            .filter(b=> b.object_id === this.id)
+            .filter(b => b.object_id === this.id)
     }
 
-    getBookingOffset(date: Date, strategy: BookingTimeStrategyType){
+    getBookingOffset(date: Date, strategy: BookingTimeStrategyType) {
         return this.booking.reduce<Array<{ span: number, offset: number, bocking: BookingItem }>>((acc, b, i) => {
-            if(b.checked_out_at.getTime() < date.getTime()) return acc
+            if (b.checked_out_at.getTime() < date.getTime()) return acc
 
             const isHourly = strategy === 'hourly'
             const divider = !isHourly ? 86_400_000 : 3_600_000
 
-            let span = Math.ceil((b.checked_out_at.getTime() - date.getTime())/ divider)//b.daysCount
-            // if(isHourly) span %= 24
-            span = Math.min(span, b.daysCount)
+            let span = Math.ceil((b.checked_out_at.getTime() - date.getTime()) / divider)//b.daysCount
+            const coef = isHourly ? b.daysCount * 24 : b.daysCount
+            span = Math.min(span, coef)
 
-            if(span > 0){
+            if (span > 0) {
                 let offset = Math.ceil((b.checked_in_at.getTime() - date.getTime()) / divider)
-                // if(isHourly) offset %= 24
                 offset = Math.max(1, offset)
                 acc.push({offset, span, bocking: b})
             }
@@ -71,19 +70,22 @@ export class Room {
         }, []) || []
     }
 
-    getBlockingPeriods(date: Date, strategy: BookingTimeStrategyType){
-        return this.blocking?.reduce<Array<{ span: number, offset: number, blocking: RoomBlockPeriod }>>((acc, rb, i) => {
-            if(rb.to.getTime() < date.getTime()) return acc
+    getBlockingPeriods(date: Date, strategy: BookingTimeStrategyType) {
+        return this.blocking?.reduce<Array<{
+            span: number,
+            offset: number,
+            blocking: RoomBlockPeriod
+        }>>((acc, rb, i) => {
+            if (rb.to.getTime() < date.getTime()) return acc
             const isHourly = strategy === 'hourly'
             const divider = !isHourly ? 86_400_000 : 3_600_000
 
-            let span = Math.ceil((rb.to.getTime() - date.getTime())/ divider)
-            // if(isHourly) span %= 24
-            span = Math.min(span, rb.blockDays)
+            let span = Math.ceil((rb.to.getTime() - date.getTime()) / divider)
+            const coef = isHourly ? rb.blockDays * 24 : rb.blockDays
+            span = Math.min(span, coef)
 
-            if(span > 0) {
+            if (span > 0) {
                 let offset = Math.ceil((rb.from.getTime() - date.getTime()) / divider)
-                // if(isHourly) offset %= 24
                 offset = Math.max(1, offset)
                 acc.push({offset, span, blocking: rb})
             }

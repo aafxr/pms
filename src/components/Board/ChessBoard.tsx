@@ -1,32 +1,32 @@
 import clsx from "clsx";
-import React, {Fragment, useEffect, useRef, useState, WheelEvent, MouseEvent} from 'react';
+import React, {useEffect, useRef, useState, WheelEvent, MouseEvent} from 'react';
 
 import {DateRange} from "../../core/classes/v1/DateRange";
 import {Property} from "../../core/classes/v1/Property";
 import {Board} from "../../core/classes/v1/Board";
 
+import {BookingTimeStrategyType} from "../../core/types/BookingTimeStrategyType";
 import {RoomBlockPeriod} from "../../core/classes/v1/RoomBlockPeriod";
+import {BoardRoomTypeComponent} from "./BoardRoomTypeComponent";
 import {BookingItem} from "../../core/classes/v1/BookingItem";
 import NavButtons from "../buttons/NavButtons/NavButtons";
-import {BlockingComponent} from "./BlockingComponent";
-import {OrdersComponent} from "./OrdersComponent";
 import {Button} from "../buttons";
 import {Row} from "../flex";
 
 import './ChessBoard.scss'
-import {useAppContext} from "../../contexts/AppContextProvider";
-import {BookingTimeStrategyType} from "../../core/types/BookingTimeStrategyType";
 
 
 export interface ChessBoardPropsType {
     board: Board
     property: Property
+    strategy: BookingTimeStrategyType
     onBookingItemClick?: (b: BookingItem) => unknown
     onCellClick?: (date: Date) => unknown
     onBlockingClick?: (b: RoomBlockPeriod) => unknown
     onPrev?: () => unknown
     onNext?: () => unknown
     onRangeChange?: (range: DateRange) => unknown
+    onTimeStrategyChange?: (s: BookingTimeStrategyType) => unknown
 }
 
 let defaultStartDate = new Date()
@@ -40,25 +40,26 @@ defaultStartDate = new Date(
 export function ChessBoard({
                                board,
                                property,
+                               strategy,
                                onBlockingClick,
                                onCellClick,
                                onBookingItemClick,
                                onPrev,
                                onNext,
-                               onRangeChange
+                               onRangeChange,
+                               onTimeStrategyChange
                            }: ChessBoardPropsType) {
     const boardRef = useRef<HTMLDivElement>(null);
-    const {appState, setAppState} = useAppContext()
-    const [range, setRange] = useState<DateRange>(() => new DateRange(defaultStartDate, 20, appState.timeStrategy))
+    const [range, setRange] = useState<DateRange>(() => new DateRange(defaultStartDate, 20, strategy))
 
-    const isDaily = appState.timeStrategy === 'daily'
+    const isDaily = strategy === 'daily'
 
 
     useEffect(() => {
-        if (range.strategy !== appState.timeStrategy) {
-            setRange(new DateRange(range.start, range.size, appState.timeStrategy))
+        if (range.strategy !== strategy) {
+            setRange(new DateRange(range.start, range.size, strategy))
         }
-    }, [appState]);
+    }, [strategy]);
 
 
     useEffect(() => {
@@ -119,7 +120,7 @@ export function ChessBoard({
 
 
     function handleTimeStrategyChange(st: BookingTimeStrategyType) {
-        setAppState({...appState, timeStrategy: st})
+        onTimeStrategyChange?.(st)
     }
 
 
@@ -133,14 +134,14 @@ export function ChessBoard({
             <div className="filter">
                 <Row full>
                     <Button
-                        variant={appState.timeStrategy === "daily" ? "cancel" : 'regular'}
+                        variant={strategy === "daily" ? "cancel" : 'regular'}
                         className="daily"
                         onClick={() => handleTimeStrategyChange('daily')}
                     >
                         Сутки
                     </Button>
                     <Button
-                        variant={appState.timeStrategy === "hourly" ? "cancel" : "regular"}
+                        variant={strategy === "hourly" ? "cancel" : "regular"}
                         className="hourly"
                         onClick={() => handleTimeStrategyChange('hourly')}
                     >
@@ -172,13 +173,13 @@ export function ChessBoard({
             </div>
 
             <div className="date">
-                {appState.timeStrategy === "daily" && Object.entries(range.getMonths)
+                {strategy === "daily" && Object.entries(range.getMonths)
                     .map(([name, days]) => (
                         <div key={name} className='date-month' style={{gridColumn: `span ${days}`}}>
                             <span>{name}</span>
                         </div>
                     ))}
-                {appState.timeStrategy === "hourly" && Object.entries(range.getDays)
+                {strategy === "hourly" && Object.entries(range.getDays)
                     .map(([name, days]) => (
                         <div key={name} className='date-day' style={{gridColumn: `span ${days}`}}>
                             <span>{name}</span>
@@ -190,7 +191,7 @@ export function ChessBoard({
                 <div className='category-inner'>Категории</div>
             </div>
             <div
-                className={clsx("category-row", appState.timeStrategy)}
+                className={clsx("category-row", strategy)}
             >
                 <div className="cells">
                     {Array.from({length: range.size})
@@ -219,70 +220,16 @@ export function ChessBoard({
 
             {property.getRoomTypes()
                 .map(rt => (
-                    <Fragment key={rt.id}>
-
-                        <div className="category">
-                            <div className='category-inner' title={rt.name}>{rt.name}</div>
-                        </div>
-                        <div className="category-row">
-                            <div className="cells">
-                                {Array.from({length: range.size})
-                                    .map((_, i) => (
-                                        <div
-                                            key={range.getDate(i)?.getTime() || i}
-                                            className={clsx("cell", {weekend: range.isWeekend(i)})}
-                                        >
-                                            {property.getRoomsByCategory(rt.id).length}
-                                        </div>
-                                    ))
-                                }
-                            </div>
-                        </div>
-
-                        {property.getRoomsByCategory(rt.id)
-                            .map(r => (
-                                <Fragment key={r.id}>
-                                    <div className="room-category">
-                                        <div className='room-category-inner' title={`${r.name}, room_id: ${r.id}`}>
-                                            <div>{r.name}</div>
-                                            <div>{r.id}</div>
-                                        </div>
-                                    </div>
-                                    <div className="room-category-row">
-                                        <div className="cells">
-                                            {Array.from({length: range.size})
-                                                .map((_, i) => (
-                                                    <div
-                                                        key={range.getDate(i)?.getTime() || i}
-                                                        className={clsx("cell", {weekend: range.isWeekend(i)})}
-                                                        onClick={() => onCellClick?.(range.getDate(i)!)}
-                                                    />
-                                                ))
-                                            }
-                                        </div>
-                                        <div className='services'>
-                                            <BlockingComponent
-                                                key={r.id}
-                                                room={r}
-                                                range={range}
-                                                strategy={appState.timeStrategy}
-                                                onRoomBlockingClick={onBlockingClick}
-                                            />
-                                        </div>
-                                        <div className='reserves'>
-                                            <OrdersComponent
-                                                key={r.id}
-                                                room={r}
-                                                range={range}
-                                                strategy={appState.timeStrategy}
-                                                onOrderClick={onBookingItemClick}
-                                            />
-                                        </div>
-                                    </div>
-                                </Fragment>
-                            ))
-                        }
-                    </Fragment>
+                    <BoardRoomTypeComponent
+                        key={rt.id}
+                        strategy={strategy}
+                        range={range}
+                        property={property}
+                        roomType={rt}
+                        onRoomBlockingClick={onBlockingClick}
+                        onOrderClick={onBookingItemClick}
+                        onCellClick={onCellClick}
+                    />
                 ))
             }
             <NavButtons onPrev={onPrev} onNext={onNext}/>

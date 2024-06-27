@@ -162,19 +162,37 @@
   .category,
   .room-category{
     display: flex;
-    align-items: stretch;
     justify-content: stretch;
+    align-items: stretch;
     background-color: var(--bg-main);
-    overflow-y: scroll;
     &-inner{
       @include border;
       width: 100%;
-      flex: 1;
-      padding: 0 32px;
+      padding: 12px 8px;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
       white-space: nowrap;
       text-overflow: ellipsis;
       overflow: hidden;
+
+      .open{
+
+      }
     }
+  }
+
+  .category-image{
+    flex: none;
+    display: inline-block;
+    transform: rotate(0deg);
+    transition: var(--tr-time) ease;
+    //transform-origin: center;
+  }
+
+  .category-image.open{
+    transform: rotate(-180deg);
   }
 
 

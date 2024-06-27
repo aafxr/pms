@@ -12,18 +12,17 @@ import {
     Wrapper
 } from "../../components";
 
-import NavButtons from "../../components/buttons/NavButtons/NavButtons";
-import {PrintIcon} from "../../components/svg";
-import {Row} from "../../components/flex";
 
+import {BookingTimeStrategyType} from "../../core/types/BookingTimeStrategyType";
 import {PropertiesService} from "../../core/classes/services/PropertiesService";
-import {Property} from "../../core/classes/v1/Property";
-import {Board} from "../../core/classes/v1/Board";
-import {ChessBoard} from "../../components/Board";
-
 import {useAppContext} from "../../contexts/AppContextProvider";
 import {FetchRoomsRequestParams} from "../../api/fetchRooms";
 import {DateRange} from "../../core/classes/v1/DateRange";
+import {Property} from "../../core/classes/v1/Property";
+import {Board} from "../../core/classes/v1/Board";
+import {ChessBoard} from "../../components/Board";
+import {PrintIcon} from "../../components/svg";
+import {Row} from "../../components/flex";
 
 import './Main.css'
 
@@ -45,7 +44,7 @@ export function Main() {
     const [query, setQuery] = useState<FetchRoomsRequestParams>({
         end_date: range.end,
         start_date: range.start,
-        per_page: 8,
+        per_page: 1500,
         page: 1,
         daily: "daily"
     })
@@ -60,7 +59,7 @@ export function Main() {
         PropertiesService.getProperties(query)
             .then(b => {
                 if (b) {
-                    if(!board) {
+                    if (!board) {
                         const p = b.properties.values().next().value
                         // @ts-ignore
                         window.property = b.properties.get(1)
@@ -68,7 +67,7 @@ export function Main() {
                         window.board = b
                         setBoard(b)
                         if (p) setProperty(p)
-                    } else{
+                    } else {
                         board.merge(b)
                         setBoard(board)
                     }
@@ -78,30 +77,30 @@ export function Main() {
     }, [query]);
 
 
-    function handleNextButtonClick(){
-        if(!board) return
-        if(Number(query.page) >= board.pagination.last_page) return
+    function handleNextButtonClick() {
+        if (!board) return
+        if (Number(query.page) >= board.pagination.last_page) return
         const q = {...query}
         q.page = (q.page || 1) + 1
         setQuery(q)
     }
 
-    function handlePrevButtonClick(){
-        if(!board) return
-        if(Number(query.page) <= 1) return
+    function handlePrevButtonClick() {
+        if (!board) return
+        if (Number(query.page) <= 1) return
         const q = {...query}
         q.page = (q.page || 1) - 1
         setQuery(q)
     }
 
 
-    function handleBoardRangeChange(r: DateRange){
+    function handleBoardRangeChange(r: DateRange) {
         const s = r.start
         const e = r.end
 
         const {time_from, time_to} = appState
 
-        if(s.getTime() < time_from.getTime()){
+        if (s.getTime() < time_from.getTime()) {
             const r = new DateRange(range.getDate(-range.size), range.size, appState.timeStrategy)
             setAppState({...appState, time_from: r.start})
             setRange(r)
@@ -109,7 +108,7 @@ export function Main() {
             return
         }
 
-        if(time_to.getTime() < e.getTime()){
+        if (time_to.getTime() < e.getTime()) {
             const r = new DateRange(range.getDate(range.size), range.size, appState.timeStrategy)
             setAppState({...appState, time_to: r.end})
             setRange(r)
@@ -121,12 +120,17 @@ export function Main() {
     }
 
 
+    function handleTimeStrategyChange(s: BookingTimeStrategyType) {
+        setAppState({...appState, timeStrategy: s})
+    }
+
+
     return (
         <Wrapper className='main'>
             <Wrapper.Header>
                 <Header/>
             </Wrapper.Header>
-            <Wrapper.Content>
+            <Wrapper.Footer>
                 <Container>
                     <Blank className='options-panel'>
                         <Row justify='between' full>
@@ -167,19 +171,17 @@ export function Main() {
                         <ChessBoard
                             board={board}
                             property={property}
+                            strategy={appState.timeStrategy}
                             onBlockingClick={console.log}
                             onBookingItemClick={console.log}
                             onCellClick={console.log}
                             onNext={handleNextButtonClick}
                             onPrev={handlePrevButtonClick}
                             onRangeChange={handleBoardRangeChange}
+                            onTimeStrategyChange={handleTimeStrategyChange}
                         />}
-                    {/*<Board2*/}
-                    {/*    onScrollToLeftSide={() => console.log('left')}*/}
-                    {/*    onScrollToRightSide={() => console.log('right')}*/}
-                    {/*/>*/}
                 </Container>
-            </Wrapper.Content>
+            </Wrapper.Footer>
             <Wrapper.Footer>
             </Wrapper.Footer>
         </Wrapper>
