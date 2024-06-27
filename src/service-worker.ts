@@ -12,7 +12,7 @@ import { clientsClaim } from 'workbox-core';
 import { ExpirationPlugin } from 'workbox-expiration';
 import { precacheAndRoute, createHandlerBoundToURL } from 'workbox-precaching';
 import { registerRoute } from 'workbox-routing';
-import { StaleWhileRevalidate } from 'workbox-strategies';
+import {NetworkFirst, NetworkOnly, StaleWhileRevalidate} from 'workbox-strategies';
 
 declare const self: ServiceWorkerGlobalScope;
 
@@ -68,6 +68,12 @@ registerRoute(
     ],
   })
 );
+
+
+registerRoute(
+    ({url}) => url.pathname.startsWith('/api/'),
+    new NetworkFirst({cacheName: "api-requests"})
+)
 
 // This allows the web app to trigger skipWaiting via
 // registration.waiting.postMessage({type: 'SKIP_WAITING'})
