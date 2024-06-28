@@ -254,6 +254,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: var(--bg-main);
   }
 
   .cell.weekend{
@@ -265,6 +266,13 @@
     background-color: var(--bg-main);
     font-weight: 600;
     z-index: 12;
+  }
+  
+  .category-main,
+  .category-row-main{
+    position: sticky;
+    top: calc(var(--b-cell-wz) * 2 + var(--bgap) * 2);
+    z-index: 20;
   }
 
   .room-category{

@@ -99,7 +99,7 @@ export function ChessBoard({
         return () => {
             window.removeEventListener('resize', calcDateRange)
         }
-    }, [range]);
+    }, []);
 
 
     function calcDateRange() {
@@ -122,7 +122,6 @@ export function ChessBoard({
     function handleWheel(e: WheelEvent<HTMLDivElement>) {
         e.stopPropagation()
         const {shiftKey} = e
-        console.log(e)
 
         if(shiftKey) return
 
@@ -287,11 +286,11 @@ export function ChessBoard({
                             ))}
                     </div>
 
-                    <div className="category">
+                    <div className="category category-main">
                         <div className='category-inner'>Категории</div>
                     </div>
                     <div
-                        className={clsx("category-row", strategy)}
+                        className={clsx("category-row category-row-main", strategy)}
                     >
                         <div className="cells">
                             {Array.from({length: range.size})

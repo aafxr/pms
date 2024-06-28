@@ -130,7 +130,7 @@ export function Main() {
             <Wrapper.Header>
                 <Header/>
             </Wrapper.Header>
-            <Wrapper.Footer>
+            <Wrapper.Content>
                 <Container>
                     <Blank className='options-panel'>
                         <Row justify='between' full>
@@ -181,7 +181,7 @@ export function Main() {
                             onTimeStrategyChange={handleTimeStrategyChange}
                         />}
                 </Container>
-            </Wrapper.Footer>
+            </Wrapper.Content>
             <Wrapper.Footer>
             </Wrapper.Footer>
         </Wrapper>
