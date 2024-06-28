@@ -113,7 +113,7 @@ export function ChessBoard({
             parseInt(cs.getPropertyValue('--b-cell-wz'))
             + parseInt(cs.getPropertyValue('--bgap'))
 
-        const cellsCount = Math.floor((b.offsetWidth - filter.offsetWidth) / width)
+        const cellsCount = Math.ceil((b.offsetWidth - filter.offsetWidth) / width)
         const d = range.start
         setRange(new DateRange(d, cellsCount, range.strategy))
     }

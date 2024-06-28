@@ -15,7 +15,8 @@
 
   .board-container{
     position: relative;
-    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
   }
 
   .board-inner{
