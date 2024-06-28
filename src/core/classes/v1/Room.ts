@@ -46,8 +46,7 @@ export class Room {
     }
 
     get booking() {
-        return Array.from(this._board.bookingItems.values())
-            .filter(b => b.object_id === this.id)
+        return Array.from(this._board.roomBookings.get(this.id)?.values() || [])
     }
 
     getBookingOffset(date: Date, strategy: BookingTimeStrategyType) {

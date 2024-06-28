@@ -12,21 +12,28 @@
   --bgap: 4px;
   --b-rad: 8px;
 
-  position: relative;
-  display: grid;
-  grid-template-areas:
+
+  .board-container{
+    position: relative;
+    overflow: scroll;
+  }
+
+  .board-inner{
+    display: grid;
+    grid-template-areas:
         "filter property"
         "filter date";
 
-  grid-auto-columns: var(--b-category-sz) 1fr;
-  //grid-auto-rows: var(--b-subcategory-sz);
-  grid-gap: var(--bgap);
-  overflow-x: hidden;
+    grid-auto-columns: var(--b-category-sz) 1fr;
+    //grid-auto-rows: var(--b-subcategory-sz);
+    grid-gap: var(--bgap);
+  }
 
 
   .filter {
     position: sticky;
     left: 0;
+    top: 0;
     grid-area: filter;
     display: flex;
     flex-wrap: wrap;
@@ -34,7 +41,7 @@
     padding: 8px;
     background-color: var(--bg-v1);
     border-radius: var(--b-rad);
-    z-index: 5;
+    z-index: 21;
 
     .button {
       padding: 8px;
@@ -62,30 +69,39 @@
 
   .property {
     @include border;
-    padding: auto var(--offset-main);
+    position: sticky;
+    top: 0;
+    left: calc(var(--b-category-sz) + var(--bgap));
+    padding: 0 var(--offset-main);
     height: 56px;
     grid-area: property;
     display: flex;
     align-items: center;
+    background-color: var(--bg-main);
+    z-index: 20;
 
     span {
+      position: sticky;
+      left: calc(var(--b-category-sz) + var(--bgap));
       display: inline-block;
       grid-column: 1 / -1;
       font-size: 1.125rem;
       font-weight: 600;
-      position: sticky;
-      left: 210px;
     }
   }
 
   .date {
     height: 56px;
-    position: relative;
+    position: sticky;
+    top: calc(var(--b-cell-wz) + var(--bgap));
+    left: calc(var(--b-category-sz) + var(--bgap));
     grid-area: date;
     display: grid;
     grid-auto-flow: column;
     grid-auto-columns: var(--b-cell-wz);
     grid-column-gap: var(--bgap);
+    background-color: var(--bg-main);
+    z-index: 20;
 
 
     &-month,
@@ -241,7 +257,7 @@
   }
 
   .cell.weekend{
-    background-color: var(--bg-v1);
+    background-color: var(--bg-v5);
   }
 
   .category,

@@ -18,7 +18,9 @@ export class Board {
     beds: Map<Bed['id'], Bed>
     rooms: Map<Room['id'], Room>
     bedTypes: Map<BedDesc['id'], BedDesc>
+
     blocking: Map<RoomBlockPeriod['room_id'], RoomBlockPeriod[]>
+    roomBookings: Map<Room['id'], Map<BookingItem['id'], BookingItem>>
 
     private _pagination: Pagination
 
@@ -34,7 +36,28 @@ export class Board {
         this.blocking = new Map() //+
         this.beds = new Map() //+
 
+        this.roomBookings = new Map()
+
         this._pagination = new Pagination()
+    }
+
+
+    private _refreshRoomBookings(){
+        const itr = this.bookingItems.values()
+        let b = itr.next().value
+        while (b){
+            if(b.object_type === "room"){
+                if(!b._board.roomBookings.has(b.object_id as Room['id'])){
+                    b._board.roomBookings.set(b.object_id as Room['id'], new Map())
+                }
+                b._board.roomBookings.get(b.object_id as Room['id'])?.set(b.id, b)
+            }
+            b = itr.next().value
+        }
+    }
+
+    refresh(){
+        this._refreshRoomBookings()
     }
 
 
@@ -71,6 +94,8 @@ export class Board {
 
         b.pagination = new Pagination(this.pagination)
 
+            b.refresh()
+
         return b
     }
 
@@ -106,6 +131,8 @@ export class Board {
             )
 
         this.pagination = new Pagination(b.pagination)
+
+        this._refreshRoomBookings()
 
         return this
     }

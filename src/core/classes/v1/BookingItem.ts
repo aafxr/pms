@@ -3,6 +3,7 @@ import {BookingStatus} from "../../types/BookingStatus";
 import {RoomType} from "./RoomType";
 import {Board} from "./Board";
 import {Booking} from "./Booking";
+import {Room} from "./Room";
 
 /**
  * Таблица: booking_items
@@ -77,6 +78,13 @@ export class BookingItem{
         this._board = board
         this._board.bookingItems.set(this.id, this)
 
+        if(this.object_type === "room"){
+            if(!this._board.roomBookings.has(this.object_id as Room['id'])){
+                this._board.roomBookings.set(this.object_id as Room['id'], new Map())
+            }
+            this._board.roomBookings.get(this.object_id as Room['id'])?.set(this.id, this)
+        }
+
         const booking = b.booking
         if(booking) new Booking(board, booking)
 
@@ -101,4 +109,15 @@ export class BookingItem{
     get booking(){
         return this._board.booking.get(this.booking_id)
     }
+
+    get property(){
+        return this.roomType?.property
+    }
+
+    get room(){
+        if(this.object_type === "room"){
+            return this._board.rooms.get(this.object_id as Room['id'])
+        }
+    }
+
 }
