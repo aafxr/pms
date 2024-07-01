@@ -20,6 +20,11 @@ export class Room {
 
         this._board = b
         this._board.rooms.set(this.id, this)
+
+        if(!this._board.roomsByRoomType.has(this.room_type_id)){
+            this._board.roomsByRoomType.set(this.room_type_id, new Map())
+        }
+        this._board.roomsByRoomType.get(this.room_type_id)!.set(this.id, this)
     }
 
     get roomType() {

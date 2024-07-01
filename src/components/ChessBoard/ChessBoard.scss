@@ -1,0 +1,205 @@
+@mixin border{
+  border: 1px solid var(--chess-border-color);
+  border-radius: var(--chess-border-radius);
+}
+
+.chess{
+  --chess-height-1: 56px;
+  --chess-height-2: 46px;
+  --chess-cell-width: 56px;
+  --chess-category-width: 190px;
+  --chess-border-color: #999;
+  --chess-filter-color-bg: var(--chess-border-color);
+  --chess-border-radius: 8px;
+  --chess-gap: 4px;
+  --chess-cell-service-color-bg: #5d5d5d;
+  --chess-wickend-color-bg: #d9d9d9;
+  --chess-color-bg: #fff;
+
+
+  &-content{
+    padding-top: calc(var(--chess-height-1) * 3 + var(--chess-gap) * 2);
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  &-header{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    background-color: var(--chess-color-bg);
+
+  }
+
+  &-filter{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: var(--chess-category-width);
+    padding: 8px;
+    background-color: var(--chess-filter-color-bg);
+    border-radius: var(--chess-border-radius);
+  }
+
+  &-btn{
+    flex: 1;
+    padding: 13px 8px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border: none;
+    border-radius: var(--chess-border-radius);
+    background-color: transparent;
+    transition: 0.3s linear;
+    outline: none;
+  }
+
+  &-btn.active{
+    background-color: var(--chess-color-bg);
+  }
+
+  &-r1{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: stretch;
+  }
+
+  &-r2{
+    margin-top: var(--chess-gap);
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: stretch;
+    gap: var(--chess-gap);
+  }
+
+  .chess-btn.chess-day{
+    flex: 0 1;
+  }
+
+  &-main-info{
+    padding-left: calc(var(--chess-category-width) + var(--chess-gap));
+  }
+
+  &-property{
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    height: var(--chess-height-1);
+    font-size: 1.25rem;
+    font-weight: 600;
+    @include border;
+
+    span{
+      position: sticky;
+      left: 20px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
+
+  &-days{
+    margin-top: var(--chess-gap);
+    display: grid;
+    grid-auto-columns: var(--chess-cell-width);
+    grid-column-gap: var(--chess-gap);
+    grid-auto-flow: column;
+    font-size: 1.125rem;
+    font-weight: 600;
+
+  }
+
+  &-days-item{
+    @include border;
+    position: relative;
+    height: var(--chess-height-1);
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+
+    span{
+      position: sticky;
+      left: 20px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
+
+  &-legend{
+    position: relative;
+    margin-top: var(--chess-gap);
+    background-color: var(--chess-color-bg);
+  }
+
+  &-category-name{
+    @include border;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: var(--chess-height-1);
+    width: var(--chess-category-width);
+    font-weight: 600;
+  }
+
+  &-cells{
+    padding-left: calc(var(--chess-category-width) + var(--chess-gap));
+    display: grid;
+    grid-auto-columns: var(--chess-cell-width);
+    grid-column-gap: var(--chess-gap);
+    grid-auto-flow: column;
+    font-size: 1.125rem;
+    font-weight: 600;
+  }
+
+  &-cell{
+    @include border;
+    height: var(--chess-height-2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.875rem;
+  }
+
+  &-weekday{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    line-height: 1;
+    align-items: center;
+  }
+
+  &-cell-legend, &-cell-category{
+    height: var(--chess-height-1);
+  }
+
+  &-category{
+    position: relative;
+    margin-top: var(--chess-gap);
+  }
+
+  .chess-subcategories{
+    max-height: 0;
+    transition: max-height 0.3s linear;
+    overflow: hidden;
+  }
+
+
+  &-subcategory{
+    position: relative;
+    margin-top: var(--chess-gap);
+}
+
+  &-subcategory-name{
+    @include border;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: var(--chess-height-2);
+    width: var(--chess-category-width);
+    font-weight: 600;
+  }
+
+
+}

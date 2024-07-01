@@ -60,4 +60,8 @@ export class RoomType{
         }, {})
     }
 
+    get rooms(){
+        return Array.from(this._board.roomsByRoomType.get(this.id)?.values() || [])
+    }
+
 }

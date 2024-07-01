@@ -21,6 +21,7 @@ export class Board {
 
     blocking: Map<RoomBlockPeriod['room_id'], RoomBlockPeriod[]>
     roomBookings: Map<Room['id'], Map<BookingItem['id'], BookingItem>>
+    roomsByRoomType: Map<Room['room_type_id'], Map<Room['id'], Room>>
 
     private _pagination: Pagination
 
@@ -37,6 +38,7 @@ export class Board {
         this.beds = new Map() //+
 
         this.roomBookings = new Map()
+        this.roomsByRoomType = new Map()
 
         this._pagination = new Pagination()
     }
