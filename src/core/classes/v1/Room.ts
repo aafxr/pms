@@ -50,7 +50,7 @@ export class Room {
         return this.blocking?.filter(b => check(b.from) || check(b.to)) || []
     }
 
-    get booking() {
+    get booking(): BookingItem[] {
         return Array.from(this._board.roomBookings.get(this.id)?.values() || [])
     }
 

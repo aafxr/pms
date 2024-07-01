@@ -64,4 +64,10 @@ export class RoomType{
         return Array.from(this._board.roomsByRoomType.get(this.id)?.values() || [])
     }
 
+
+    getFreeRooms(d:Date){
+        const rooms = this.rooms
+        return rooms.reduce((acc, r) => r.isBlockDay(d).length > 0 ? acc - 1 : acc,rooms.length)
+    }
+
 }

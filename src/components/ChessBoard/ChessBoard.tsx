@@ -10,6 +10,8 @@ import {Board} from "../../core/classes/v1/Board";
 import {DayItems} from "./DayItems";
 
 import './ChessBoard.scss'
+import {ChessBoardLegend} from "./ChessBoardLegend";
+import {ChessBoardCategory} from "./ChessBoardCategory";
 
 
 export interface ChessBoardPropsType {
@@ -47,6 +49,8 @@ export function ChessBoard({
                                onTimeStrategyChange,
                            }: ChessBoardPropsType) {
     const boardContainerRef = useRef<HTMLDivElement>(null);
+
+    const [categoriesOpen, setCategoriesOpen] = useState(true)
 
     const [range, setRange] = useState<DateRange>(() => new DateRange(defaultStartDate, 1, strategy))
     const arr = new Array(range.size).fill(0)
@@ -123,39 +127,8 @@ export function ChessBoard({
     }
 
 
-    function handleCategoryClick(e: MouseEvent<HTMLDivElement>) {
-        const el = e.currentTarget
-        const subel = el.querySelector<HTMLDivElement>('.chess-subcategories')
-        if (!subel) return
-        subel.classList.toggle('open')
-        if (subel.classList.contains('open')) {
-            subel.style.maxHeight = subel.scrollHeight + 'px'
-        } else {
-            subel.style.maxHeight = '0'
-        }
-    }
-
-
-    function getDayItems(){
-
-    }
-
-
-    function getCellLegend(i: number) {
-        if (isDaily) {
-            return (
-                <div className='chess-weekday'>
-                    <span>{range.getDate(i).getDate()}</span>
-                    <span>{range.getDate(i).toLocaleDateString(navigator.language, {weekday: 'short'})}</span>
-                </div>
-            )
-        }
-        return (
-            <span>{range.getDate(i).toLocaleTimeString(navigator.language, {
-                hour: "numeric",
-                minute: 'numeric'
-            })}</span>
-        )
+    function handleCategoriesClick(val: boolean) {
+        setCategoriesOpen(val)
     }
 
 
@@ -198,44 +171,17 @@ export function ChessBoard({
                             <span>{property.name}</span>
                         </div>
                         <div className="chess-days">
-                            <DayItems range={range} />
+                            <DayItems range={range}/>
                         </div>
                     </div>
 
-                    <div className="chess-legend">
-                        <div className="chess-category-name">Категории</div>
-                        <div className=" chess-cells">
-                            {arr.map((_, i) => (
-                                <div key={i} className="chess-cell chess-cell-legend">{getCellLegend(i)}</div>
-                            ))}
-                        </div>
-                    </div>
+                    <ChessBoardLegend open={categoriesOpen} onOpenChange={handleCategoriesClick} range={range}/>
                 </div>
 
-
-                {property.getRoomTypes().map(rt => (
-                    <div className="chess-category" onClick={handleCategoryClick}>
-                        <div className="chess-category-name">{rt.name}</div>
-                        <div className="chess-cells">
-                            {arr.map((_, i) => (
-                                <div key={i} className="chess-cell chess-cell-category">{i}</div>
-                            ))}
-                        </div>
-
-                        <div className='chess-subcategories'>
-                            {rt.rooms.map(r => (
-                                <div className='chess-subcategory'>
-                                    <div className="chess-subcategory-name">{r.name}&nbsp;{r.id}</div>
-                                    <div className="chess-cells">
-                                        {arr.map((_, i) => (
-                                            <div key={i} className="chess-cell">{i}</div>
-                                        ))}
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                ))}
+                {categoriesOpen &&
+                    property
+                        .getRoomTypes()
+                        .map(rt => <ChessBoardCategory key={rt.id} range={range} roomType={rt}/>)}
             </div>
         </div>
     );
