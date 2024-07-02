@@ -38,6 +38,8 @@ export function ChessBoardLegend({
 
 
     function handleOpenChange(){
+        const contentNode = document.querySelector<HTMLDivElement>('.chess-content')
+        if (contentNode) contentNode.style.top = '0px'
         onOpenChange?.(!open)
     }
 
@@ -45,7 +47,7 @@ export function ChessBoardLegend({
     return (
         <div className={clsx("chess-legend", {open})}>
             <div
-                className="chess-category-name"
+                className="chess-category-name chess-category-name-legend"
                 onClick={handleOpenChange}
             >
                 <ChevronIcon className='chess-icon icon-16'/>
@@ -53,7 +55,11 @@ export function ChessBoardLegend({
             </div>
             <div className=" chess-cells">
                 {new Array(range.size).fill(0).map((_, i) => (
-                    <div key={i} className="chess-cell chess-cell-legend">{getCellLegend(i)}</div>
+                    <div
+                        key={i}
+                        className={clsx("chess-cell chess-cell-legend", {weekend: [0,6].includes(range.getDate(i).getDay())})}>
+                        {getCellLegend(i)}
+                    </div>
                 ))}
             </div>
         </div>

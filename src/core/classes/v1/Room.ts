@@ -36,7 +36,7 @@ export class Room {
     }
 
     get blocking() {
-        return this._board.blocking.get(this.id) || []
+        return Array.from(this._board.blocking.get(this.id)?.values() || [])
     }
 
     isBlockTime(d: Date) {

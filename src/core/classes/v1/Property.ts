@@ -20,8 +20,8 @@ export class Property{
     }
 
     addBlocking(b:RoomBlockPeriod){
-        if(!this._board.blocking.has(b.room_id)) this._board.blocking.set(b.room_id,[])
-        this._board.blocking.get(b.room_id)!.push(b)
+        if(!this._board.blocking.has(b.room_id)) this._board.blocking.set(b.room_id, new Map())
+        this._board.blocking.get(b.room_id)!.set(b.id,b)
     }
 
     getBlocking(roomId: Room['id']){

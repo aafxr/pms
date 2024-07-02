@@ -42,7 +42,7 @@ export function ChessBookingItem({booking, range, onBookingClick}: ChessBookingI
 
                     <div className='booking-stat'>
                         <div className='booking-persons'>
-                            <HumanIcon className='booking-icon icon-16'/>
+                            <HumanIcon className='booking-icon icon-16'/>&nbsp;
                             {booking.adults_count}+{booking.kids_count}
                         </div>
                         <div className='booking-price'>

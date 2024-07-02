@@ -1,7 +1,7 @@
 import clsx from "clsx";
-import React, {useState, ChangeEvent, useEffect} from 'react';
+import React, {useState, ChangeEvent} from 'react';
 import {Button, Input, Modal, Select, Wrapper} from "../../components";
-import {Company, UR_Company} from "../../core/classes/Company";
+import {UR_Company} from "../../core/classes/Company";
 import {Accordion} from "../../components/Accordion";
 
 import './CompanyCreateModal.scss'

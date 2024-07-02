@@ -16,7 +16,7 @@ defaultStartDate = new Date(
     defaultStartDate.getDate()
 )
 
-const DAYS = 90
+const DAYS = 120
 
 export function Dev() {
 
@@ -24,29 +24,32 @@ export function Dev() {
     const [board, setBoard] = useState<Board>()
     const [property, setProperty] = useState<Property>()
     const [range, setRange] = useState(new DateRange(defaultStartDate, DAYS))
+    const [loading, setLoading] = useState(false)
     const [query, setQuery] = useState<FetchRoomsRequestParams>({
         end_date: range.end,
         start_date: range.start,
-        per_page: 100,
+        per_page: 50,
         page: 1,
         daily: "daily"
     })
 
 
     useEffect(() => {
-        // @ts-ignore
-        window.range = new DateRange(new Date(), 15, 'hourly')
+        setLoading(true)
         PropertiesService.getProperties(query)
             .then(b => {
                 if (b) {
                     if (!board) {
-                        const p = b.properties.values().next().value
+                        if (!property) {
+                            const p = b.properties.values().next().value
+                            setProperty(p)
+                        }
                         // @ts-ignore
                         window.property = b.properties.get(1)
                         // @ts-ignore
                         window.board = b
+
                         setBoard(b)
-                        if (p) setProperty(p)
                     } else {
                         board.merge(b)
                         setBoard(board)
@@ -54,11 +57,13 @@ export function Dev() {
                 }
             })
             .catch(console.error)
+            .finally(() => setLoading(false))
     }, [query]);
 
 
     function handleNextButtonClick() {
         if (!board) return
+        board.clear()
         if (Number(query.page) >= board.pagination.last_page) return
         const q = {...query}
         q.page = (q.page || 1) + 1
@@ -67,6 +72,7 @@ export function Dev() {
 
     function handlePrevButtonClick() {
         if (!board) return
+        board.clear()
         if (Number(query.page) <= 1) return
         const q = {...query}
         q.page = (q.page || 1) - 1
@@ -75,28 +81,29 @@ export function Dev() {
 
 
     function handleBoardRangeChange(r: DateRange) {
-        const s = r.start
-        const e = r.end
 
-        const {time_from, time_to} = appState
+        const s = r.getDate(-30)
+        const e = r.getDate(r.size + 30)
 
-        if (s.getTime() < time_from.getTime()) {
-            const r = new DateRange(range.getDate(-range.size), range.size, appState.timeStrategy)
-            setAppState({...appState, time_from: r.start})
+        // const {time_from, time_to} = appState
+
+        if (s.getTime() < query.start_date.getTime()) {
+            const r = new DateRange(range.getDate(-DAYS), range.size, appState.timeStrategy)
+            // setAppState({...appState, time_from: r.start})
             setRange(r)
-            setQuery({...query, start_date: r.start, end_date: r.end})
+            if (!loading) setQuery({...query, start_date: r.start, end_date: r.end})
             return
         }
 
-        if (time_to.getTime() < e.getTime()) {
+        if (query.end_date.getTime() < e.getTime()) {
             const r = new DateRange(range.getDate(range.size), range.size, appState.timeStrategy)
-            setAppState({...appState, time_to: r.end})
+            // setAppState({...appState, time_to: r.end})
             setRange(r)
-            setQuery({...query, start_date: r.start, end_date: r.end})
+            if (!loading) setQuery({...query, start_date: r.start, end_date: r.end})
             return
         }
 
-        setRange(new DateRange(r.start, range.size))
+        setRange(new DateRange(r.start, range.size, range.strategy))
     }
 
 
@@ -105,25 +112,26 @@ export function Dev() {
     }
 
 
-    if(!board || !property) return <Fragment/>
+    if (!board || !property) return <Fragment/>
 
 
     return (
         <Wrapper>
-        <div className='dev'>
-            <ChessBoard
-                board={board}
-                property={property}
-                strategy={appState.timeStrategy}
-                onBlockingClick={console.log}
-                onBookingItemClick={console.log}
-                onCellClick={console.log}
-                onNext={handleNextButtonClick}
-                onPrev={handlePrevButtonClick}
-                onRangeChange={handleBoardRangeChange}
-                onTimeStrategyChange={handleTimeStrategyChange}
-            />
-        </div>
+            <div className='dev'>
+                <ChessBoard
+                    loading={loading}
+                    board={board}
+                    property={property}
+                    strategy={appState.timeStrategy}
+                    onBlockingClick={console.log}
+                    onBookingItemClick={console.log}
+                    onCellClick={console.log}
+                    onNext={handleNextButtonClick}
+                    onPrev={handlePrevButtonClick}
+                    onRangeChange={handleBoardRangeChange}
+                    onTimeStrategyChange={handleTimeStrategyChange}
+                />
+            </div>
 
         </Wrapper>
     );

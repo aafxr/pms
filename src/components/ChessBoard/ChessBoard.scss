@@ -1,9 +1,9 @@
-@mixin border{
+@mixin border {
   border: 1px solid var(--chess-border-color);
   border-radius: var(--chess-border-radius);
 }
 
-.chess{
+.chess {
   --chess-height-1: 56px;
   --chess-height-2: 46px;
   --chess-cell-width: 56px;
@@ -19,23 +19,44 @@
   --chess-color-text: #000;
 
 
-  &-content{
+  &-container {
     padding-top: calc(var(--chess-height-1) * 3 + var(--chess-gap) * 2);
     position: relative;
     height: 100%;
     overflow: hidden;
+    color: var(--chess-color-text);
   }
 
-  &-header{
+  &-loader{
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--chess-color-bg);
+    opacity: 0.7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 20;
+  }
+
+  &-content {
+    position: relative;
+    height: 100%;
+  }
+
+  &-header {
     position: absolute;
     left: 0;
     right: 0;
     top: 0;
     background-color: var(--chess-color-bg);
+    z-index: 10;
 
   }
 
-  &-filter{
+  &-filter {
     position: absolute;
     left: 0;
     top: 0;
@@ -45,7 +66,7 @@
     border-radius: var(--chess-border-radius);
   }
 
-  &-btn{
+  &-btn {
     flex: 1;
     padding: 13px 8px;
     font-size: 0.75rem;
@@ -57,17 +78,17 @@
     outline: none;
   }
 
-  &-btn.active{
+  &-btn.active {
     background-color: var(--chess-color-bg);
   }
 
-  &-r1{
+  &-r1 {
     display: flex;
     flex-wrap: nowrap;
     justify-content: stretch;
   }
 
-  &-r2{
+  &-r2 {
     margin-top: var(--chess-gap);
     display: flex;
     flex-wrap: nowrap;
@@ -75,15 +96,15 @@
     gap: var(--chess-gap);
   }
 
-  .chess-btn.chess-day{
+  .chess-btn.chess-day {
     flex: 0 1;
   }
 
-  &-main-info{
+  &-main-info {
     padding-left: calc(var(--chess-category-width) + var(--chess-gap));
   }
 
-  &-property{
+  &-property {
     position: relative;
     display: flex;
     align-items: center;
@@ -93,7 +114,7 @@
     font-weight: 600;
     @include border;
 
-    span{
+    span {
       position: sticky;
       left: 20px;
       white-space: nowrap;
@@ -101,7 +122,7 @@
     }
   }
 
-  &-days{
+  &-days {
     margin-top: var(--chess-gap);
     display: grid;
     grid-auto-columns: var(--chess-cell-width);
@@ -112,7 +133,7 @@
 
   }
 
-  &-days-item{
+  &-days-item {
     @include border;
     position: relative;
     height: var(--chess-height-1);
@@ -121,7 +142,7 @@
     align-items: center;
     overflow: hidden;
 
-    span{
+    span {
       position: sticky;
       left: 20px;
       white-space: nowrap;
@@ -129,13 +150,13 @@
     }
   }
 
-  &-legend{
+  &-legend {
     position: relative;
     margin-top: var(--chess-gap);
     background-color: var(--chess-color-bg);
   }
 
-  &-category-name{
+  &-category-name {
     @include border;
     display: flex;
     align-items: center;
@@ -147,11 +168,17 @@
     padding: 8px 32px;
     height: var(--chess-height-1);
     width: var(--chess-category-width);
+    font-size: 0.875rem;
     font-weight: 600;
   }
 
+  .chess-category-name-legend {
+    font-size: 1rem;
+  }
+
+
   &-bookings,
-  &-cells{
+  &-cells {
     padding-left: calc(var(--chess-category-width) + var(--chess-gap));
     display: grid;
     grid-auto-columns: var(--chess-cell-width);
@@ -161,7 +188,7 @@
     font-weight: 600;
   }
 
-  &-bookings{
+  &-bookings {
     position: absolute;
     left: 0;
     top: 0;
@@ -175,7 +202,7 @@
     z-index: 5;
   }
 
-  &-booking{
+  &-booking {
     grid-row: 1 / -1;
     position: relative;
     left: 2px;
@@ -188,16 +215,16 @@
     pointer-events: all;
   }
 
-  &-cell{
+  &-cell {
     @include border;
     height: var(--chess-height-2);
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 0.875rem;
+    font-size: 0.75rem;
   }
 
-  &-weekday{
+  &-weekday {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -205,36 +232,37 @@
     align-items: center;
   }
 
-  &-cell.weekend{
+  &-cell.weekend {
     background-color: var(--chess-wickend-color-bg);
   }
 
-  &-cell.service{
+  &-cell.service {
     background-color: var(--chess-cell-service-color-bg);
   }
 
-  &-cell-legend, &-cell-category{
+  &-cell-legend, &-cell-category {
     height: var(--chess-height-1);
+    font-weight: 600;
   }
 
-  &-category{
+  &-category {
     position: relative;
     margin-top: var(--chess-gap);
   }
 
-  .chess-subcategories{
+  .chess-subcategories {
     max-height: 0;
     transition: max-height 0.3s linear;
     overflow: hidden;
   }
 
 
-  &-subcategory{
+  &-subcategory {
     position: relative;
     margin-top: var(--chess-gap);
   }
 
-  &-subcategory-name{
+  &-subcategory-name {
     @include border;
     padding: 8px 32px;
     display: flex;
@@ -248,7 +276,7 @@
     font-weight: 600;
   }
 
-  &-icon{
+  &-icon {
     position: absolute;
     left: 8px;
     top: 50%;
@@ -257,22 +285,32 @@
   }
 
   .chess-category.open .chess-icon,
-  .chess-legend.open .chess-icon{
+  .chess-legend.open .chess-icon {
     transform: translateY(-50%) rotate(180deg);
   }
 
 
+  &-booking {
+    position: relative;
+  }
 
-  .booking{
+  .booking {
+    height: 100%;
     line-height: 1;
     font-weight: 600;
 
 
-    &-content{
+    &-content {
+      padding: 4px;
+      height: 100%;
       max-width: calc(var(--chess-cell-width) * 4);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
 
     }
-    &-stat{
+
+    &-stat {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -283,23 +321,23 @@
 
     }
 
-    &-persons{
+    &-persons {
       display: flex;
       justify-content: flex-start;
       align-items: center;
     }
 
-    &-icon{
+    &-icon {
       margin-right: 2px;
     }
 
-    &-price{
+    &-price {
       display: flex;
       flex-wrap: nowrap;
       align-items: center;
       gap: 2px;
 
-      .booking-dot{
+      .booking-dot {
         width: var(--chess-gap);
         height: var(--chess-gap);
         border-radius: 50%;
@@ -307,7 +345,7 @@
       }
     }
 
-    &-person{
+    &-person {
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;

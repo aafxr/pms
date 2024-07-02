@@ -19,8 +19,8 @@ export class RoomBlockPeriod{
         this.to = new Date(rbp.to)
 
         this._board = b
-        if(!this._board.blocking.has(this.room_id)) this._board.blocking.set(this.room_id, [])
-        this._board.blocking.get(this.room_id)!.push(this)
+        if(!this._board.blocking.has(this.room_id)) this._board.blocking.set(this.room_id, new Map())
+        this._board.blocking.get(this.room_id)!.set(this.id, this)
 
         this._blockDays = 1
 

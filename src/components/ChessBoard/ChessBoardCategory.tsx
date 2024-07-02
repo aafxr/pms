@@ -5,15 +5,26 @@ import {DateRange} from "../../core/classes/v1/DateRange";
 import {RoomType} from "../../core/classes/v1/RoomType";
 import {ChessSubcategory} from "./ChessSubcategory";
 import {ChevronIcon} from "../svg";
+import {BookingItem} from "../../core/classes/v1/BookingItem";
+import {RoomBlockPeriod} from "../../core/classes/v1/RoomBlockPeriod";
 
 
 export type ChessBoardCategoryPropsType = {
     range: DateRange
     roomType: RoomType
+    onBookingItemClick?: (b: BookingItem) => unknown
+    onCellClick?: (date: Date) => unknown
+    onBlockingClick?: (b: RoomBlockPeriod[]) => unknown
 }
 
 
-export function ChessBoardCategory({roomType, range}: ChessBoardCategoryPropsType) {
+export function ChessBoardCategory({
+                                       roomType,
+                                       range,
+                                       onCellClick,
+                                       onBookingItemClick,
+                                       onBlockingClick
+                                   }: ChessBoardCategoryPropsType) {
     const [open, setOpen] = useState(false)
     const subcategoriesRef = useRef<HTMLDivElement>(null)
 
@@ -34,41 +45,50 @@ export function ChessBoardCategory({roomType, range}: ChessBoardCategoryPropsTyp
 
 
     function handleCategoryClick(e: MouseEvent<HTMLDivElement>) {
+        const parent = e.currentTarget.parentElement?.parentElement
+        if(parent && open){
+            parent.style.top = '0px'
+        }
         setOpen(!open)
     }
 
 
+    function handleCellClick(val: Date | RoomBlockPeriod[]){
+        if(val instanceof Date){
+            onCellClick?.(val)
+            return
+        }
+        onBlockingClick?.(val)
+    }
+
+
     return (
-        <div
-            className={clsx("chess-category", {open})}
-        >
+        <div className={clsx("chess-category", {open})}>
             <div
                 className="chess-category-name"
                 onClick={handleCategoryClick}
             >
-                <ChevronIcon className=' chess-icon icon-16' />
+                <ChevronIcon className=' chess-icon icon-16'/>
                 {roomType.name}
             </div>
+
             <div className="chess-cells">
                 {arr.map((_, i) => (
-                    <div key={i} className="chess-cell chess-cell-category">
+                    <div key={i} className={clsx("chess-cell chess-cell-category", {weekend: [0,6].includes(range.getDate(i).getDay())})}>
                         {roomType.getFreeRooms(range.getDate(i))}
                     </div>
                 ))}
             </div>
 
-            <div
-                ref={subcategoriesRef}
-                className='chess-subcategories'
-            >
+            <div ref={subcategoriesRef} className='chess-subcategories'>
                 {roomType.rooms.map(r => (
                     <ChessSubcategory
                         key={r.id}
                         open={open}
                         range={range}
                         room={r}
-                        onBookingClick={console.log}
-                        onCellClick={console.log}
+                        onBookingClick={onBookingItemClick}
+                        onCellClick={handleCellClick}
                     />
                 ))}
             </div>

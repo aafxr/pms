@@ -19,7 +19,7 @@ export class Board {
     rooms: Map<Room['id'], Room>
     bedTypes: Map<BedDesc['id'], BedDesc>
 
-    blocking: Map<RoomBlockPeriod['room_id'], RoomBlockPeriod[]>
+    blocking: Map<RoomBlockPeriod['room_id'], Map<RoomBlockPeriod['id'], RoomBlockPeriod>>
     roomBookings: Map<Room['id'], Map<BookingItem['id'], BookingItem>>
     roomsByRoomType: Map<Room['room_type_id'], Map<Room['id'], Room>>
 
@@ -145,6 +145,20 @@ export class Board {
 
     set pagination(p: Pagination){
         this._pagination = new Pagination(p)
+    }
+
+    clear(){
+        this.persons.clear()
+        this.bookingItems.clear()
+        this.booking.clear()
+        this.properties.clear()
+        this.roomTypes.clear()
+        this.beds.clear()
+        this.rooms.clear()
+        this.bedTypes.clear()
+        this.blocking.clear()
+        this.roomBookings.clear()
+        this.roomsByRoomType.clear()
     }
 
 }
