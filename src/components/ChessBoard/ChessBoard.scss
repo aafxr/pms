@@ -8,15 +8,16 @@
   --chess-height-2: 46px;
   --chess-cell-width: 56px;
   --chess-category-width: 190px;
-  --chess-border-color: #999;
-  --chess-filter-color-bg: var(--chess-border-color);
   --chess-border-radius: 8px;
   --chess-gap: 4px;
-  --chess-cell-service-color-bg: #5d5d5d;
-  --chess-wickend-color-bg: #d9d9d9;
-  --chess-color-bg: #fff;
-  --chess-color-booking-bg: #d9d9d9;
-  --chess-color-text: #000;
+  --chess-border-color: var(--border-color);
+  --chess-filter-color-bg: var(--bg-v4);
+  --chess-cell-service-color-bg: var(--bg-sw);
+  --chess-filter-btn-bg: var(--bg-v1);
+  --chess-wickend-color-bg: var(--bg-v5);
+  --chess-color-bg: var(--bg-main);
+  --chess-color-booking-bg: var(--bg-v1);
+  --chess-color-text: var(--text-main);
 
 
   &-container {
@@ -47,6 +48,7 @@
   }
 
   &-header {
+    padding-bottom: var(--chess-gap);
     position: absolute;
     left: 0;
     right: 0;
@@ -67,16 +69,21 @@
   }
 
   &-btn {
-    flex: 1;
-    padding: 13px 8px;
+    flex: 1 1;
+    padding: 13px 4px;
     font-size: 0.75rem;
     font-weight: 600;
+    white-space: nowrap;
+    text-overflow: ellipsis;
     border: none;
     border-radius: var(--chess-border-radius);
     background-color: transparent;
     transition: 0.3s linear;
+    overflow: hidden;
     outline: none;
   }
+
+
 
   &-btn.active {
     background-color: var(--chess-color-bg);
@@ -97,7 +104,11 @@
   }
 
   .chess-btn.chess-day {
-    flex: 0 1;
+    flex: 1 1;
+  }
+
+  &-month{
+    flex: 1.5 1;
   }
 
   &-main-info {
@@ -137,7 +148,7 @@
     @include border;
     position: relative;
     height: var(--chess-height-1);
-    padding: 0 20px;
+    //padding: 0 20px;
     display: flex;
     align-items: center;
     overflow: hidden;

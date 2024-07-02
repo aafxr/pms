@@ -1,0 +1,92 @@
+.reservation {
+  --order-filter-width: 190px;
+  --order-gap: 4px;
+  --order-radius:12px;
+  --order-header-bg: var(--bg-v1);
+  --order-border-color: var(--bg-v1);
+
+  &-container {
+    display: grid;
+    grid-template-areas:
+      "filter sort"
+      "filter orders";
+    grid-template-columns: var(--order-filter-width) 1fr;
+    grid-gap: var(--order-gap);
+    white-space: nowrap;
+  }
+
+  &-filter{
+    grid-area: filter;
+  }
+
+  &-sort{
+    grid-area: sort;
+  }
+
+  &-list{
+    grid-area: orders;
+  }
+
+
+}
+
+.orders{
+  font-size: 0.875rem;
+  font-weight: 600;
+
+  &-header{
+    background-color: var(--order-header-bg);
+    display: grid;
+    grid-template-columns: 1fr 1fr 0.7fr 2fr 2fr repeat(7,1fr);// 180px 120px 75px 240px 270px 110px;
+
+    color: var(--text-v1);
+    border-radius: var(--order-radius);
+  }
+
+  &-header-item{
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: var(--offset-main);
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  &-header-customer,
+  &-header-range{
+
+  }
+}
+
+.order{
+  margin-top: var(--order-gap);
+  display: grid;
+  grid-template-columns: 1fr 1fr 0.7fr 2fr 2fr repeat(7,1fr);
+  border: 1px solid var(--order-border-color);
+  border-radius: var(--order-radius);
+
+  &-prop{
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: var(--offset-main);
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  &-extra-info{
+    color: var(--text-v1);
+    font-size: 0.75rem;
+  }
+
+  &-prop-customer,
+  &-prop-range{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

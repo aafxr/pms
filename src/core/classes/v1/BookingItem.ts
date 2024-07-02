@@ -78,6 +78,8 @@ export class BookingItem{
         this._board = board
         this._board.bookingItems.set(this.id, this)
 
+        this._board.bookigStatuses.add(this.status)
+
         if(this.object_type === "room"){
             if(!this._board.roomBookings.has(this.object_id as Room['id'])){
                 this._board.roomBookings.set(this.object_id as Room['id'], new Map())
@@ -118,6 +120,16 @@ export class BookingItem{
         if(this.object_type === "room"){
             return this._board.rooms.get(this.object_id as Room['id'])
         }
+    }
+
+    get textDateRange(){
+        const d_in = this.checked_in_at.toLocaleDateString('ru-RU', {day: "numeric", month: "numeric", year: "2-digit"} )
+        const t_in = this.checked_in_at.toLocaleTimeString('ru-RU', {hour: "2-digit", minute: "2-digit"} )
+
+        const d_out = this.checked_out_at.toLocaleDateString('ru-RU', {day: "numeric", month: "numeric", year: "2-digit"} )
+        const t_out = this.checked_out_at.toLocaleTimeString('ru-RU', {hour: "2-digit", minute: "2-digit"} )
+
+        return `${d_in}(${t_in}) - ${d_out}(${t_out})`
     }
 
 }

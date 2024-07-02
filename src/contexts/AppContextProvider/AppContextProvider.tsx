@@ -1,12 +1,17 @@
 import React, {createContext, PropsWithChildren, useContext, useState} from 'react';
 import {BookingTimeStrategyType} from "../../core/types/BookingTimeStrategyType";
 import {DateRange} from "../../core/classes/v1/DateRange";
+import {BookingItem} from "../../core/classes/v1/BookingItem";
+import {Board} from "../../core/classes/v1/Board";
 
 
 export type AppStateType = {
     timeStrategy: BookingTimeStrategyType
     time_from: Date
-    time_to: Date
+    time_to: Date,
+    orderStatus: BookingItem['status']
+    board: Board | undefined
+    range: DateRange
 
 
 }
@@ -27,7 +32,11 @@ const defaultContextValue: AppContextType = {
     appState: {
         timeStrategy: 'daily',
         time_from: range.start,
-        time_to: range.end
+        time_to: range.end,
+        orderStatus: "awaiting",
+        board: undefined,
+        range: new DateRange(new Date(), 1)
+
     },
     setAppState: () => {}
 }

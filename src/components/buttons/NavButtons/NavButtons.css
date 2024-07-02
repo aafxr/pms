@@ -27,3 +27,9 @@
     position: relative;
     top: 2px;
 }
+
+
+
+.nav-buttons .round-button:disabled{
+    color: var(--text-disable);
+}

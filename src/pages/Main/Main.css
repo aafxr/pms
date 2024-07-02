@@ -27,3 +27,7 @@
 .main .board{
     margin-top: var(--pd-main);
 }
+
+.main-board{
+    margin-top: var(--offset-main);
+}

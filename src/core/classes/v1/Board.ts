@@ -23,6 +23,8 @@ export class Board {
     roomBookings: Map<Room['id'], Map<BookingItem['id'], BookingItem>>
     roomsByRoomType: Map<Room['room_type_id'], Map<Room['id'], Room>>
 
+    bookigStatuses: Set<string>
+
     private _pagination: Pagination
 
 
@@ -41,6 +43,8 @@ export class Board {
         this.roomsByRoomType = new Map()
 
         this._pagination = new Pagination()
+
+        this.bookigStatuses = new Set()
     }
 
 

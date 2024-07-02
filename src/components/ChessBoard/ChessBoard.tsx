@@ -16,6 +16,7 @@ import './ChessBoard.scss'
 
 
 export interface ChessBoardPropsType {
+    className?: string
     loading?: boolean
     board: Board
     property: Property
@@ -45,6 +46,7 @@ const defaultNodeParams = {
 
 
 export function ChessBoard({
+                               className,
                                loading,
                                board,
                                property,
@@ -62,11 +64,7 @@ export function ChessBoard({
     const headerRef = useRef<HTMLDivElement>(null);
 
     const [categoriesOpen, setCategoriesOpen] = useState(true)
-
     const [range, setRange] = useState<DateRange>(() => new DateRange(defaultStartDate, 1, strategy))
-    const arr = new Array(range.size).fill(0)
-    const isDaily = strategy === 'daily'
-
     const nodeParams = useRef(defaultNodeParams)
 
 
@@ -138,7 +136,7 @@ export function ChessBoard({
             el.style.top = Math.min(
                 Math.max(
                     top - e.deltaY,
-                    nodeParams.current.maxHeight - nodeParams.current.headerHeight - el.offsetHeight)
+                    nodeParams.current.maxHeight - nodeParams.current.headerHeight - el.offsetHeight-180)
                 , 0) + 'px'
             return
         }
@@ -175,7 +173,7 @@ export function ChessBoard({
 
 
     return (
-        <div className='chess'>
+        <div className={clsx('chess', className)}>
             <div
                 ref={boardContainerRef}
                 className="chess-container"
@@ -201,7 +199,7 @@ export function ChessBoard({
                         </div>
                         <div className="chess-r2">
                             <button className="chess-btn chess-month active" onClick={handleMonthClick}>
-                                {range.start.toLocaleDateString(navigator.language, {month: "long", day: "numeric"})}
+                                {range.start.toLocaleDateString(navigator.language, {month: "long", year: "numeric"})}
                             </button>
                             <button className="chess-btn chess-day active" onClick={handleClickToday}>
                                 сегодня
@@ -235,7 +233,12 @@ export function ChessBoard({
                                     onBlockingClick={onBlockingClick}
                                 />)}
                 </div>
-                <NavButtons onPrev={onPrev} onNext={onNext}/>
+                <NavButtons
+                    onPrev={onPrev}
+                    onNext={onNext}
+                    prevDisabled={board.pagination.page <= 1}
+                    nextDisabled={board.pagination.page === board.pagination.last_page}
+                />
             </div>
         </div>
     );
