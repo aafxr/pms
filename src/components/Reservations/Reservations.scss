@@ -21,6 +21,11 @@
 
   &-sort{
     grid-area: sort;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: 0.875rem;
+    font-weight: 600;
   }
 
   &-list{
@@ -35,12 +40,14 @@
   font-weight: 600;
 
   &-header{
-    background-color: var(--order-header-bg);
+    position: sticky;
+    top: 0;
     display: grid;
     grid-template-columns: 1fr 1fr 0.7fr 2fr 2fr repeat(7,1fr);// 180px 120px 75px 240px 270px 110px;
 
     color: var(--text-v1);
     border-radius: var(--order-radius);
+    background-color: var(--order-header-bg);
   }
 
   &-header-item{

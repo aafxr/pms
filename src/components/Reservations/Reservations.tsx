@@ -1,4 +1,6 @@
 import React from 'react';
+
+import {Select2, SelectOptionType} from "../Select2/Select2";
 import {Board} from "../../core/classes/v1/Board";
 
 import './Reservations.scss'
@@ -14,6 +16,10 @@ export function Reservations({board}: ReservationsPropsType) {
     const bookingItems = Array.from(board.bookingItems.values())
     console.log(bookingItems)
 
+    const sortVar: SelectOptionType[] = [
+        {id: 1, value: 'по дате создания'}
+    ]
+
 
 
 
@@ -28,7 +34,8 @@ export function Reservations({board}: ReservationsPropsType) {
 
 
                 <div className='reservation-sort'>
-sort
+                    Сортировка по:
+                    <Select2 items={sortVar} title={'title'} />
                 </div>
 
 
