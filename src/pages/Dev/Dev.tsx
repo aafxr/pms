@@ -81,13 +81,12 @@ export function Dev() {
 
 
     function handleBoardRangeChange(r: DateRange) {
-
-        const s = r.getDate(-30)
-        const e = r.getDate(r.size + 30)
+        const s = r.start
+        const e = r.end
 
         // const {time_from, time_to} = appState
 
-        if (s.getTime() < query.start_date.getTime()) {
+        if (s.getTime() < range.start.getTime()) {
             const r = new DateRange(range.getDate(-DAYS), range.size, appState.timeStrategy)
             // setAppState({...appState, time_from: r.start})
             setRange(r)
@@ -95,7 +94,7 @@ export function Dev() {
             return
         }
 
-        if (query.end_date.getTime() < e.getTime()) {
+        if (range.getDate(range.size ).getTime() < e.getTime()) {
             const r = new DateRange(range.getDate(range.size), range.size, appState.timeStrategy)
             // setAppState({...appState, time_to: r.end})
             setRange(r)
@@ -103,8 +102,10 @@ export function Dev() {
             return
         }
 
-        setRange(new DateRange(r.start, range.size, range.strategy))
+        // setRange(new DateRange(r.start, range.size, range.strategy))
     }
+
+    console.log(query)
 
 
     function handleTimeStrategyChange(s: BookingTimeStrategyType) {
