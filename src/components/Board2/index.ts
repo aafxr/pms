@@ -1,1 +1,0 @@
-export {Board2} from './Board2'
