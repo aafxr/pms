@@ -3,6 +3,7 @@ import {BookingTimeStrategyType} from "../../core/types/BookingTimeStrategyType"
 import {DateRange} from "../../core/classes/v1/DateRange";
 import {BookingItem} from "../../core/classes/v1/BookingItem";
 import {Board} from "../../core/classes/v1/Board";
+import {Property} from "../../core/classes/v1/Property";
 
 
 export type AppStateType = {
@@ -11,7 +12,9 @@ export type AppStateType = {
     time_to: Date,
     orderStatus: BookingItem['status']
     board: Board | undefined
+    property: Property | undefined
     range: DateRange
+    bookingStatusFilter: string | undefined
 
 
 }
@@ -35,7 +38,10 @@ const defaultContextValue: AppContextType = {
         time_to: range.end,
         orderStatus: "awaiting",
         board: undefined,
-        range: new DateRange(new Date(), 1)
+        property: undefined,
+        range: new DateRange(new Date(), 1),
+        bookingStatusFilter: undefined
+
 
     },
     setAppState: () => {}

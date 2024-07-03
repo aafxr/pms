@@ -1,18 +1,74 @@
-.select{
-  display: block;
-  padding: 12px 16px;
-  background-color: var(--bg-main);
-  border: 1px solid var(--bg-v2);
-  border-radius: var(--br-main);
+.select {
+  position: relative;
 
-  option{
-    padding: 12px 16px;
+  //overflow: hidden;
+
+  &-header {
+    min-width: 170px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 8px 12px 8px;
+    height: 40px;
+    font-weight: 600;
+    line-height: 1;
+    border-radius: var(--br-main);
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-main);
+  }
+
+  &-icon {
+    margin-left: auto;
+    flex: none;
+    transform: rotate(0deg);
+    transition: transform .3s;
+  }
+
+  &-items {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-height: 0;
+    opacity: 0;
+    border: 1px solid var(--border-color);
     background-color: var(--bg-main);
     border-radius: var(--br-main);
-    cursor: pointer;
+    transition: opacity .3s, max-height .3s;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: var(--z-popup);
+  }
 
-    &:hover{
-      background-color: var(--bg-v1);
-    }
+  &-item {
+    padding: 12px 8px 12px 8px;
+    //height: 40px;
+    background-color: var(--bg-main);
+    border-radius: var(--br-main);
+    transition: background .3s;
+  }
+
+  &-item:hover{
+    background-color: var(--bg-v5);
+  }
+
+  &-item.selected{
+    background-color: var(--bg-v5);
+  }
+
+  &-node {
+    display: none;
+  }
+}
+
+.select.open{
+  .select-items{
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .select-icon{
+    transform: rotate(180deg);
   }
 }

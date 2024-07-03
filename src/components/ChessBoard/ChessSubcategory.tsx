@@ -1,10 +1,12 @@
 import React from 'react';
+
+import {RoomBlockPeriod} from "../../core/classes/v1/RoomBlockPeriod";
+import {BookingItem} from "../../core/classes/v1/BookingItem";
 import {DateRange} from "../../core/classes/v1/DateRange";
 import {ChessBookingItem} from "./ChessBookingItem";
 import {Room} from "../../core/classes/v1/Room";
 import {ChessCell} from "./ChessCell";
-import {BookingItem} from "../../core/classes/v1/BookingItem";
-import {RoomBlockPeriod} from "../../core/classes/v1/RoomBlockPeriod";
+import {useAppContext} from "../../contexts/AppContextProvider";
 
 
 export type ChessSubcategoryPropsType = {
@@ -17,6 +19,7 @@ export type ChessSubcategoryPropsType = {
 
 
 export function ChessSubcategory({open = false, range, room, onBookingClick, onCellClick}: ChessSubcategoryPropsType) {
+    const {appState: {bookingStatusFilter}} = useAppContext()
 
     const arr = Array.from({length: range.size})
 
@@ -34,7 +37,9 @@ export function ChessSubcategory({open = false, range, room, onBookingClick, onC
                 />))}
             </div>
             <div className='chess-bookings'>
-                {room.booking.map(b => <ChessBookingItem
+                {room.booking
+                    .filter(b => bookingStatusFilter ? b.status === bookingStatusFilter : true)
+                    .map(b => <ChessBookingItem
                     key={b.id}
                     booking={b}
                     range={range}

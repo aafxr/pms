@@ -31,3 +31,7 @@
 .main-board{
     margin-top: var(--offset-main);
 }
+
+.main-select-status .select-header{
+    background-color: var(--bg-v2);
+}

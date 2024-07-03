@@ -289,9 +289,8 @@ export function CompanyCreateModal({
                                     <div className='companyCreate-label label'>Система налогооблажения</div>
                                     <Select 
                                         className='companyCreate-tax-select'
-                                    >
-                                        <option value=""></option>
-                                    </Select>
+                                        items={[]}
+                                    />
                                 </div>
                             </div>
 

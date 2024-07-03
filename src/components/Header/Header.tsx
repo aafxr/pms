@@ -5,13 +5,14 @@ import {useNavigate} from "react-router-dom";
 import {BellIcon, GearIcon, PlusIcon, UserIcon} from "../svg";
 import {Button, RoundButton} from "../buttons";
 import {Container} from "../Container";
-import {Select} from "../Select";
+import {Select, SelectOptionType} from "../Select";
 import {Search} from "../Search";
 import {Logo} from "../Logo";
 import {Row} from "../flex";
 import {Nav} from "../Nav";
 
 import './Header.css'
+import {useAppContext} from "../../contexts/AppContextProvider";
 
 
 export interface HeaderPropsType {
@@ -20,8 +21,11 @@ export interface HeaderPropsType {
 
 
 export function Header({className}: HeaderPropsType) {
-    const [open, setOpen] = useState(false)
     const navigate = useNavigate()
+    const {setAppState, appState} = useAppContext()
+
+    const {board, property} = appState
+    const propertySelectOptions = Array.from(board?.properties.values() || []).map(el => ({id: el.id, value: el.name}))
 
 
     function handleReservationButtonClick(){
@@ -38,6 +42,15 @@ export function Header({className}: HeaderPropsType) {
     }
 
 
+    function selectProperty(v: SelectOptionType){
+        if(!board) return
+        const p = board.properties.get(v.id)
+        if(p){
+            setAppState({...appState, property: p})
+        }
+    }
+
+
     return (
         <div className={clsx('header', className)}>
             <Container>
@@ -45,12 +58,12 @@ export function Header({className}: HeaderPropsType) {
                     <Row justify='between' align='center' full wrap>
                         <div className='left gap-1'>
                             <Logo/>
-                            <Select className='header-select' value={1}>
-                                <option value={1}>Отель 1</option>
-                                <option value={2}>Отель 2</option>
-                                <option value={3}>Отель 3</option>
-                            </Select>
-
+                            <Select
+                                className='header-select'
+                                value={propertySelectOptions.find(el => el.id === property?.id)}
+                                items={propertySelectOptions}
+                                onSelect={selectProperty}
+                            />
                             <Nav>
                                 <Nav.Item to={'/deal'}>Сделки</Nav.Item>
                                 <Nav.Item to={'/rate'}>Тарифы</Nav.Item>

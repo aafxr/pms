@@ -1,5 +1,4 @@
-import React, {useEffect, useState} from "react";
-import {useNavigate} from "react-router-dom";
+import React, {useEffect, useMemo, useState} from "react";
 import {
     Blank,
     Button,
@@ -8,19 +7,19 @@ import {
     Container,
     Header,
     Search,
-    Select,
+    Select, SelectOptionType,
     Wrapper
 } from "../../components";
 
 
 import {BookingTimeStrategyType} from "../../core/types/BookingTimeStrategyType";
 import {PropertiesService} from "../../core/classes/services/PropertiesService";
+import NavButtons from "../../components/buttons/NavButtons/NavButtons";
+import {Reservations} from "../../components/Reservations/Reservations";
 import {ChessBoard} from "../../components/ChessBoard/ChessBoard";
 import {useAppContext} from "../../contexts/AppContextProvider";
 import {FetchRoomsRequestParams} from "../../api/fetchRooms";
 import {DateRange} from "../../core/classes/v1/DateRange";
-import {Property} from "../../core/classes/v1/Property";
-import {Board} from "../../core/classes/v1/Board";
 import {PrintIcon} from "../../components/svg";
 import {Row} from "../../components/flex";
 
@@ -38,10 +37,11 @@ const OFFSET = 60
 
 
 export function Main() {
-    const navigate = useNavigate()
     const {appState, setAppState} = useAppContext()
-    const [board, setBoard] = useState<Board>()
-    const [property, setProperty] = useState<Property>()
+
+    const {property, board, bookingStatusFilter} = appState
+
+    const [component, setComponent] = useState<'chess' | 'orders'>("chess")
     const [range, setRange] = useState(new DateRange(defaultStartDate, DAYS))
     const [loading, setLoading] = useState(false)
     const [query, setQuery] = useState<FetchRoomsRequestParams>({
@@ -52,8 +52,14 @@ export function Main() {
         daily: "daily"
     })
 
+    const bookingStatuses = useMemo(() => {
+        return Array.from(board?.bookigStatuses.values() || [])
+            .map((e, i) => ({id: i, value: e}))
+    }, [appState])
+
     function handleButtonGroupClick(e: ButtonGroupType) {
-        if (e.id === 2) navigate('/reservation')
+        if (e.id === 1) setComponent("chess")
+        if (e.id === 2) setComponent("orders")
     }
 
     useEffect(() => {
@@ -64,18 +70,16 @@ export function Main() {
                     if (!board) {
                         if (!property) {
                             const p = b.properties.values().next().value
-                            setProperty(p)
+                            setAppState(prev => ({...prev, property: p}))
                         }
                         // @ts-ignore
                         window.property = b.properties.get(1)
                         // @ts-ignore
                         window.board = b
 
-                        setBoard(b)
-                        setAppState({...appState, board: b})
+                        setAppState(prev => ({...prev, board: b}))
                     } else {
                         board.merge(b)
-                        setBoard(board)
                         setAppState({...appState, board: board})
                     }
                 }
@@ -117,7 +121,7 @@ export function Main() {
             return
         }
 
-        if (range.getDate(range.size ).getTime() < e.getTime()) {
+        if (range.getDate(range.size).getTime() < e.getTime()) {
             const r = new DateRange(range.getDate(OFFSET), range.size, appState.timeStrategy)
             // setAppState({...appState, time_to: r.end})
             setRange(r)
@@ -133,6 +137,11 @@ export function Main() {
     }
 
 
+    function handleSelectBookingStatusFilter(v: SelectOptionType){
+        setAppState({...appState, bookingStatusFilter: v.value})
+    }
+
+    console.log(appState)
     return (
         <Wrapper className='main'>
             <Wrapper.Header>
@@ -149,13 +158,17 @@ export function Main() {
                                         {id: 1, name: 'Основные объекты'},
                                         {id: 2, name: 'Дополнительные объекты'}
                                     ]}/>
-                                <Select value={1}>
-                                    <option value={1}>Статус 1</option>
-                                    <option value={2}>Статус 2</option>
-                                    <option value={3}>Статус 3</option>
-                                    <option value={4}>Статус 4</option>
-                                </Select>
-                                <Button className='reset'>
+                                <Select
+                                    className='main-select-status'
+                                    title={'Статус сделки'}
+                                    value={bookingStatuses.find(bs=> bs.value === bookingStatusFilter)}
+                                    items={bookingStatuses}
+                                    onSelect={handleSelectBookingStatusFilter}
+                                />
+                                <Button
+                                    className='reset'
+                                    onClick={() => setAppState({...appState, bookingStatusFilter: undefined})}
+                                >
                                     <span>Сбросить фильтр</span>
                                 </Button>
                             </Row>
@@ -175,7 +188,7 @@ export function Main() {
                             </Row>
                         </Row>
                     </Blank>
-                    {board && property &&
+                    {board && property && component === 'chess' &&
                         <ChessBoard
                             className='main-board'
                             loading={loading}
@@ -185,11 +198,25 @@ export function Main() {
                             onBlockingClick={console.log}
                             onBookingItemClick={console.log}
                             onCellClick={console.log}
-                            onNext={handleNextButtonClick}
-                            onPrev={handlePrevButtonClick}
                             onRangeChange={handleBoardRangeChange}
                             onTimeStrategyChange={handleTimeStrategyChange}
                         />}
+
+                    {board && property && component === "orders" &&
+                        <Reservations
+                            board={board}
+                            property={property}
+                            onBookingItemClick={console.log}
+                        />
+
+                    }
+
+                    <NavButtons
+                        onPrev={handlePrevButtonClick}
+                        onNext={handleNextButtonClick}
+                        prevDisabled={board ? board.pagination.page <= 1 : true}
+                        nextDisabled={board ? board.pagination.page === board.pagination.last_page : true}
+                    />
                 </Container>
             </Wrapper.Content>
             <Wrapper.Footer>

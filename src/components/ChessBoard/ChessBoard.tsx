@@ -1,10 +1,9 @@
 import clsx from "clsx";
-import React, {MouseEvent, useEffect, useRef, useState, WheelEvent} from 'react';
+import React, {useEffect, useRef, useState, WheelEvent} from 'react';
 
 import {BookingTimeStrategyType} from "../../core/types/BookingTimeStrategyType";
 import {RoomBlockPeriod} from "../../core/classes/v1/RoomBlockPeriod";
 import {BookingItem} from "../../core/classes/v1/BookingItem";
-import NavButtons from "../buttons/NavButtons/NavButtons";
 import {DateRange} from "../../core/classes/v1/DateRange";
 import {Property} from "../../core/classes/v1/Property";
 import {ChessBoardCategory} from "./ChessBoardCategory";
@@ -24,8 +23,6 @@ export interface ChessBoardPropsType {
     onBookingItemClick?: (b: BookingItem) => unknown
     onCellClick?: (date: Date) => unknown
     onBlockingClick?: (b: RoomBlockPeriod[]) => unknown
-    onPrev?: () => unknown
-    onNext?: () => unknown
     onRangeChange?: (range: DateRange) => unknown
     onTimeStrategyChange?: (s: BookingTimeStrategyType) => unknown
 }
@@ -54,8 +51,6 @@ export function ChessBoard({
                                onBookingItemClick,
                                onCellClick,
                                onBlockingClick,
-                               onPrev,
-                               onNext,
                                onRangeChange,
                                onTimeStrategyChange,
                            }: ChessBoardPropsType) {
@@ -179,7 +174,7 @@ export function ChessBoard({
                 className="chess-container"
                 onWheel={handleWheel}
             >
-                {loading && < div className='chess-loader'>Загрузка ...</div>}
+                {/*{loading && < div className='chess-loader'>Загрузка ...</div>}*/}
                 <div className="chess-header">
 
                     <div className="chess-filter">
@@ -233,12 +228,7 @@ export function ChessBoard({
                                     onBlockingClick={onBlockingClick}
                                 />)}
                 </div>
-                <NavButtons
-                    onPrev={onPrev}
-                    onNext={onNext}
-                    prevDisabled={board.pagination.page <= 1}
-                    nextDisabled={board.pagination.page === board.pagination.last_page}
-                />
+
             </div>
         </div>
     );

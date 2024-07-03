@@ -6,6 +6,7 @@
   --order-border-color: var(--bg-v1);
 
   &-container {
+    margin-top: var(--offset-main);
     display: grid;
     grid-template-areas:
       "filter sort"
@@ -16,7 +17,10 @@
   }
 
   &-filter{
+    padding: 8px;
     grid-area: filter;
+    border: 1px solid var(--border-color);
+    border-radius: var(--br-main);
   }
 
   &-sort{
@@ -28,22 +32,33 @@
     font-weight: 600;
   }
 
+  &-select{
+    .select-header{
+      background-color: #e5e5e5;
+    }
+  }
+
   &-list{
     grid-area: orders;
+    overflow-x: scroll;
+
   }
 
 
 }
 
 .orders{
+  margin-top: var(--offset-main);
+  position: relative;
   font-size: 0.875rem;
   font-weight: 600;
+  width: 1610px;
 
   &-header{
     position: sticky;
     top: 0;
     display: grid;
-    grid-template-columns: 1fr 1fr 0.7fr 2fr 2fr repeat(7,1fr);// 180px 120px 75px 240px 270px 110px;
+    grid-template-columns: 1fr 0.8fr 0.7fr 2fr 2fr repeat(2,1fr) repeat(2,0.5fr) repeat(2,1fr);
 
     color: var(--text-v1);
     border-radius: var(--order-radius);
@@ -70,7 +85,7 @@
 .order{
   margin-top: var(--order-gap);
   display: grid;
-  grid-template-columns: 1fr 1fr 0.7fr 2fr 2fr repeat(7,1fr);
+  grid-template-columns: 1fr 0.8fr 0.7fr 2fr 2fr repeat(2,1fr) repeat(2,0.5fr) repeat(2,1fr);
   border: 1px solid var(--order-border-color);
   border-radius: var(--order-radius);
 

@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react';
 import {User} from "../../core/classes/employee/User";
 
 import {EmployeeRole} from "../../core/classes/employee/Employee";
-import {Select} from "../Select";
+import {Select, SelectOptionType} from "../Select";
 import {Button} from "../buttons";
 import {Input} from "../Input";
 import './EditUser.scss'
@@ -14,6 +14,16 @@ export interface EditUserPropsType {
     onCancel?: () => void
     onSave?: (user: User) => void
 }
+
+const employRole: { [key in EmployeeRole]: string } = {
+    [EmployeeRole.ADMINISTRATOR]: EmployeeRole[0],
+    [EmployeeRole.MANAGER]: EmployeeRole[1],
+    [EmployeeRole.OPERATOR]: EmployeeRole[2],
+    [EmployeeRole.DEFAULT]: EmployeeRole[3]
+}
+
+const employSelectItems = Object.entries(employRole).map(([i,el]) => ({id: +i, value: el})) as SelectOptionType[]
+
 
 export function EditUser({user, onSave, onCancel}: EditUserPropsType) {
     const [editedUser, setEditedUser] = useState<User>();
@@ -86,9 +96,10 @@ export function EditUser({user, onSave, onCancel}: EditUserPropsType) {
     }
 
 
-    function handleRoleChange(e: React.ChangeEvent<HTMLSelectElement>) {
+    function handleRoleChange(e: SelectOptionType) {
         const newState = new User(editedUser)
-        newState.role = +e.target.value
+        // @ts-ignore
+        newState.role = EmployeeRole[e.value]
         setEditedUser(newState)
     }
 
@@ -239,13 +250,10 @@ export function EditUser({user, onSave, onCancel}: EditUserPropsType) {
                                 {...register("role", {required: {value: true, message: "Необходимо выбрать роль"}})}
                                 className='editeUser-select'
                                 name={'role'}
-                                value={editedUser?.role}
-                                onChange={handleRoleChange}
-                            >
-                                <option value={EmployeeRole.ADMINISTRATOR}>{EmployeeRole[0]}</option>
-                                <option value={EmployeeRole.MANAGER}>{EmployeeRole[1]}</option>
-                                <option value={EmployeeRole.OPERATOR}>{EmployeeRole[2]}</option>
-                            </Select>
+                                value={employSelectItems[3]}
+                                items={employSelectItems}
+                                onSelect={handleRoleChange}
+                            />
                             {errors.firstName &&
                                 <div className='editeUser-message'>
                                     {errors.firstName.message}
