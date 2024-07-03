@@ -100,7 +100,6 @@ export function Reservations({board, property, onBookingItemClick}: Reservations
         }
     }
 
-    console.log(filter)
 
     return (
         <div className='reservation'>

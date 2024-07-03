@@ -141,7 +141,7 @@ export function Main() {
         setAppState({...appState, bookingStatusFilter: v.value})
     }
 
-    console.log(appState)
+
     return (
         <Wrapper className='main'>
             <Wrapper.Header>

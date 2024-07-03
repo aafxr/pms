@@ -119,8 +119,10 @@ export function ChessBoard({
 
 
     function handleWheel(e: WheelEvent<HTMLDivElement>) {
+        const {shiftKey, ctrlKey} = e
+        if(ctrlKey) return
+
         e.stopPropagation()
-        const {shiftKey} = e
 
         if (shiftKey) {
             const el = boardContentRef.current
