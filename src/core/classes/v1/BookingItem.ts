@@ -78,7 +78,10 @@ export class BookingItem{
         this._board = board
         this._board.bookingItems.set(this.id, this)
 
-        this._board.bookigStatuses.add(this.status)
+        if(!this._board.bookingItemsGroups.has(this.status)) {
+            this._board.bookingItemsGroups.set(this.status, new Map())
+        }
+        this._board.bookingItemsGroups.get(this.status)!.set(this.id, this)
 
         if(this.object_type === "room"){
             if(!this._board.roomBookings.has(this.object_id as Room['id'])){

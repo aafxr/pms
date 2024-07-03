@@ -53,7 +53,7 @@ export function Main() {
     })
 
     const bookingStatuses = useMemo(() => {
-        return Array.from(board?.bookigStatuses.values() || [])
+        return Array.from(board?.bookingItemsGroups.keys() || [])
             .map((e, i) => ({id: i, value: e}))
     }, [appState])
 

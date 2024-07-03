@@ -23,7 +23,7 @@ export class Board {
     roomBookings: Map<Room['id'], Map<BookingItem['id'], BookingItem>>
     roomsByRoomType: Map<Room['room_type_id'], Map<Room['id'], Room>>
 
-    bookigStatuses: Set<string>
+    bookingItemsGroups: Map<BookingItem['status'], Map<BookingItem['id'], BookingItem>>
 
     private _pagination: Pagination
 
@@ -44,7 +44,7 @@ export class Board {
 
         this._pagination = new Pagination()
 
-        this.bookigStatuses = new Set()
+        this.bookingItemsGroups = new Map()
     }
 
 
@@ -163,6 +163,18 @@ export class Board {
         this.blocking.clear()
         this.roomBookings.clear()
         this.roomsByRoomType.clear()
+        this.bookingItemsGroups.clear()
+    }
+
+    get bookingStatuses(){
+        const res: {[key : string]: number} = {}
+        const itr = this.bookingItemsGroups.entries()
+        let entre = itr.next().value
+        while(entre){
+            res[entre[0]] = res[entre[1]]
+            entre = itr.next()
+        }
+        return res
     }
 
 }

@@ -13,7 +13,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonPropsType>(
     ({className, children, variant = 'regular', ...props}: ButtonPropsType, ref) => {
         const cn = clsx('button',
             {
-                [variant]: true
+                "button-active": variant == 'active',
+                "button-regular": variant == 'regular',
+                "button-cancel": variant == 'cancel',
+                "button-bgTransparent": variant == 'bgTransparent',
             }
             , className)
         return (

@@ -16,12 +16,50 @@
     white-space: nowrap;
   }
 
-  &-filter{
+  &-filters-container{
     padding: 8px;
     grid-area: filter;
     border: 1px solid var(--border-color);
     border-radius: var(--br-main);
   }
+
+  &-filter{
+    margin-top: 4px;
+    padding: 12px 8px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    border: 1px solid var(--border-color);
+    border-radius: var(--br-main);
+  }
+
+  &-filter-button{
+    padding: 12px 8px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 4px;
+    border: 1px solid var(--border-color);
+  }
+
+  &-filter-icon{
+    transform: rotate(0deg);
+    transition: transform .3s;
+  }
+
+  .reservation-filter-button.open .reservation-filter-icon{
+    transform: rotate(-180deg);
+  }
+
+
+  &-filter-header{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 4px;
+    font-weight: 600;
+  }
+
+
 
   &-sort{
     grid-area: sort;
@@ -29,7 +67,21 @@
     justify-content: flex-end;
     align-items: center;
     font-size: 0.875rem;
-    font-weight: 600;
+  }
+
+  &-filter-title{
+  }
+
+  &-filter-content{
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    font-size: 0.75rem;
+  }
+
+  &-filter-label{
+    display: flex;
+    align-items: center;
   }
 
   &-select{

@@ -17,18 +17,18 @@
 }
 
 
-.button.active{
+.button-active{
     background-color: var(--bg-v2);
 }
-.button.regular{
+.button-regular{
     background-color: var(--bg-v1);
 }
-.button.cancel{
+.button-cancel{
     background-color: var(--bg-main);
     border: 1px solid var(--border-color);
 }
 
-.button.bgTransparent{
+.button-bgTransparent{
     background-color: inherit;
     border: none;
 }
