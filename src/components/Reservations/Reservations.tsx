@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import React, {ChangeEvent, useMemo, useState} from 'react';
+import React, {ChangeEvent, useMemo, useRef, useState} from 'react';
 
 import {useAppContext} from "../../contexts/AppContextProvider";
 import {BookingItem} from "../../core/classes/v1/BookingItem";
@@ -30,6 +30,7 @@ export function Reservations({board, property, onBookingItemClick}: Reservations
     const {appState: {bookingStatusFilter}} = useAppContext()
     const [sort, setSort] = useState<SelectOptionType>()
     const [filter, setFilter] =useState(new Filter<BookingItem>())
+    const filtersRef = useRef<HTMLDivElement>(null)
 
     const bookingItems = useMemo(() => {
         const bl = Array.from(board.bookingItems.values())
@@ -101,6 +102,19 @@ export function Reservations({board, property, onBookingItemClick}: Reservations
     }
 
 
+    function handleFilterButtonClick(){
+        const el = filtersRef.current
+        if(!el) return
+
+        if(filterOpen){
+            el.style.maxHeight = '0'
+        } else{
+            el.style.maxHeight = el.scrollHeight + 'px'
+        }
+        setFilterOpen(!filterOpen)
+    }
+
+
     return (
         <div className='reservation'>
 
@@ -110,48 +124,52 @@ export function Reservations({board, property, onBookingItemClick}: Reservations
                     <Button
                         variant={"bgTransparent"}
                         className={clsx('reservation-filter-button', {open: filterOpen})}
-                        onClick={() => setFilterOpen(!filterOpen)}
+                        onClick={handleFilterButtonClick}
                     >
                         <ChevronIcon className='reservation-filter-icon icon-16'/>
                         Фильтр
                     </Button>
 
-                    <div className='reservation-filter'>
-                        <div className='reservation-filter-header'>
-                            <ChevronIcon className='reservation-filter-icon icon-16'/>
-                            <div className='reservation-filter-title'>Объекты</div>
+                    <div ref={filtersRef} className='reservation-filters'>
+
+                        <div className='reservation-filter'>
+                            <div className='reservation-filter-header'>
+                                <ChevronIcon className='reservation-filter-icon icon-16'/>
+                                <div className='reservation-filter-title'>Объекты</div>
+                            </div>
+
+                            <div className='reservation-filter-content'>
+                                <label className='reserfation-filter-label' htmlFor="properties">
+                                    <input type="checkbox" id='properties' onChange={handlePropertiesFilterChange}/>
+                                    Основные объекты
+                                </label>
+                                <label className='reserfation-filter-label' htmlFor={'extra-properties'}>
+                                    <input type="checkbox" id='extra-properties'
+                                           onChange={handleExtraPropertiesFilterChange}/>
+                                    Доп. объекты
+                                </label>
+                            </div>
                         </div>
 
-                        <div className='reservation-filter-content'>
-                            <label className='reserfation-filter-label' htmlFor="properties">
-                                <input type="checkbox" id='properties' onChange={handlePropertiesFilterChange}/>
-                                Основные объекты
-                            </label>
-                            <label className='reserfation-filter-label' htmlFor={'extra-properties'}>
-                                <input type="checkbox" id='extra-properties' onChange={handleExtraPropertiesFilterChange}/>
-                                Доп. объекты
-                            </label>
+                        <div className='reservation-filter'>
+                            <div className='reservation-filter-header'>
+                                <ChevronIcon className='reservation-filter-icon icon-16'/>
+                                <div className='reservation-filter-title'>Время</div>
+                            </div>
+
+                            <div className='reservation-filter-content'>
+                                <label className='reserfation-filter-label' htmlFor={'daily'}>
+                                    <input type="checkbox" id='daily' onChange={handleDailyFilterChange}/>
+                                    Час
+                                </label>
+                                <label className='reserfation-filter-label' htmlFor="hourly">
+                                    <input type="checkbox" id='hourly' onChange={handleHourlyFilterChange}/>
+                                    Сутки
+                                </label>
+                            </div>
                         </div>
+
                     </div>
-
-                    <div className='reservation-filter'>
-                        <div className='reservation-filter-header'>
-                            <ChevronIcon className='reservation-filter-icon icon-16'/>
-                            <div className='reservation-filter-title'>Время</div>
-                        </div>
-
-                        <div className='reservation-filter-content'>
-                            <label className='reserfation-filter-label' htmlFor={'daily'} >
-                                <input type="checkbox" id='daily' onChange={handleDailyFilterChange}/>
-                                Час
-                            </label>
-                            <label className='reserfation-filter-label' htmlFor="hourly">
-                                <input type="checkbox" id='hourly' onChange={handleHourlyFilterChange}/>
-                                Сутки
-                            </label>
-                        </div>
-                    </div>
-
                 </div>
 
 
@@ -190,7 +208,7 @@ export function Reservations({board, property, onBookingItemClick}: Reservations
                         </div>
 
                         {bookingItems.map(b => (
-                            <div key={b.id} className='orders-order order'>
+                            <div key={b.id} className='orders-order order' onClick={() => onBookingItemClick?.(b)}>
                                 <div className='order-prop order-prop-property'>{b.property?.name}</div>
                                 <div className='order-prop order-prop-property-type'>{b.object_type}</div>
                                 <div className='order-prop order-prop-time-type'>{b.type}</div>

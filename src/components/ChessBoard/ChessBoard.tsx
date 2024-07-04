@@ -60,6 +60,8 @@ export function ChessBoard({
 
     const [categoriesOpen, setCategoriesOpen] = useState(true)
     const [range, setRange] = useState<DateRange>(() => new DateRange(defaultStartDate, 1, strategy))
+    const rangeRef = useRef<DateRange>()
+    rangeRef.current = range
     const nodeParams = useRef(defaultNodeParams)
 
 
@@ -147,6 +149,59 @@ export function ChessBoard({
         setRange(r)
         onRangeChange?.(r)
     }
+
+
+    // handle arrows navigation
+    useEffect(() => {
+        function handleArrowKeysDown(e: KeyboardEvent){
+            const range = rangeRef.current
+            const el = boardContentRef.current
+            if (!el || !range) return
+
+            const {keyCode} = e
+
+            // Left: 37
+            // Up: 38
+            // Right: 39
+            // Down: 40
+
+            let r: DateRange | undefined
+            let k = 3
+            let delta = 100
+
+            if(keyCode == 37){
+                k = -k
+                const d = range.getDate(k)
+                r = new DateRange(d, range.size, range.strategy)
+                setRange(r)
+                onRangeChange?.(r)
+            } else if(keyCode == 39){
+                const d = range.getDate(k)
+                r = new DateRange(d, range.size, range.strategy)
+                setRange(r)
+                onRangeChange?.(r)
+            } else if(keyCode == 38){
+                const top = parseInt(el.style.top) || 0
+                el.style.top = Math.min(
+                    Math.max(
+                        top + delta,
+                        nodeParams.current.maxHeight - nodeParams.current.headerHeight - el.offsetHeight-180)
+                    , 0) + 'px'
+            } else if(keyCode == 40){
+                const top = parseInt(el.style.top) || 0
+                el.style.top = Math.min(
+                    Math.max(
+                        top - delta,
+                        nodeParams.current.maxHeight - nodeParams.current.headerHeight - el.offsetHeight-180)
+                    , 0) + 'px'
+            }
+        }
+
+        document.addEventListener('keydown', handleArrowKeysDown)
+        return () => {document.removeEventListener('keydown', handleArrowKeysDown)}
+    }, []);
+
+
 
 
     function handleCategoriesClick(val: boolean) {

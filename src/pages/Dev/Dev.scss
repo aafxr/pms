@@ -1,0 +1,31 @@
+.reserveModal{
+
+
+
+  &-container{
+    max-width: var(--modal-width);
+  }
+
+  &-mainTitle{
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+
+  &-buttons{
+    display: flex;
+    gap: 8px;
+  }
+
+  &-block{
+    margin-top: var(--offset-main);
+  }
+
+  &-tilte{
+    font-weight: 600;
+  }
+
+  &-row{
+    display: flex;
+    gap: var(--offset-main);
+  }
+}

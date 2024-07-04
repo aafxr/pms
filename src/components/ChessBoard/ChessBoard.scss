@@ -181,6 +181,7 @@
     width: var(--chess-category-width);
     font-size: 0.875rem;
     font-weight: 600;
+    cursor: pointer;
   }
 
   .chess-category-name-legend {
@@ -318,10 +319,12 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-
+      align-items: stretch;
+      overflow: hidden;
     }
 
     &-stat {
+      flex: 1 0;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -333,6 +336,7 @@
     }
 
     &-persons {
+      flex: none;
       display: flex;
       justify-content: flex-start;
       align-items: center;

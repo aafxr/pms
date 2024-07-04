@@ -19,8 +19,11 @@
   &-filters-container{
     padding: 8px;
     grid-area: filter;
-    border: 1px solid var(--border-color);
-    border-radius: var(--br-main);
+  }
+
+  &-filters{
+    transition: max-height .3s;
+    overflow: hidden;
   }
 
   &-filter{
@@ -140,6 +143,7 @@
   grid-template-columns: 1fr 0.8fr 0.7fr 2fr 2fr repeat(2,1fr) repeat(2,0.5fr) repeat(2,1fr);
   border: 1px solid var(--order-border-color);
   border-radius: var(--order-radius);
+  cursor: pointer;
 
   &-prop{
     display: flex;

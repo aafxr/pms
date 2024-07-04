@@ -20,6 +20,8 @@
   &-content{
     height: 90%;
     max-height: 90%;
+    max-width: var(--modal-width);
+    width: 100%;
     padding: 40px;
     position: fixed;
     top: 50%;

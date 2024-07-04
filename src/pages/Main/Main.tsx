@@ -152,12 +152,12 @@ export function Main() {
                     <Blank className='options-panel'>
                         <Row justify='between' full>
                             <Row className='gap-1'>
-                                <ButtonsGroup
-                                    select={1}
-                                    buttons={[
-                                        {id: 1, name: 'Основные объекты'},
-                                        {id: 2, name: 'Дополнительные объекты'}
-                                    ]}/>
+                                {/*<ButtonsGroup*/}
+                                {/*    select={1}*/}
+                                {/*    buttons={[*/}
+                                {/*        {id: 1, name: 'Основные объекты'},*/}
+                                {/*        {id: 2, name: 'Дополнительные объекты'}*/}
+                                {/*    ]}/>*/}
                                 <Select
                                     className='main-select-status'
                                     title={'Статус сделки'}

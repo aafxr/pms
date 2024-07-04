@@ -17,6 +17,9 @@ export type ChessBoardCategoryPropsType = {
     onBlockingClick?: (b: RoomBlockPeriod[]) => unknown
 }
 
+const CHESSBOARD_OPEN_CATEGORIES = 'CHESSBOARD_OPEN_CATEGORIES'
+type OpenCategoryType = Record<RoomType['id'], boolean>
+
 
 export function ChessBoardCategory({
                                        roomType,
@@ -30,6 +33,11 @@ export function ChessBoardCategory({
 
     const arr = Array.from({length: range.size}).fill(0)
 
+
+    useEffect(() => {
+        const openCategories: OpenCategoryType = JSON.parse(localStorage.getItem(CHESSBOARD_OPEN_CATEGORIES) || '{}') || {}
+        setOpen(Boolean(openCategories[roomType.id]))
+    }, []);
 
     useEffect(() => {
         const el = subcategoriesRef.current
@@ -46,6 +54,10 @@ export function ChessBoardCategory({
 
     function handleCategoryClick(e: MouseEvent<HTMLDivElement>) {
         const parent = e.currentTarget.parentElement?.parentElement
+
+        const openCategories: OpenCategoryType = JSON.parse(localStorage.getItem(CHESSBOARD_OPEN_CATEGORIES) || '{}') || {}
+        openCategories[roomType.id] = !open
+        localStorage.setItem(CHESSBOARD_OPEN_CATEGORIES, JSON.stringify(openCategories))
         if(parent && open){
             parent.style.top = '0px'
         }

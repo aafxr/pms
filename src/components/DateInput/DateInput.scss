@@ -4,6 +4,8 @@
     display: inline-block;
     position: relative;
     flex: none;
+    border: 1px solid var(--text-main);
+    border-radius: var(--br-main);
   }
 
   &-day{

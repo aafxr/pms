@@ -17,4 +17,5 @@
     height: var(--icon-sz-24);
     color: var(--bg-v2);
     transform: translateY(-50%);
+    cursor: pointer;
 }
