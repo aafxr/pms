@@ -1,10 +1,22 @@
-import {Button, Container, DateInput, Modal, Select} from "../../components";
+import {useState} from "react";
+import {Button, Container, DateInput, Input, Modal, Select} from "../../components";
+import {RadioGroup, RadioOptionType} from "../../components/Radio/Radio";
 
 import './Dev.scss'
-import {RadioButton} from "../../components";
-import {RadioGroup} from "../../components/Radio/Radio";
+
+type ReserveModalStateType = {
+    propertyType: string
+    rentType: string
+}
+
+const defaultState: ReserveModalStateType = {
+    propertyType: "room",
+    rentType: "daily"
+}
 
 export function Dev() {
+
+    const [state, setState] = useState(defaultState)
 
     return (
         <div className='dev'>
@@ -27,18 +39,16 @@ export function Dev() {
 
                         <div className='reserveModal-block'>
                             <div className='reserveModal-tilte'>Тип бронирования</div>
-                            <div className='reserveModal-row'>
-                                <label htmlFor="hourly">
-                                    <input type="radio" id={'hourly'} name={'rentType'} value={'hourly'}/>
-                                    Посуточный
-                                </label>
-                                <label htmlFor="daily">
-                                    <input type="radio" id={'daily'} name={'rentType'} value={'daily'}/>
-                                    Почасовой
-                                </label>
-                                {/*<RadioButton title={'Посуточный'} name={'rentType'} />*/}
-                                {/*<RadioButton title={'Почасовой'} name={'rentType'}/>*/}
-                            </div>
+                            <RadioGroup
+                                className={'reserveModal-row'}
+                                name={'prop'}
+                                options={[
+                                    {title: 'Посуточный', value: 'daily'},
+                                    {title: 'Почасовой', value: 'hourly'}
+                                ]}
+                                selected={state.rentType}
+                                onChange={(v) => setState({...state, rentType: v})}
+                            />
                         </div>
 
 
@@ -63,28 +73,64 @@ export function Dev() {
 
                         <div className='reserveModal-block'>
                             <div className='reserveModal-tilte'>Тип объекта аренды</div>
+                                <RadioGroup
+                                    className={'reserveModal-row'}
+                                    name={'prop'}
+                                    options={[
+                                        {title: 'Комната', value: 'room'},
+                                        {title: 'Доп. объект', value: 'extra'}
+                                    ]}
+                                    selected={state.propertyType}
+                                    onChange={(v) => setState({...state, propertyType: v})}
+                                />
+                        </div>
+
+                        <div className='reserveModal-booking'>
                             <div className='reserveModal-row'>
-                                <label htmlFor="room">
-                                    <input type="radio" id={'room'} name={'propType'} value={'room'}/>
-                                    Номер
-                                </label>
-                                <label htmlFor="extraProp">
-                                    <input type="radio" id={'extraProp'} name={'propType'} value={'extra'}/>
-                                    Дополнительный объект
-                                </label>
-                                {/*<RadioButton title={'hourly'} checked/>*/}
-                                {/*<RadioButton title={'daily'}/>*/}
+                                <div className='reserveModal-category'>
+                                    <div className='reserveModal-tilte'>Категория</div>
+                                    <Select className='reserveModal-select' items={[]}/>
+                                </div>
+
+                                <div className='reserveModal-tarif'>
+                                    <div className='reserveModal-tilte'>Тариф</div>
+                                    <Select className='reserveModal-select' items={[]}/>
+                                </div>
+
+                                <div className='reserveModal-placing'>
+                                    <div className='reserveModal-tilte'>Размещение</div>
+                                    <Input className='reserveModal-input'/>
+                                </div>
+
+                                <div className='reserveModal-propertirsCount'>
+                                    <div className='reserveModal-tilte'>Кол-во объектов</div>
+                                    <Input className='reserveModal-input'/>
+                                </div>
+
+                                <div className='reserveModal-roomNumber'>
+                                    <div className='reserveModal-tilte'>Номер комнаты</div>
+                                    <Select className='reserveModal-select' items={[]}/>
+                                </div>
+
+                                <div className='reserveModal-guests'>
+                                    <div className='reserveModal-tilte'>Гости</div>
+                                    <div className='reserveModal-guests-row'>
+                                        <Input className='reserveModal-input'/>
+                                        <Input className='reserveModal-input'/>
+
+                                    </div>
+                                </div>
+
+                                <div className='reserveModal-price'>
+                                    <div className='reserveModal-tilte'>Стоимость проживания</div>
+                                    <Input className='reserveModal-input'/>
+                                </div>
+
+
                             </div>
                         </div>
 
 
-                        <RadioGroup
-                            name={'prop'}
-                            options={[
-                                {title: 'Комната', value: 'room'},
-                                {title: 'Доп. объект', value: 'extra'}]}
-                            selected={'room'}
-                        />
                     </Container>
                 </div>
             </Modal>

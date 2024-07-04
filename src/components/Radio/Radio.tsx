@@ -1,18 +1,21 @@
 import React, {useEffect, useRef} from 'react';
 
-import './Radio.scss'
+import {RadioButtonIcon} from "../svg";
 
-type RadioType = {
+import './Radio.scss'
+import clsx from "clsx";
+
+export type RadioOptionType = {
     value: string;
     title: string;
 };
 
 type RadioProps = {
-    value: RadioType["value"];
-    title: RadioType["title"];
-    selected: RadioType["value"];
+    value: RadioOptionType["value"];
+    title: RadioOptionType["title"];
+    selected?: RadioOptionType["value"];
     groupName: string;
-    onChange?: (value: string) => void;
+    onChange?: (value: RadioOptionType["value"]) => void;
 };
 
 export function Radio({groupName, selected, title, onChange, value}: RadioProps) {
@@ -42,15 +45,18 @@ export function Radio({groupName, selected, title, onChange, value}: RadioProps)
     const inputId = `${groupName}_radio_item_with_value__${value}`;
     const isChecked = value === selected;
 
-    return (
+
+     return (
         <div
             className={'radio-item'}
             key={value}
-            data-checked={isChecked}
+            data-selected={isChecked}
             data-testid={inputId}
             tabIndex={0}
+            onClick={() => onChange?.(value)}
             ref={optionRef}
         >
+            <RadioButtonIcon className='radio-icon icon-24' checked={isChecked} />
             <input
                 className={'radio-input'}
                 type="radio"
@@ -69,19 +75,20 @@ export function Radio({groupName, selected, title, onChange, value}: RadioProps)
 
 
 type RadioGroupProps = {
+    className?: string
     name: string;
-    options: RadioType[];
-    selected: RadioType["value"];
-    onChange?: (value: string) => void;
+    options: RadioOptionType[];
+    selected?: RadioOptionType["value"];
+    onChange?: (value: RadioOptionType["value"]) => void;
 };
 
 export const RadioGroup = (props: RadioGroupProps) => {
-    const { name, options, selected, onChange } = props;
+    const { className, name, options, selected, onChange } = props;
 
     const handleChange = (value: string) => onChange?.(value);
 
     return (
-        <div className={'radio-group'}>
+        <div className={clsx('radio-group', className)}>
             {options.map(({ value, title }) => (
                 <Radio
                     key={value}

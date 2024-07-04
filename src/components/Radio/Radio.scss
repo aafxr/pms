@@ -6,9 +6,21 @@
 }
 
 .radio-item {
-  display: block;
   position: relative;
-  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  pointer-events: all;
+}
+
+.radio-item[data-selected=true]{
+  cursor: auto;
+  pointer-events: none;
+}
+
+.radio-icon{
+  color: var(--text-v1);
 }
 
 .radio-input {
@@ -22,19 +34,5 @@
 
 .radio-label {
   cursor: pointer;
-  padding: 1px 7px;
-  box-sizing: border-box;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 15px;
-  line-height: 20px;
 }
 
-.radio-item[data-checked="true"] .radio-label {
-  background-color: rgba(193, 222, 239, 0.5);
-}
-
-.radio-label:hover,
-.radio-item[data-checked="true"] .radio-label:hover {
-  background-color: rgba(193, 222, 239, 0.9);
-}
