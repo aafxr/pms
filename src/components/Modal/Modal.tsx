@@ -60,7 +60,11 @@ export function Modal({className, open, onClose, children}: ModalPropsType) {
             onTransitionEnd={handleTransitionEnd}
         >
             <div className='modal-backplate'/>
-            <div className='modal-content'>{children}</div>
+            <div className='modal-container'>
+                <div className='modal-content'>
+                    {children}
+                </div>
+            </div>
         </div>,
         document.body
     );

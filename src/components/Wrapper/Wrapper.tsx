@@ -17,7 +17,7 @@ function _Wrapper({
                       className,
                       children
                   }: WrapperType) {
-    return <div className={clsx('wrapper', direction, className)}>{children}</div>;
+    return <div className={clsx('wrapper', `wrapper-${direction}`, className)}>{children}</div>;
 }
 
 

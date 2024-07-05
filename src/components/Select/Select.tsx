@@ -18,17 +18,19 @@ export interface Select2PropsType {
     className?: string
     value?: SelectOptionType
     items: SelectOptionType[]
+    maxSelectItems?: number
     title?: string
     name?: string
     onSelect?: (value: SelectOptionType) => unknown
 }
 
 
-export function Select({ref, value, className, items, title, name, onSelect}: Select2PropsType) {
+export function Select({ref, value, className, items, title, name, onSelect, maxSelectItems}: Select2PropsType) {
     const selectRef = useRef<HTMLDivElement>(null)
     const selectItemsRef = useRef<HTMLDivElement>(null)
     const [_value, setValue] = useState<SelectOptionType>()
     const [open, setOpen] = useState(false)
+    const itemsHeight = useRef(1)
     useOutside(selectRef, () => setOpen(false))
 
 
@@ -38,10 +40,25 @@ export function Select({ref, value, className, items, title, name, onSelect}: Se
 
 
     useEffect(() => {
+        const el = selectItemsRef.current
+        if(!el || maxSelectItems == undefined) return
+
+        const item  = el.querySelector('.select-item')
+        if(!item) return
+
+        const rect = item.getBoundingClientRect()
+        itemsHeight.current = rect.height
+
+    }, []);
+
+
+    useEffect(() => {
         const itemsEl = selectItemsRef.current
         if (itemsEl) {
             open
-                ? itemsEl.style.maxHeight = itemsEl.scrollHeight + 2 + 'px'
+                ? itemsEl.style.maxHeight = maxSelectItems !== undefined
+                    ? itemsHeight.current * maxSelectItems + 2 + 'px'
+                    : itemsEl.scrollHeight + 2 + 'px'
                 : itemsEl.style.maxHeight = '0'
         }
     }, [open]);
@@ -77,7 +94,10 @@ export function Select({ref, value, className, items, title, name, onSelect}: Se
                 <ChevronIcon className='select-icon icon-16'/>
             </div>
 
-            <div ref={selectItemsRef} className='select-items'>
+            <div
+                ref={selectItemsRef}
+                className='select-items'
+            >
                 {items.map(item => (
                     <div
                         key={item.id}

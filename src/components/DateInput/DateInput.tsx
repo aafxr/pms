@@ -1,6 +1,8 @@
 import clsx from "clsx";
 import React, {ChangeEvent, forwardRef, InputHTMLAttributes, useEffect, useState, MouseEvent} from 'react';
 
+import {Select, SelectOptionType} from "../Select";
+
 import './DateInput.scss'
 
 
@@ -8,6 +10,10 @@ export interface DateInputPropsType extends InputHTMLAttributes<HTMLInputElement
     date?: Date
     onDateChange?: (d: Date) => unknown
 }
+
+const dateSelectOptions: SelectOptionType[] = new Array(24)
+    .fill('')
+    .map((_, i) => ({id: i, value: `${i < 10 ? `0${i}` : i}:00`}))
 
 
 const d = new Date()
@@ -17,8 +23,11 @@ export const DateInput = forwardRef<HTMLInputElement, DateInputPropsType>(({
                                                                                date,
                                                                                className,
                                                                                onDateChange,
-                                                                               ...rest
-                                                                           }, ref) => {
+                                                                           ...rest
+},
+ref
+) =>
+{
     const [dayValue, setDayValue] = useState('')
     const [timeValue, setTimeValue] = useState('')
     const [_date, setDate] = useState<Date>(defaultDate)
@@ -40,8 +49,8 @@ export const DateInput = forwardRef<HTMLInputElement, DateInputPropsType>(({
     function handleDayChange(e: ChangeEvent<HTMLInputElement>) {
         const text = e.target.value.trim()
         setDayValue(text)
-        if(/[0-3]?[0-9]\.[0-1]?[0-9]\.[1-2]\d{3}/.test(text)){
-            const [d,m,y] = text.split('.')
+        if (/[0-3]?[0-9]\.[0-1]?[0-9]\.[1-2]\d{3}/.test(text)) {
+            const [d, m, y] = text.split('.')
             _date.setFullYear(+y)
             _date.setMonth(+m)
             _date.setDate(+d)
@@ -53,17 +62,11 @@ export const DateInput = forwardRef<HTMLInputElement, DateInputPropsType>(({
     }
 
 
-    function handleTimeChange(e: ChangeEvent<HTMLInputElement>) {
-        const text = e.target.value.trim()
-        setTimeValue(text)
-        if(/[0-2]?[0-9]:[0-5]?[0-9]$/.test(text)){
-            const [h,m] = text.split(':')
-            _date.setHours(+h)
-            _date.setMinutes(+m)
-
-            setDate(new Date(_date))
-            onDateChange?.(_date)
-        }
+    function handleTimeChange(item: SelectOptionType) {
+        _date.setHours(item.id)
+        _date.setMinutes(0)
+        setDate(new Date(_date))
+        onDateChange?.(_date)
     }
 
 
@@ -78,17 +81,17 @@ export const DateInput = forwardRef<HTMLInputElement, DateInputPropsType>(({
                     onChange={handleDayChange}
                     size={1}
                 />
-                <input
+                <Select
                     className='date-time'
-                    type="text"
-                    inputMode='numeric'
-                    value={timeValue}
-                    onChange={handleTimeChange}
-                    size={1}
+                    value={dateSelectOptions[_date.getHours()]}
+                    items={dateSelectOptions}
+                    onSelect={handleTimeChange}
+                    maxSelectItems={5}
                 />
 
             </div>
             <input {...rest} className={'date-hidden'} type="date" value={_date.getTime()}/>
         </div>
     );
-})
+}
+)

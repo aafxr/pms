@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import {PropsWithChildren} from "react";
 
-import './Header.css'
+import '../Wrapper.css'
 
 
 export interface HeaderPropsType extends PropsWithChildren{
@@ -10,6 +10,6 @@ export interface HeaderPropsType extends PropsWithChildren{
 
 export function Header({className,children}: HeaderPropsType){
     return (
-        <div className={clsx('w-header', className)}>{children}</div>
+        <div className={clsx('wrapper-header', className)}>{children}</div>
     )
 }
