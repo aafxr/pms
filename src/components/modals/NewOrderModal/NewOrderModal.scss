@@ -62,11 +62,11 @@
     width: 148px;
   }
 
-  &-input-currency {
+  &-option-currency {
     position: relative;
   }
 
-  &-input-currency:after {
+  &-option-currency:after {
     content: attr(data-currency);
     position: absolute;
     left: calc(100% + 8px);

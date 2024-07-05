@@ -1,10 +1,10 @@
 import clsx from "clsx";
 import React, {useEffect, useState} from 'react';
 
+import {MinusIcon, PlusIcon} from "../svg";
 import {Input} from "../Input";
 
 import './CounterInput.css'
-import {MinusIcon, PlusIcon} from "../svg";
 
 export interface CounterInputPropsType {
     className?: string

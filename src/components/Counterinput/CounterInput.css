@@ -3,7 +3,9 @@
 }
 
 .counter .input{
-    padding: 12px 32px;
+    width: 100%;
+    padding-left: 32px;
+    padding-right: 32px;
     text-align: center;
     min-width: 0;
 }

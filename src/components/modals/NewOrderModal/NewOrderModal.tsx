@@ -1,11 +1,12 @@
 import React, {useMemo, useState} from 'react';
 import {Modal, ModalPropsType} from "../../Modal";
 import {Board} from "../../../core/classes/v1/Board";
+import {CounterInput} from "../../Counterinput";
+import {RadioGroup} from "../../Radio/Radio";
+import {DateInput} from "../../DateInput";
 import {Wrapper} from "../../Wrapper";
 import {Button} from "../../buttons";
 import {Select} from "../../Select";
-import {RadioGroup} from "../../Radio/Radio";
-import {DateInput} from "../../DateInput";
 import {Input} from "../../Input";
 
 import './NewOrderModal.scss'
@@ -69,7 +70,6 @@ export function NewOrderModal({board, ...props}: NewOrderModalPropsType) {
                             <Select
                                 className='reserveModal-select reserveModal-select-property'
                                 items={propertiesList}
-                                title={'property'}
                             />
                             <div className='reserveModal-message'></div>
                         </div>
@@ -123,7 +123,7 @@ export function NewOrderModal({board, ...props}: NewOrderModalPropsType) {
                                 <div className='reserveModal-tilte'>&nbsp;</div>
                                 <div className='reserveModal-options'>
                                     <div className='reserveModal-option'>
-                                        <Input className='reserveModal-count'/>
+                                        <CounterInput className='reserveModal-count'/>
                                         <div className='reserveModal-message'></div>
                                     </div>
                                 </div>
@@ -188,7 +188,7 @@ export function NewOrderModal({board, ...props}: NewOrderModalPropsType) {
                                 <div className='reserveModal-tilte'>Кол-во объектов</div>
                                 <div className='reserveModal-options'>
                                     <div className='reserveModal-option'>
-                                        <Input className='reserveModal-count'/>
+                                        <CounterInput className='reserveModal-count'/>
                                         <div className='reserveModal-message'></div>
                                     </div>
                                 </div>
@@ -208,11 +208,11 @@ export function NewOrderModal({board, ...props}: NewOrderModalPropsType) {
                                 <div className='reserveModal-tilte'>Гости</div>
                                 <div className='reserveModal-options'>
                                     <div className='reserveModal-option'>
-                                        <Input className='reserveModal-count'/>
+                                        <CounterInput className='reserveModal-count'/>
                                         <div className='reserveModal-message'>Взрослые</div>
                                     </div>
                                     <div className='reserveModal-option'>
-                                        <Input className='reserveModal-count'/>
+                                        <CounterInput className='reserveModal-count'/>
                                         <div className='reserveModal-message'>Дети</div>
                                     </div>
                                 </div>
@@ -222,8 +222,9 @@ export function NewOrderModal({board, ...props}: NewOrderModalPropsType) {
                                 <div className='reserveModal-tilte'>Стоимость проживания</div>
                                 <div className='reserveModal-options'>
                                     <div className='reserveModal-option'>
-                                        <Input className='reserveModal-input reserveModal-input-currency'
-                                               data-currency={'₽'}/>
+                                        <div className='reserveModal-option-currency' data-currency={'₽'}>
+                                            <Input inputMode='numeric' className='reserveModal-input'/>
+                                        </div>
                                         <div className='reserveModal-message'></div>
                                     </div>
                                 </div>
