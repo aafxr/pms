@@ -83,7 +83,6 @@ export function Select({ref, value, className, items, title, name, onSelect, max
             setValue(item)
             onSelect?.(item)
         }
-
     }
 
 

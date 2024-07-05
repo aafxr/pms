@@ -2,17 +2,18 @@ import clsx from "clsx";
 import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
 
+import {NewOrderModal} from "../modals/NewOrderModal/NewOrderModal";
+import {useAppContext} from "../../contexts/AppContextProvider";
 import {BellIcon, GearIcon, PlusIcon, UserIcon} from "../svg";
+import {Select, SelectOptionType} from "../Select";
 import {Button, RoundButton} from "../buttons";
 import {Container} from "../Container";
-import {Select, SelectOptionType} from "../Select";
 import {Search} from "../Search";
 import {Logo} from "../Logo";
 import {Row} from "../flex";
 import {Nav} from "../Nav";
 
 import './Header.css'
-import {useAppContext} from "../../contexts/AppContextProvider";
 
 
 export interface HeaderPropsType {
@@ -26,10 +27,11 @@ export function Header({className}: HeaderPropsType) {
 
     const {board, property} = appState
     const propertySelectOptions = Array.from(board?.properties.values() || []).map(el => ({id: el.id, value: el.name}))
+    const [showNewOrderModal, setShowNewOrderModal] = useState(false)
 
 
     function handleReservationButtonClick(){
-        navigate('/reservation')
+        setShowNewOrderModal(true)
     }
 
 
@@ -99,6 +101,7 @@ export function Header({className}: HeaderPropsType) {
 
                 </div>
             </Container>
+            {board && showNewOrderModal && <NewOrderModal board={board} open={showNewOrderModal} onClose={() => setShowNewOrderModal(false)} />}
         </div>
     )
 }
