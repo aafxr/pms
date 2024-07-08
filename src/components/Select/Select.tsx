@@ -121,6 +121,7 @@ export function Select({ref, value, className, items, placeholder, name, onSelec
     function handleInputChange(e: React.ChangeEvent<HTMLInputElement>){
         const text = e.target.value.trim()
         setValue(text)
+        if(!open) setOpen(true)
     }
 
 
