@@ -41,10 +41,10 @@ export function Select({ref, value, className, items, title, name, onSelect, max
 
     useEffect(() => {
         const el = selectItemsRef.current
-        if(!el || maxSelectItems == undefined) return
+        if (!el || maxSelectItems == undefined) return
 
-        const item  = el.querySelector('.select-item')
-        if(!item) return
+        const item = el.querySelector('.select-item')
+        if (!item) return
 
         const rect = item.getBoundingClientRect()
         itemsHeight.current = rect.height
@@ -69,25 +69,47 @@ export function Select({ref, value, className, items, title, name, onSelect, max
     }
 
 
-    function handleSelect(v: SelectOptionType){
+    function handleSelect(v: SelectOptionType) {
         setValue(v)
         setOpen(false)
         onSelect?.(v)
     }
 
 
-    function handleSelectChange(e: ChangeEvent<HTMLSelectElement>){
+    function handleSelectChange(e: ChangeEvent<HTMLSelectElement>) {
         const text = e.target.value
         const item = items.find(e => e.value == text)
-        if(item) {
+        if (item) {
             setValue(item)
             onSelect?.(item)
         }
     }
 
+    function handleOptionKeydown(v: SelectOptionType, e: React.KeyboardEvent<HTMLDivElement>) {
+        const {keyCode, shiftKey} = e
+        if(keyCode === 13) handleSelect(v)
+        if (keyCode === 38) {
+            const prev = e.currentTarget.previousElementSibling as HTMLElement
+            if(prev) prev.focus()
+        }else if(keyCode === 40){
+            const next = e.currentTarget.nextElementSibling as HTMLElement
+            if(next) next.focus()
+        } else if(keyCode === 27){
+            e.stopPropagation()
+            setOpen(false)
+            selectRef.current?.dispatchEvent(new KeyboardEvent("keydown", {key: "Tab", shiftKey}))
+        }
+    }
+
 
     return (
-        <div ref={selectRef} className={clsx('select', {open}, className)}>
+        <div
+            ref={selectRef}
+            className={clsx('select', {open}, className)}
+            onFocus={() => setOpen(true)}
+            onBlur={() => setOpen(false)}
+            tabIndex={0}
+        >
             <div className='select-header' onClick={handleSelectHeaderClick}>
                 {_value?.value || title}
                 <ChevronIcon className='select-icon icon-16'/>
@@ -102,13 +124,25 @@ export function Select({ref, value, className, items, title, name, onSelect, max
                         key={item.id}
                         className={clsx('select-item', item.id === _value?.id && 'selected')}
                         onClick={() => handleSelect(item)}
+                        onKeyDown={e => handleOptionKeydown(item, e)}
+                        tabIndex={0}
                     >
                         {item.value}
                     </div>
                 ))}
             </div>
 
-            <select ref={ref} className='select-node' name={name} value={_value?.value} onChange={handleSelectChange}></select>
+            <select
+                ref={ref}
+                className='select-node'
+                name={name}
+                value={_value?.value}
+                onChange={handleSelectChange}
+                tabIndex={0}
+                onFocus={() => selectRef.current?.focus()}
+            >
+                <option value={'default'}>default</option>
+            </select>
         </div>
     );
 }
