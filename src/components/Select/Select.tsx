@@ -1,8 +1,9 @@
 import clsx from "clsx";
-import React, {ChangeEvent, useEffect, useRef, useState} from 'react';
+import React, {ChangeEvent, useEffect, useMemo, useRef, useState} from 'react';
 
 import {useOutside} from "../../hooks";
 import {ChevronIcon} from "../svg";
+import {Input} from "../Input";
 
 import './Select.scss'
 
@@ -19,23 +20,33 @@ export interface Select2PropsType {
     value?: SelectOptionType
     items: SelectOptionType[]
     maxSelectItems?: number
-    title?: string
+    placeholder?: string
     name?: string
     onSelect?: (value: SelectOptionType) => unknown
 }
 
 
-export function Select({ref, value, className, items, title, name, onSelect, maxSelectItems}: Select2PropsType) {
+export function Select({ref, value, className, items, placeholder, name, onSelect, maxSelectItems}: Select2PropsType) {
     const selectRef = useRef<HTMLDivElement>(null)
     const selectItemsRef = useRef<HTMLDivElement>(null)
-    const [_value, setValue] = useState<SelectOptionType>()
+    const [_value, setValue] = useState('')
+    const [option, setOption] = useState<SelectOptionType | null>(null)
     const [open, setOpen] = useState(false)
     const itemsHeight = useRef(1)
     useOutside(selectRef, () => setOpen(false))
 
 
+    const filteredItems = useMemo(() => {
+        const v = _value.toLowerCase()
+        return items.filter(i => i.value.toLowerCase().startsWith(v))
+    }, [items, _value])
+
+
     useEffect(() => {
-        setValue(value)
+        if(value) {
+            setOption(value)
+            setValue(value?.value)
+        }
     }, [value]);
 
 
@@ -64,13 +75,10 @@ export function Select({ref, value, className, items, title, name, onSelect, max
     }, [open]);
 
 
-    function handleSelectHeaderClick() {
-        setOpen(!open)
-    }
-
 
     function handleSelect(v: SelectOptionType) {
-        setValue(v)
+        setValue(v.value)
+        setOption(v)
         setOpen(false)
         onSelect?.(v)
     }
@@ -80,7 +88,8 @@ export function Select({ref, value, className, items, title, name, onSelect, max
         const text = e.target.value
         const item = items.find(e => e.value == text)
         if (item) {
-            setValue(item)
+            setValue(item.value)
+            setOption(item)
             onSelect?.(item)
         }
     }
@@ -102,6 +111,12 @@ export function Select({ref, value, className, items, title, name, onSelect, max
     }
 
 
+    function handleInputChange(e: React.ChangeEvent<HTMLInputElement>){
+        const text = e.target.value.trim()
+        setValue(text)
+    }
+
+
     return (
         <div
             ref={selectRef}
@@ -110,8 +125,13 @@ export function Select({ref, value, className, items, title, name, onSelect, max
             onBlur={() => setOpen(false)}
             tabIndex={0}
         >
-            <div className='select-header' onClick={handleSelectHeaderClick}>
-                {_value?.value || title}
+            <div className='select-header' >
+                <Input
+                    className='select-header-input'
+                    value={_value} placeholder={placeholder}
+                    onChange={handleInputChange}
+                    onFocus={() => setOpen(true)}
+                />
                 <ChevronIcon className='select-icon icon-16'/>
             </div>
 
@@ -119,10 +139,10 @@ export function Select({ref, value, className, items, title, name, onSelect, max
                 ref={selectItemsRef}
                 className='select-items'
             >
-                {items.map(item => (
+                {filteredItems.map(item => (
                     <div
                         key={item.id}
-                        className={clsx('select-item', item.id === _value?.id && 'selected')}
+                        className={clsx('select-item', item.id === option?.id && 'selected')}
                         onClick={() => handleSelect(item)}
                         onKeyDown={e => handleOptionKeydown(item, e)}
                         tabIndex={0}
@@ -136,7 +156,7 @@ export function Select({ref, value, className, items, title, name, onSelect, max
                 ref={ref}
                 className='select-node'
                 name={name}
-                value={_value?.value}
+                value={_value}
                 onChange={handleSelectChange}
                 tabIndex={0}
                 onFocus={() => selectRef.current?.focus()}

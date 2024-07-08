@@ -7,9 +7,23 @@ import {PlusIcon} from "../svg";
 import {Input} from "../Input";
 
 import './GuestForm.scss'
+import {useAppContext} from "../../contexts/AppContextProvider";
+import {Person} from "../../core/classes/v1/Person";
+
+
+export interface GuestFormPropsType{
+    onDelete?: () => unknown
+    onChange?: (guest: Person) => unknown
+}
+
 
 export function GuestForm() {
-    return (
+    const {appState} = useAppContext()
+    const {board} = appState
+    const persons = Array.from(board?.persons.values() || [])
+    const selectPersons = persons.map(p => ({id: p.id, value: p.fullName}))
+
+        return (
         <div className="guestForm">
             <div className='guestForm-container'>
                 <button className='guestForm-removeGuest '>
@@ -20,7 +34,7 @@ export function GuestForm() {
                         <div className="guestForm-options">
                             <div className="guestForm-option guestForm-option-stretch">
                                 <div className="guestForm-title">Гость 1</div>
-                                <Select className="guestForm-select" items={[]}/>
+                                <Select className="guestForm-select" items={selectPersons} maxSelectItems={5}/>
                                 <div className="guestForm-message"></div>
                             </div>
                         </div>

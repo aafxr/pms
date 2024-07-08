@@ -160,7 +160,7 @@ export function Main() {
                                 {/*    ]}/>*/}
                                 <Select
                                     className='main-select-status'
-                                    title={'Статус сделки'}
+                                    placeholder={'Статус сделки'}
                                     value={bookingStatuses.find(bs=> bs.value === bookingStatusFilter)}
                                     items={bookingStatuses}
                                     onSelect={handleSelectBookingStatusFilter}

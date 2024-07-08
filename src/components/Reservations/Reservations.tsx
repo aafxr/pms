@@ -177,7 +177,7 @@ export function Reservations({board, property, onBookingItemClick}: Reservations
                     Сортировка по:&nbsp;
                     <Select
                         className='reservation-select'
-                        title={'title'}
+                        placeholder={'title'}
                         value={sortVar[0]} items={sortVar}
                         onSelect={setSort}
                     />
