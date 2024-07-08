@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {DatePickerCustom} from "../DatePickerCustom";
+import {FileInput} from "../FileInput";
 import {Select} from "../Select";
 import {PlusIcon} from "../svg";
 import {Input} from "../Input";
@@ -114,10 +115,13 @@ export function GuestForm() {
 
                     <div className="guestForm-block">
                         <div className="guestForm-options">
-                            <div className="guestForm-option">
+                            <div className="guestForm-option guestForm-option-file">
                                 <div className="guestForm-title">Вложения</div>
-                                <Input type='file' className="guestForm-input guestForm-input-file"/>
-                                <div className="guestForm-message"></div>
+                                <FileInput
+                                    className="guestForm-input"
+                                    placeholder='Прикрепите здесь сканы, справки или иные документы'
+                                />
+                                <div className="guestForm-message">PNG, JPEG, PDF</div>
                             </div>
                         </div>
                     </div>

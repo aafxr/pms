@@ -1,0 +1,22 @@
+.checkbox{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  &-box{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex: none;
+    width: 24px;
+    height: 24px;
+    background: var(--bg-main);
+    border: 1px solid var(--bg-v1);
+    border-radius: 4px;
+  }
+
+  &-input{
+    display: none;
+  }
+}

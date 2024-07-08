@@ -25,7 +25,7 @@ export function AuthRequired() {
 
     useEffect(() => {
         if (!user) dispatch(setUser(defaultUser))
-    }, []);
+    }, [dispatch]);
 
 
     if (loading) return (<div>Loading...</div>)

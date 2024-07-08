@@ -1,0 +1,32 @@
+.fileInput{
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: stretch;
+  height: 40px;
+  padding: 0 16px;
+  line-height: 1;
+  background-color: var(--bg-main);
+  border: 1px solid var(--bg-v2);
+  border-radius: var(--br-main);
+  cursor: pointer;
+
+  &-disabled{
+    cursor: auto;
+    pointer-events: none;
+  }
+
+  &-icon{
+    margin-left: auto;
+    flex: none;
+    color: var(--text-v1);
+  }
+
+  &-input{
+    width: 0;
+    height: 0;
+    pointer-events: none;
+    opacity: 0;
+  }
+
+}

@@ -22,6 +22,7 @@
     line-height: 1;
     border: none;
     overflow: hidden;
+    cursor: pointer;
   }
 
   &-close-icon{
@@ -50,7 +51,8 @@
   &-option-document,
   &-option-issued,
   &-option-seria,
-  &-option-number{
+  &-option-number,
+  &-option-file{
     flex: 1 1;
   }
 

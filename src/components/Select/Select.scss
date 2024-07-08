@@ -15,6 +15,7 @@
     border-radius: var(--br-main);
     border: 1px solid var(--border-color);
     background-color: var(--bg-main);
+    cursor: pointer;
   }
 
   &-icon {
@@ -43,10 +44,10 @@
 
   &-item {
     padding: 12px 8px 12px 8px;
-    //height: 40px;
     background-color: var(--bg-main);
     border-radius: var(--br-main);
     transition: background .3s;
+    cursor: pointer;
   }
 
   &-item:hover{
@@ -55,6 +56,8 @@
 
   &-item.selected{
     background-color: var(--bg-v5);
+    cursor: auto;
+    pointer-events: none;
   }
 
   &-node {
