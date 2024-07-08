@@ -1,17 +1,17 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 
+import {useAppContext} from "../../contexts/AppContextProvider";
 import {DatePickerCustom} from "../DatePickerCustom";
+import {Person} from "../../core/classes/v1/Person";
 import {FileInput} from "../FileInput";
 import {Select} from "../Select";
 import {PlusIcon} from "../svg";
 import {Input} from "../Input";
 
 import './GuestForm.scss'
-import {useAppContext} from "../../contexts/AppContextProvider";
-import {Person} from "../../core/classes/v1/Person";
 
 
-export interface GuestFormPropsType{
+export interface GuestFormPropsType {
     onDelete?: () => unknown
     onChange?: (guest: Person) => unknown
 }
@@ -21,9 +21,13 @@ export function GuestForm() {
     const {appState} = useAppContext()
     const {board} = appState
     const persons = Array.from(board?.persons.values() || [])
-    const selectPersons = persons.map(p => ({id: p.id, value: p.fullName}))
+    const selectPersons = useMemo(() => {
+        return persons
+            .map(p => ({id: p.id, value: p.fullName}))
+            .sort((a, b) => a.value < b.value ? -1 : a.value > b.value ? 1 : 0)
+    }, [board])
 
-        return (
+    return (
         <div className="guestForm">
             <div className='guestForm-container'>
                 <button className='guestForm-removeGuest '>

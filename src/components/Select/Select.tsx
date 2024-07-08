@@ -36,10 +36,17 @@ export function Select({ref, value, className, items, placeholder, name, onSelec
     useOutside(selectRef, () => setOpen(false))
 
 
-    const filteredItems = useMemo(() => {
+    useEffect(() => {
+        const el = selectItemsRef.current
+        if(!el) return
+
         const v = _value.toLowerCase()
-        return items.filter(i => i.value.toLowerCase().startsWith(v))
-    }, [items, _value])
+        const idx = items.findIndex(i => i.value.toLowerCase().startsWith(v))
+        const itemHeight = el.scrollHeight / items.length
+
+        el.scrollTop = idx * itemHeight
+    }, [items, _value]);
+
 
 
     useEffect(() => {
@@ -117,13 +124,20 @@ export function Select({ref, value, className, items, placeholder, name, onSelec
     }
 
 
+    function handleKeyDown(e: React.KeyboardEvent<HTMLDivElement>){
+        const {key} = e
+        if(key == 'Escape'){
+            setOpen(false)
+            selectRef.current?.blur()
+        }
+    }
+
+
     return (
         <div
             ref={selectRef}
             className={clsx('select', {open}, className)}
-            onFocus={() => setOpen(true)}
-            onBlur={() => setOpen(false)}
-            tabIndex={0}
+            onKeyDown={handleKeyDown}
         >
             <div className='select-header' >
                 <Input
@@ -139,7 +153,7 @@ export function Select({ref, value, className, items, placeholder, name, onSelec
                 ref={selectItemsRef}
                 className='select-items'
             >
-                {filteredItems.map(item => (
+                {items.map(item => (
                     <div
                         key={item.id}
                         className={clsx('select-item', item.id === option?.id && 'selected')}
