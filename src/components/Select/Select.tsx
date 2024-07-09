@@ -147,7 +147,7 @@ export function Select({ref, value, className, items, placeholder, name, onSelec
                     onChange={handleInputChange}
                     onFocus={() => setOpen(true)}
                 />
-                <ChevronIcon className='select-icon icon-16'/>
+                <ChevronIcon className='select-icon icon-16' onClick={() => setOpen(!open)}/>
             </div>
 
             <div
