@@ -36,19 +36,23 @@
 
   &-items {
     position: absolute;
-    top: calc(100% + 4px);
-    left: 0;
-    right: 0;
-    width: 100%;
-    max-height: 0;
+    //top: calc(100% + 4px);
+    //left: 0;
+    //right: 0;
+    //width: 100%;
+    //max-height: 0;
     opacity: 0;
     border: 1px solid var(--border-color);
     background-color: var(--bg-main);
     border-radius: var(--br-main);
     transition: opacity .3s, max-height .3s;
-    pointer-events: none;
+    pointer-events: all;
     overflow: auto;
     z-index: var(--z-popup);
+  }
+
+  &-items.open{
+    opacity: 1;
   }
 
   &-item {
@@ -76,7 +80,7 @@
 
 .select.open{
   .select-items{
-    opacity: 1;
+    //opacity: 1;
     pointer-events: all;
   }
 

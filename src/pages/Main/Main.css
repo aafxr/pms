@@ -35,3 +35,7 @@
 .main-select-status .select-header{
     background-color: var(--bg-v2);
 }
+
+.main-content{
+    overflow-x: hidden;
+}

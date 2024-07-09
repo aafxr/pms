@@ -6,6 +6,7 @@ import {ChevronIcon} from "../svg";
 import {Input} from "../Input";
 
 import './Select.scss'
+import {createPortal} from "react-dom";
 
 
 export type SelectOptionType = {
@@ -38,7 +39,7 @@ export function Select({ref, value, className, items, placeholder, name, onSelec
 
     useEffect(() => {
         const el = selectItemsRef.current
-        if(!el) return
+        if (!el) return
 
         const v = _value.toLowerCase()
         const idx = items.findIndex(i => i.value.toLowerCase().startsWith(v))
@@ -48,9 +49,8 @@ export function Select({ref, value, className, items, placeholder, name, onSelec
     }, [items, _value]);
 
 
-
     useEffect(() => {
-        if(value) {
+        if (value) {
             setOption(value)
             setValue(value?.value)
         }
@@ -71,8 +71,15 @@ export function Select({ref, value, className, items, placeholder, name, onSelec
 
 
     useEffect(() => {
+        const selectEl = selectRef.current
         const itemsEl = selectItemsRef.current
-        if (itemsEl) {
+        if (itemsEl && selectEl) {
+            const rect = selectEl.getBoundingClientRect()
+            itemsEl.style.top = rect.bottom + 4 + 'px'
+            itemsEl.style.left = rect.left + 'px'
+            itemsEl.style.right = rect.right + 'px'
+            itemsEl.style.width = rect.width + 'px'
+
             open
                 ? itemsEl.style.maxHeight = maxSelectItems !== undefined
                     ? itemsHeight.current * maxSelectItems + 2 + 'px'
@@ -80,7 +87,6 @@ export function Select({ref, value, className, items, placeholder, name, onSelec
                 : itemsEl.style.maxHeight = '0'
         }
     }, [open]);
-
 
 
     function handleSelect(v: SelectOptionType) {
@@ -103,14 +109,14 @@ export function Select({ref, value, className, items, placeholder, name, onSelec
 
     function handleOptionKeydown(v: SelectOptionType, e: React.KeyboardEvent<HTMLDivElement>) {
         const {keyCode, shiftKey} = e
-        if(keyCode === 13) handleSelect(v)
+        if (keyCode === 13) handleSelect(v)
         if (keyCode === 38) {
             const prev = e.currentTarget.previousElementSibling as HTMLElement
-            if(prev) prev.focus()
-        }else if(keyCode === 40){
+            if (prev) prev.focus()
+        } else if (keyCode === 40) {
             const next = e.currentTarget.nextElementSibling as HTMLElement
-            if(next) next.focus()
-        } else if(keyCode === 27){
+            if (next) next.focus()
+        } else if (keyCode === 27) {
             e.stopPropagation()
             setOpen(false)
             selectRef.current?.dispatchEvent(new KeyboardEvent("keydown", {key: "Tab", shiftKey}))
@@ -118,16 +124,16 @@ export function Select({ref, value, className, items, placeholder, name, onSelec
     }
 
 
-    function handleInputChange(e: React.ChangeEvent<HTMLInputElement>){
+    function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
         const text = e.target.value.trim()
         setValue(text)
-        if(!open) setOpen(true)
+        if (!open) setOpen(true)
     }
 
 
-    function handleKeyDown(e: React.KeyboardEvent<HTMLDivElement>){
+    function handleKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
         const {key} = e
-        if(key == 'Escape'){
+        if (key == 'Escape') {
             setOpen(false)
             selectRef.current?.blur()
         }
@@ -140,7 +146,7 @@ export function Select({ref, value, className, items, placeholder, name, onSelec
             className={clsx('select', {open}, className)}
             onKeyDown={handleKeyDown}
         >
-            <div className='select-header' >
+            <div className='select-header'>
                 <Input
                     className='select-header-input'
                     value={_value} placeholder={placeholder}
@@ -149,23 +155,26 @@ export function Select({ref, value, className, items, placeholder, name, onSelec
                 />
                 <ChevronIcon className='select-icon icon-16' onClick={() => setOpen(!open)}/>
             </div>
+            {createPortal(
+                <div
+                    ref={selectItemsRef}
+                    className={clsx('select-items',{open})}
+                >
+                    {items.map(item => (
+                        <div
+                            key={item.id}
+                            className={clsx('select-item', item.id === option?.id && 'selected')}
+                            onClick={() => handleSelect(item)}
+                            onKeyDown={e => handleOptionKeydown(item, e)}
+                            tabIndex={0}
+                        >
+                            {item.value}
+                        </div>
+                    ))}
+                </div>
+                , document.body)
+            }
 
-            <div
-                ref={selectItemsRef}
-                className='select-items'
-            >
-                {items.map(item => (
-                    <div
-                        key={item.id}
-                        className={clsx('select-item', item.id === option?.id && 'selected')}
-                        onClick={() => handleSelect(item)}
-                        onKeyDown={e => handleOptionKeydown(item, e)}
-                        tabIndex={0}
-                    >
-                        {item.value}
-                    </div>
-                ))}
-            </div>
 
             <select
                 ref={ref}

@@ -1,12 +1,12 @@
 import clsx from "clsx";
 import React, {ChangeEvent, useMemo, useRef, useState} from 'react';
 
+import {Filter, FilterByObjectType, FilterByRentStrategy} from "../../core/classes/orders-filter";
 import {useAppContext} from "../../contexts/AppContextProvider";
 import {BookingItem} from "../../core/classes/v1/BookingItem";
 import {Property} from "../../core/classes/v1/Property";
 import {Select, SelectOptionType} from "../Select";
 import {Board} from "../../core/classes/v1/Board";
-import {Filter, FilterProp} from "../../core/classes/Filter";
 import {ChevronIcon} from "../svg";
 import {Button} from "../buttons";
 
@@ -29,7 +29,7 @@ export function Reservations({board, property, onBookingItemClick}: Reservations
     const [filterOpen, setFilterOpen] = useState(false)
     const {appState: {bookingStatusFilter}} = useAppContext()
     const [sort, setSort] = useState<SelectOptionType>()
-    const [filter, setFilter] =useState(new Filter<BookingItem>())
+    const [filter, setFilter] = useState(new Filter<BookingItem>())
     const filtersRef = useRef<HTMLDivElement>(null)
 
     const bookingItems = useMemo(() => {
@@ -42,73 +42,40 @@ export function Reservations({board, property, onBookingItemClick}: Reservations
     }, [board, property, bookingStatusFilter, sort, filter])
 
 
-    function handlePropertiesFilterChange(e: ChangeEvent<HTMLInputElement>){
+    function handlePropertiesFilterChange(e: ChangeEvent<HTMLInputElement>, ot: BookingItem['object_type']) {
         const val = e.target.checked
-        if(val) {
-            filter.removeFilter(1)
-            const f = new Filter({filter})
-            const fp = new FilterProp<BookingItem>(1,'Основные объекты', (b) => b.object_type =='room')
-            f.addFilter(fp)
-            setFilter(f)
-        } else{
-            filter.removeFilter(1)
-            setFilter(new Filter({filter}))
-        }
+        let fp = filter.getFilter(1) as FilterByObjectType || new FilterByObjectType({id: 1, name: 'Основные объекты'})
+        val
+            ? fp.objectTypes.add(ot)
+            : fp.objectTypes.delete(ot)
+
+        const f = new Filter({filter})
+        if (!fp.objectTypes.size) f.removeFilter(fp.id)
+        else f.addFilter(fp)
+        setFilter(f)
     }
 
 
-    function handleExtraPropertiesFilterChange(e: ChangeEvent<HTMLInputElement>){
+    function handleTimeStrategyFilterChange(e: ChangeEvent<HTMLInputElement>, ts: BookingItem['type']) {
         const val = e.target.checked
-        if(val) {
-            filter.removeFilter(2)
-            const f = new Filter({filter})
-            const fp = new FilterProp<BookingItem>(2,'Доп. объекты', (b) => b.object_type !=='room')
-            f.addFilter(fp)
-            setFilter(f)
-        } else{
-            filter.removeFilter(2)
-            setFilter(new Filter({filter}))
-        }
+        let fp = filter.getFilter(3) as FilterByRentStrategy || new FilterByRentStrategy({id: 3, name: 'strategy'})
+        ts === 'daily'
+            ? fp.daily = val
+            : fp.hourly = val
+        const f = new Filter({filter})
+        if (!fp.daily && !fp.hourly) f.removeFilter(fp.id)
+        else f.addFilter(fp)
+        setFilter(f)
     }
 
 
-    function handleDailyFilterChange(e: ChangeEvent<HTMLInputElement>){
-        const val = e.target.checked
-        if(val) {
-            filter.removeFilter(3)
-            const f = new Filter({filter})
-            const fp = new FilterProp<BookingItem>(3,'Сутки', (b) => b.type !=='daily')
-            f.addFilter(fp)
-            setFilter(f)
-        } else{
-            filter.removeFilter(3)
-            setFilter(new Filter({filter}))
-        }
-    }
-
-
-    function handleHourlyFilterChange(e: ChangeEvent<HTMLInputElement>){
-        const val = e.target.checked
-        if(val) {
-            filter.removeFilter(4)
-            const f = new Filter({filter})
-            const fp = new FilterProp<BookingItem>(4,'Час', (b) => b.type !=='hourly')
-            f.addFilter(fp)
-            setFilter(f)
-        } else{
-            filter.removeFilter(4)
-            setFilter(new Filter({filter}))
-        }
-    }
-
-
-    function handleFilterButtonClick(){
+    function handleFilterButtonClick() {
         const el = filtersRef.current
-        if(!el) return
+        if (!el) return
 
-        if(filterOpen){
+        if (filterOpen) {
             el.style.maxHeight = '0'
-        } else{
+        } else {
             el.style.maxHeight = el.scrollHeight + 'px'
         }
         setFilterOpen(!filterOpen)
@@ -140,12 +107,19 @@ export function Reservations({board, property, onBookingItemClick}: Reservations
 
                             <div className='reservation-filter-content'>
                                 <label className='reserfation-filter-label' htmlFor="properties">
-                                    <input type="checkbox" id='properties' onChange={handlePropertiesFilterChange}/>
+                                    <input
+                                        type="checkbox"
+                                        id='properties'
+                                        onChange={e => handlePropertiesFilterChange(e, 'room')}
+                                    />
                                     Основные объекты
                                 </label>
                                 <label className='reserfation-filter-label' htmlFor={'extra-properties'}>
-                                    <input type="checkbox" id='extra-properties'
-                                           onChange={handleExtraPropertiesFilterChange}/>
+                                    <input
+                                        type="checkbox"
+                                        id='extra-properties'
+                                        onChange={e => handlePropertiesFilterChange(e, 'extra')}
+                                    />
                                     Доп. объекты
                                 </label>
                             </div>
@@ -159,11 +133,19 @@ export function Reservations({board, property, onBookingItemClick}: Reservations
 
                             <div className='reservation-filter-content'>
                                 <label className='reserfation-filter-label' htmlFor={'daily'}>
-                                    <input type="checkbox" id='daily' onChange={handleDailyFilterChange}/>
+                                    <input
+                                        type="checkbox"
+                                        id='daily'
+                                        onChange={e => handleTimeStrategyFilterChange(e, 'hourly')}
+                                    />
                                     Час
                                 </label>
                                 <label className='reserfation-filter-label' htmlFor="hourly">
-                                    <input type="checkbox" id='hourly' onChange={handleHourlyFilterChange}/>
+                                    <input
+                                        type="checkbox"
+                                        id='hourly'
+                                        onChange={e => handleTimeStrategyFilterChange(e, 'daily')}
+                                    />
                                     Сутки
                                 </label>
                             </div>

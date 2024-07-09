@@ -26,14 +26,17 @@ import {Row} from "../../components/flex";
 import './Main.css'
 
 let defaultStartDate = new Date()
+const dm = defaultStartDate.getMonth()
 defaultStartDate = new Date(
     defaultStartDate.getFullYear(),
-    defaultStartDate.getMonth(),
+    defaultStartDate.getMonth() - 1 ,
     1
 )
 
 const DAYS = 120
 const OFFSET = 60
+
+console.log(defaultStartDate)
 
 
 export function Main() {
@@ -147,7 +150,7 @@ export function Main() {
             <Wrapper.Header>
                 <Header/>
             </Wrapper.Header>
-            <Wrapper.Content>
+            <Wrapper.Content className='main-content'>
                 <Container>
                     <Blank className='options-panel'>
                         <Row justify='between' full>

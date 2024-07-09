@@ -30,6 +30,10 @@
 
 .collapse.open{
 
+  .collapse-container{
+    overflow: auto;
+  }
+
   .collapse-icon{
     transform: rotate(-180deg);
   }
