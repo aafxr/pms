@@ -7,7 +7,8 @@ import {
     Container,
     Header,
     Search,
-    Select, SelectOptionType,
+    Select,
+    SelectOptionType,
     Wrapper
 } from "../../components";
 
@@ -29,7 +30,7 @@ let defaultStartDate = new Date()
 const dm = defaultStartDate.getMonth()
 defaultStartDate = new Date(
     defaultStartDate.getFullYear(),
-    defaultStartDate.getMonth() - 1 ,
+    defaultStartDate.getMonth() - 1,
     1
 )
 
@@ -140,7 +141,7 @@ export function Main() {
     }
 
 
-    function handleSelectBookingStatusFilter(v: SelectOptionType){
+    function handleSelectBookingStatusFilter(v: SelectOptionType) {
         setAppState({...appState, bookingStatusFilter: v.value})
     }
 
@@ -164,7 +165,7 @@ export function Main() {
                                 <Select
                                     className='main-select-status'
                                     placeholder={'Статус сделки'}
-                                    value={bookingStatuses.find(bs=> bs.value === bookingStatusFilter)}
+                                    value={bookingStatuses.find(bs => bs.value === bookingStatusFilter)}
                                     items={bookingStatuses}
                                     onSelect={handleSelectBookingStatusFilter}
                                 />
