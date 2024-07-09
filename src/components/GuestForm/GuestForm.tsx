@@ -22,6 +22,7 @@ export function GuestForm({onChange, onDelete}: GuestFormPropsType) {
     const {appState} = useAppContext()
     const {board} = appState
     const [state, setState] = useState<Guest>()
+    const validation = state?.validate()
     const persons = Array.from(board?.persons.values() || [])
 
     const selectPersons = useMemo(() => {
@@ -80,9 +81,8 @@ export function GuestForm({onChange, onDelete}: GuestFormPropsType) {
         setState(g)
     }
 
-    const v = state?.validate()
 
-    console.log(state?.validate())
+
 
     return (
         <div className="guestForm">
@@ -115,14 +115,14 @@ export function GuestForm({onChange, onDelete}: GuestFormPropsType) {
                                 <div className="guestForm-title">Фамилия*</div>
                                 <Input className="guestForm-input" value={state?.last_name}
                                        onChange={handleLastNameChange}/>
-                                <div className="guestForm-message">{v?.last_name}</div>
+                                <div className="guestForm-message">{validation?.last_name}</div>
                             </div>
 
                             <div className="guestForm-option">
                                 <div className="guestForm-title">Имя*</div>
                                 <Input className="guestForm-input" value={state?.first_name}
                                        onChange={handleFirstNameChange}/>
-                                <div className="guestForm-message">{v?.first_name}</div>
+                                <div className="guestForm-message">{validation?.first_name}</div>
                             </div>
 
                             <div className="guestForm-option">
@@ -140,7 +140,7 @@ export function GuestForm({onChange, onDelete}: GuestFormPropsType) {
                                 <div className="guestForm-title">Телефон*</div>
                                 <Input type='tel' className="guestForm-input" value={state?.phone}
                                        onChange={handlePhoneChange}/>
-                                <div className="guestForm-message">{v?.phone}</div>
+                                <div className="guestForm-message">{validation?.phone}</div>
                             </div>
 
                             <div className="guestForm-option guestForm-option-email">

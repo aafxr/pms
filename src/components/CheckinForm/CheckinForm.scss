@@ -1,0 +1,23 @@
+.checkin{
+
+  &-block{
+    margin-top: var(--offset-main);
+  }
+
+  &-options{
+    display: flex;
+    align-items: flex-start;
+    justify-content: stretch;
+    gap: 8px;
+  }
+
+  &-option{
+    display: flex;
+    flex-direction: column;
+  }
+
+  &-title{
+    font-weight: 600;
+
+  }
+}

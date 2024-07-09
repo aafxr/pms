@@ -1,8 +1,7 @@
-import {FileInput} from "../../components/FileInput";
 import {Modal} from "../../components";
 
+import {CheckinForm} from "../../components/CheckinForm";
 import './Dev.scss'
-import {GuestForm} from "../../components/GuestForm";
 
 
 export function Dev() {
@@ -12,7 +11,7 @@ export function Dev() {
         <Modal open={true}>
             <div className='dev'>
 
-            <GuestForm />
+            <CheckinForm />
             </div>
         </Modal>
     )

@@ -53,14 +53,10 @@ export class Guest implements IValid<Guest>{
 
         if(this.first_name.length < 2) {
             res.first_name = 'Поле должно содердать не менее 2 символов'
-        } else if(!/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/.test(this.first_name)){
-            res.first_name = 'Поле должно содердать только символы'
         }
 
         if(this.last_name.length < 2) {
             res.last_name = 'Поле должно содердать не менее 2 символов'
-        } else if(!/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/.test(this.last_name)){
-            res.last_name = 'Поле должно содердать солько символы'
         }
 
         if(this.phone.replace(/\D/, '').length < 11){
