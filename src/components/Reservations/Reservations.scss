@@ -22,8 +22,8 @@
   }
 
   &-filters{
-    transition: max-height .3s;
-    overflow: auto;
+    //transition: max-height .3s;
+    //overflow: auto;
   }
 
   &-filter{
@@ -177,11 +177,62 @@
     align-items: flex-start;
   }
 
-  &-filterDate{
+  &-drf{
 
   }
+}
 
-  &-filterTitle{
+.daterange{
+  &-title{
+    font-size: 0.75rem;
+    font-weight: 600;
+    align-self: flex-start;
+  }
 
+  &-inner{
+    padding-left: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  &-date{
+    display: flex;
+    align-items: center;
+    justify-content: stretch;
+  }
+
+  &-date:not(:first-child){
+    margin-top: 4px;
+  }
+
+  &-datepicker{
+    position: relative;
+  }
+
+  &-legend{
+    position: absolute;
+    top: 50%;
+    right: calc(100% + 8px);
+
+    font-size: 0.75rem;
+    transform: translateY(-50%);
+  }
+
+  &-input {
+    width: 100%;
+  }
+
+  &-icon{
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    color: var(--text-v1);
+    transform: translateY(-50%) rotate(45deg);
+    cursor: pointer;
+  }
+
+  .react-datepicker__tab-loop{
+    display: none!important;
   }
 }

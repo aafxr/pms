@@ -91,15 +91,15 @@ export function Reservations({board, property, onBookingItemClick}: Reservations
                         Фильтр
                     </Button>
 
-                    <div ref={filtersRef} className='reservation-filters'>
+                    {filterOpen && <div ref={filtersRef} className='reservation-filters'>
 
-                        <ObjectTypeFilter filter={filter} onChange={handleFilterChange} />
+                        <ObjectTypeFilter filter={filter} onChange={handleFilterChange}/>
 
-                        <TimeStrategyFilter filter={filter} onChange={handleFilterChange} />
+                        <TimeStrategyFilter filter={filter} onChange={handleFilterChange}/>
 
-                        <FilterByDateRange filter={filter} onChange={handleFilterChange} />
+                        {/*<FilterByDateRange filter={filter} onChange={handleFilterChange}/>*/}
 
-                    </div>
+                    </div>}
                 </div>
 
 

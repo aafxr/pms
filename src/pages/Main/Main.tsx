@@ -15,6 +15,7 @@ import {
 
 import {BookingTimeStrategyType} from "../../core/types/BookingTimeStrategyType";
 import {PropertiesService} from "../../core/classes/services/PropertiesService";
+import {CompanyService} from "../../core/classes/services/CompanyService";
 import NavButtons from "../../components/buttons/NavButtons/NavButtons";
 import {Reservations} from "../../components/Reservations/Reservations";
 import {ChessBoard} from "../../components/ChessBoard/ChessBoard";
@@ -64,6 +65,18 @@ export function Main() {
         if (e.id === 1) setComponent("chess")
         if (e.id === 2) setComponent("orders")
     }
+
+
+    useEffect(() => {
+        // @ts-ignore
+        window.fetchByInn = async (inn:string) => {
+            const d = await CompanyService.getByInn(inn)
+        // @ts-ignore
+            window.result = d
+            console.log(d)
+        }
+    }, []);
+
 
     useEffect(() => {
         setLoading(true)
