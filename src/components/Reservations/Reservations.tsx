@@ -13,6 +13,7 @@ import {ChevronIcon} from "../svg";
 import {Button} from "../buttons";
 
 import './Reservations.scss'
+import {FilterByDateRange} from "./FilterByDateRange";
 
 
 export type ReservationsPropsType = {
@@ -72,8 +73,6 @@ export function Reservations({board, property, onBookingItemClick}: Reservations
     }
 
 
-    console.log(filterOpen)
-
     return (
         <div className='reservation'>
 
@@ -97,6 +96,8 @@ export function Reservations({board, property, onBookingItemClick}: Reservations
                         <ObjectTypeFilter filter={filter} onChange={handleFilterChange} />
 
                         <TimeStrategyFilter filter={filter} onChange={handleFilterChange} />
+
+                        <FilterByDateRange filter={filter} onChange={handleFilterChange} />
 
                     </div>
                 </div>
