@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import React, { useMemo, useRef, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 
 import {useAppContext} from "../../contexts/AppContextProvider";
 import {BookingItem} from "../../core/classes/v1/BookingItem";
@@ -28,7 +28,7 @@ const sortVar: SelectOptionType[] = [
 
 
 export function Reservations({board, property, onBookingItemClick}: ReservationsPropsType) {
-    const [filterOpen, setFilterOpen] = useState(false)
+    const [filterOpen, setFilterOpen] = useState(true)
     const {appState: {bookingStatusFilter}} = useAppContext()
     const [sort, setSort] = useState<SelectOptionType>()
     const [filter, setFilter] = useState(new Filter<BookingItem>())
@@ -44,16 +44,25 @@ export function Reservations({board, property, onBookingItemClick}: Reservations
     }, [board, property, bookingStatusFilter, sort, filter])
 
 
+    useEffect(() => {
+        calcFilterOpen(filterOpen)
+    }, []);
 
-    function handleFilterButtonClick() {
+
+    const calcFilterOpen = (val: boolean) => {
         const el = filtersRef.current
         if (!el) return
 
-        if (filterOpen) {
-            el.style.maxHeight = '0'
-        } else {
+        if (val) {
             el.style.maxHeight = el.scrollHeight + 'px'
+        } else {
+            el.style.maxHeight = '0'
         }
+    }
+
+
+    function handleFilterButtonClick() {
+        calcFilterOpen(!filterOpen)
         setFilterOpen(!filterOpen)
     }
 
@@ -63,12 +72,17 @@ export function Reservations({board, property, onBookingItemClick}: Reservations
     }
 
 
+    console.log(filterOpen)
+
     return (
         <div className='reservation'>
 
             <div className='reservation-container'>
 
-                <div className='reservation-filters-container'>
+                <div
+                    className='reservation-filters-container'
+                    onClick={() => calcFilterOpen(filterOpen)}
+                >
                     <Button
                         variant={"bgTransparent"}
                         className={clsx('reservation-filter-button', {open: filterOpen})}

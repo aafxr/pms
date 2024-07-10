@@ -3,6 +3,7 @@ import {ChevronIcon} from "../svg";
 import {Filter, FilterByRentStrategy} from "../../core/classes/orders-filter";
 import {BookingItem} from "../../core/classes/v1/BookingItem";
 import {Checkbox} from "../Checkbox";
+import {FilterContainerComponent} from "./FilterContainerComponent";
 
 
 export interface TimeStrategyFilterPropsType {
@@ -27,26 +28,19 @@ export function TimeStrategyFilter({filter, onChange}: TimeStrategyFilterPropsTy
 
 
     return (
-        <div className='reservation-filter'>
-            <div className='reservation-filter-header'>
-                <ChevronIcon className='reservation-filter-icon icon-16'/>
-                <div className='reservation-filter-title'>Время</div>
-            </div>
-
-            <div className='reservation-filter-content'>
-                <Checkbox
-                    className='reservation-filter-checkbox'
-                    onChange={v => handleTimeStrategyFilterChange(v, 'hourly')}
-                >
-                    Час
-                </Checkbox>
-                <Checkbox
-                    className='reservation-filter-checkbox'
-                    onChange={v => handleTimeStrategyFilterChange(v, 'daily')}
-                >
-                    Сутки
-                </Checkbox>
-            </div>
-        </div>
+        <FilterContainerComponent title={'Время'} >
+            <Checkbox
+                className='reservation-filter-checkbox'
+                onChange={v => handleTimeStrategyFilterChange(v, 'hourly')}
+            >
+                Час
+            </Checkbox>
+            <Checkbox
+                className='reservation-filter-checkbox'
+                onChange={v => handleTimeStrategyFilterChange(v, 'daily')}
+            >
+                Сутки
+            </Checkbox>
+        </FilterContainerComponent>
     );
 }

@@ -4,6 +4,7 @@ import {Filter, FilterByObjectType} from "../../core/classes/orders-filter";
 import {BookingItem} from "../../core/classes/v1/BookingItem";
 import {Checkbox} from "../Checkbox";
 import {ChevronIcon} from "../svg";
+import {FilterContainerComponent} from "./FilterContainerComponent";
 
 
 export interface ObjectTypeFilterPropsType {
@@ -29,27 +30,20 @@ export function ObjectTypeFilter({filter, onChange}: ObjectTypeFilterPropsType) 
 
 
     return (
-        <div className='reservation-filter'>
-            <div className='reservation-filter-header'>
-                <ChevronIcon className='reservation-filter-icon icon-16'/>
-                <div className='reservation-filter-title'>Объекты</div>
-            </div>
-
-            <div className='reservation-filter-content'>
-                <Checkbox
-                    className='reservation-filter-checkbox'
-                    onChange={v => handlePropertiesFilterChange(v, 'room')}
-                >
-                    Основные объекты
-                </Checkbox>
-                <Checkbox
-                    className='reservation-filter-checkbox'
-                    onChange={v => handlePropertiesFilterChange(v, 'extra')}
-                >
-                    Доп. объекты
-                </Checkbox>
-            </div>
-        </div>
+        <FilterContainerComponent title={'Объекты'}>
+            <Checkbox
+                className='reservation-filter-checkbox'
+                onChange={v => handlePropertiesFilterChange(v, 'room')}
+            >
+                Основные объекты
+            </Checkbox>
+            <Checkbox
+                className='reservation-filter-checkbox'
+                onChange={v => handlePropertiesFilterChange(v, 'extra')}
+            >
+                Доп. объекты
+            </Checkbox>
+        </FilterContainerComponent>
     );
 }
 

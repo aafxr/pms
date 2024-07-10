@@ -23,7 +23,7 @@
 
   &-filters{
     transition: max-height .3s;
-    overflow: hidden;
+    overflow: auto;
   }
 
   &-filter{
@@ -35,10 +35,17 @@
     border-radius: var(--br-main);
   }
 
+  &-filter.open{
+    .reservation-filter-icon{
+      transform: rotate(-180deg);
+    }
+  }
+
   &-filter-button{
     padding: 12px 8px;
     display: flex;
     align-items: center;
+    justify-content: flex-start;
     width: 100%;
     gap: 4px;
     border: 1px solid var(--border-color);
@@ -60,6 +67,7 @@
     align-items: center;
     gap: 4px;
     font-weight: 600;
+    cursor: pointer;
   }
 
 
