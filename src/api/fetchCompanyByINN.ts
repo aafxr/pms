@@ -1,4 +1,4 @@
-import {DD_Suggestion} from "./dadata";
+import {DD_Suggestion} from "../core/types/dadata-types";
 
 const apiKey = process.env.REACT_APP_DADATA_API_KEY as string
 
