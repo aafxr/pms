@@ -176,6 +176,10 @@ export class BookingItem{
         }
     }
 
+    get tariff(){
+        return undefined
+    }
+
     get textDateRange(){
         let result = ''
         const d_in = this.checked_in_at?.toLocaleDateString('ru-RU', {day: "numeric", month: "numeric", year: "2-digit"} )

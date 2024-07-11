@@ -70,7 +70,7 @@ export class Board {
     clone(){
         const b = new Board()
         Array.from(this.persons.values())
-            .forEach(el => new Person(b, el))
+            .forEach(el => new Person(el, b))
 
         Array.from(this.bookingItems.values())
             .forEach(el => new BookingItem(el, b))
@@ -108,7 +108,7 @@ export class Board {
 
     merge(b:Board){
         Array.from(b.persons.values())
-            .forEach(el => new Person(this, el))
+            .forEach(el => new Person(el, this))
 
         Array.from(b.bookingItems.values())
             .forEach(el => new BookingItem(el, this))

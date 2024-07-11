@@ -27,7 +27,7 @@ export class PropertiesService {
         rooms.rooms.forEach(r => new Room(b,r))
         room_types.forEach(rt => new RoomType(b, rt))
         booking_items.forEach(bi => new BookingItem(bi, b))
-        individual_persons.forEach(p => new Person(b, p))
+        individual_persons.forEach(p => new Person(p, b))
         room_block_periods.forEach(rb => new RoomBlockPeriod(b, rb))
 
         b.pagination = rooms.pagination

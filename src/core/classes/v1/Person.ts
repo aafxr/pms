@@ -37,22 +37,42 @@ export class Person{
     /** Дата рождения */
     birthdate: string
 
-    private _board: Board
+    private _board: Board | undefined
 
-    constructor(b: Board, p: Person) {
-        this.id = p.id
-        this.workspace_id = p.workspace_id
-        this.first_name = p.first_name
-        this.middle_name = p.middle_name
-        this.last_name = p.last_name
-        this.phone = p.phone
-        this.email = p.email
-        this.gender = p.gender
-        this.birthdate = p.birthdate
+    constructor(p: Partial<Person> = {},b?: Board) {
+        this.id = p.id !== undefined ? p.id : -1
+        this.workspace_id = p.workspace_id !== undefined ? p.workspace_id : -1
+        this.first_name = p.first_name !== undefined ? p.first_name : ''
+        this.middle_name = p.middle_name !== undefined ? p.middle_name : ''
+        this.last_name = p.last_name !== undefined ? p.last_name : ''
+        this.phone = p.phone !== undefined ? p.phone : ''
+        this.email = p.email !== undefined ? p.email : ''
+        this.gender = p.gender !== undefined ? p.gender : "male"
+        this.birthdate = p.birthdate !== undefined ? p.birthdate : ''
 
         this._board = b
+    }
+
+
+    private _mountBoard(){
+        if(!this._board) return
         this._board.persons.set(this.id, this)
     }
+
+
+    private _unmountBoard(){
+        if(!this._board) return
+        this._board.persons.delete(this.id)
+    }
+
+
+    set board(b: Board){
+        if(this._board) this._unmountBoard()
+        this._board = b
+        this._mountBoard()
+    }
+
+
 
     get fullName(){
         return `${this.last_name} ${this.first_name} ${this.middle_name}`
