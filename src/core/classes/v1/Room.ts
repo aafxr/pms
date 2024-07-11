@@ -56,17 +56,17 @@ export class Room {
 
     getBookingOffset(date: Date, strategy: BookingTimeStrategyType) {
         return this.booking.reduce<Array<{ span: number, offset: number, bocking: BookingItem }>>((acc, b, i) => {
-            if (b.checked_out_at.getTime() < date.getTime()) return acc
+            if (b.checked_out_at && b.checked_out_at.getTime() < date.getTime()) return acc
 
             const isHourly = strategy === 'hourly'
             const divider = !isHourly ? 86_400_000 : 3_600_000
 
-            let span = Math.ceil((b.checked_out_at.getTime() - date.getTime()) / divider)//b.daysCount
+            let span = b.checked_out_at ? Math.ceil((b.checked_out_at.getTime() - date.getTime()) / divider) : -1//b.daysCount
             const coef = isHourly ? b.daysCount * 24 : b.daysCount
             span = Math.min(span, coef)
 
             if (span > 0) {
-                let offset = Math.ceil(((b.checked_in_at.getTime() - date.getTime()) || 1) / divider)
+                let offset = b.checked_in_at ? Math.ceil(((b.checked_in_at.getTime() - date.getTime()) || 1) / divider) : -1
                 offset = Math.max(1, offset)
                 acc.push({offset, span, bocking: b})
             }

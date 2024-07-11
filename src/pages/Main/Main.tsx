@@ -37,8 +37,6 @@ defaultStartDate = new Date(
 const DAYS = 90
 const OFFSET = 60
 
-console.log(defaultStartDate)
-
 
 export function Main() {
     const {appState, setAppState} = useAppContext()

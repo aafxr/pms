@@ -73,10 +73,10 @@ export class Board {
             .forEach(el => new Person(b, el))
 
         Array.from(this.bookingItems.values())
-            .forEach(el => new BookingItem(b, el))
+            .forEach(el => new BookingItem(el, b))
 
         Array.from(this.booking.values())
-            .forEach(el => new Booking(b, el))
+            .forEach(el => new Booking(el, b))
 
         Array.from(this.properties.values())
             .forEach(el => new Property(b, el))
@@ -111,10 +111,10 @@ export class Board {
             .forEach(el => new Person(this, el))
 
         Array.from(b.bookingItems.values())
-            .forEach(el => new BookingItem(this, el))
+            .forEach(el => new BookingItem(el, this))
 
         Array.from(b.booking.values())
-            .forEach(el => new Booking(this, el))
+            .forEach(el => new Booking(el, this))
 
         Array.from(b.properties.values())
             .forEach(el => new Property(this, el))

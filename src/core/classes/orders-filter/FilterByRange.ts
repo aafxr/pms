@@ -29,11 +29,11 @@ export class FilterByRange extends FilterUnit<BookingItem>{
     check(v: BookingItem): boolean {
         const val = v[this.key]
         if (this.from && this.to) {
-            return this.from.getTime() <= val.getTime() && val.getTime() <= this.to.getTime()
+            return this.from.getTime() <= (val?.getTime() || 0) && (val?.getTime() || 0) <= this.to.getTime()
         } else if(this.from){
-            return this.from.getTime() <= val.getTime()
+            return this.from.getTime() <= (val?.getTime() || 0)
         } else if(this.to){
-            return val.getTime() <= this.to.getTime()
+            return (val?.getTime() || 0) <= this.to.getTime()
         }
 
         return false;
