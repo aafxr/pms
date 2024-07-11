@@ -23,8 +23,8 @@ export class PropertiesService {
 
         const b = new Board()
 
-        properties.forEach(p => new Property(b, p))
-        rooms.rooms.forEach(r => new Room(b,r))
+        properties.forEach(p => new Property(p, b))
+        rooms.rooms.forEach(r => new Room(r, b))
         room_types.forEach(rt => new RoomType(b, rt))
         booking_items.forEach(bi => new BookingItem(bi, b))
         individual_persons.forEach(p => new Person(p, b))

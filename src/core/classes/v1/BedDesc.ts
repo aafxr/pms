@@ -5,14 +5,32 @@ export class BedDesc {
     name: string
     places: number
 
-    private _board: Board
+    private _board: Board | undefined
 
-    constructor(board: Board, b: BedDesc) {
-        this.id = b.id
-        this.name = b.name
-        this.places = b.places
+    constructor(b: Partial<BedDesc> = {}, board?: Board) {
+        this.id = b.id !== undefined ? b.id : -1
+        this.name = b.name !== undefined ? b.name : ''
+        this.places = b.places !== undefined ? b.places : -1
 
-        this._board = board
+        if(board) this.board = board
+    }
+
+
+    private _mountBoard(){
+        if (!this._board) return
         this._board.bedTypes.set(this.id, this)
+    }
+
+
+    private _unmountBoard(){
+        if (!this._board) return
+        this._board.bedTypes.delete(this.id)
+    }
+
+
+    set board(b: Board){
+        if (this._board) this._unmountBoard()
+        this._board = b
+        this._mountBoard()
     }
 }

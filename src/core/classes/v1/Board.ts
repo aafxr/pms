@@ -8,6 +8,7 @@ import {Booking} from "./Booking";
 import {Person} from "./Person";
 import {Room} from "./Room";
 import {Bed} from "./Bed";
+import {Tariff} from "./Tariff";
 
 export class Board {
     persons:  Map<Person['id'], Person>
@@ -18,6 +19,7 @@ export class Board {
     beds: Map<Bed['id'], Bed>
     rooms: Map<Room['id'], Room>
     bedTypes: Map<BedDesc['id'], BedDesc>
+    tariffs: Map<Tariff['id'], Tariff>
 
     blocking: Map<RoomBlockPeriod['room_id'], Map<RoomBlockPeriod['id'], RoomBlockPeriod>>
     roomBookings: Map<Room['id'], Map<BookingItem['id'], BookingItem>>
@@ -38,6 +40,7 @@ export class Board {
         this.roomTypes = new Map() //+
         this.blocking = new Map() //+
         this.beds = new Map() //+
+        this.tariffs = new Map()
 
         this.roomBookings = new Map()
         this.roomsByRoomType = new Map()
@@ -79,19 +82,22 @@ export class Board {
             .forEach(el => new Booking(el, b))
 
         Array.from(this.properties.values())
-            .forEach(el => new Property(b, el))
+            .forEach(el => new Property(el, b))
 
         Array.from(this.roomTypes.values())
             .forEach(el => new RoomType(b, el))
 
         Array.from(this.beds.values())
-            .forEach(el => new Bed(b, el))
+            .forEach(el => new Bed(el, b))
 
         Array.from(this.rooms.values())
-            .forEach(el => new Room(b, el))
+            .forEach(el => new Room(el, b))
 
         Array.from(this.bedTypes.values())
-            .forEach(el => new BedDesc(b, el))
+            .forEach(el => new BedDesc(el, b))
+
+        Array.from(this.tariffs.values())
+            .forEach(el => new Tariff(el, b))
 
         Array.from(this.blocking.values())
             .forEach(els =>
@@ -117,19 +123,22 @@ export class Board {
             .forEach(el => new Booking(el, this))
 
         Array.from(b.properties.values())
-            .forEach(el => new Property(this, el))
+            .forEach(el => new Property(el, this))
 
         Array.from(b.roomTypes.values())
             .forEach(el => new RoomType(this, el))
 
         Array.from(b.beds.values())
-            .forEach(el => new Bed(this, el))
+            .forEach(el => new Bed(el, this))
 
         Array.from(b.rooms.values())
-            .forEach(el => new Room(this, el))
+            .forEach(el => new Room(el, this))
 
         Array.from(b.bedTypes.values())
-            .forEach(el => new BedDesc(this, el))
+            .forEach(el => new BedDesc(el, this))
+
+        Array.from(b.tariffs.values())
+            .forEach(el => new Tariff(el, this))
 
         Array.from(b.blocking.values())
             .forEach(els =>

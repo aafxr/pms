@@ -38,7 +38,7 @@ export class RoomType{
         this.area = r.area
         this.property_id = r.property_id
         this.room_type_beds = Array.isArray(r.room_type_beds)
-            ? r.room_type_beds.map(bed => new Bed(b, bed))
+            ? r.room_type_beds.map(bed => new Bed(bed, b))
             : []
 
         this._board = b

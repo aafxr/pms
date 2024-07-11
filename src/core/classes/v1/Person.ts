@@ -50,7 +50,7 @@ export class Person{
         this.gender = p.gender !== undefined ? p.gender : "male"
         this.birthdate = p.birthdate !== undefined ? p.birthdate : ''
 
-        this._board = b
+        if(b) this.board = b
     }
 
 

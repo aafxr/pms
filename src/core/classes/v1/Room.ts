@@ -9,33 +9,51 @@ export class Room {
     property_id: number
     room_type_id: number
 
-    private _board: Board
+    private _board?: Board
 
 
-    constructor(b: Board, r: Room) {
-        this.id = r.id
-        this.name = r.name
-        this.property_id = r.property_id
-        this.room_type_id = r.room_type_id
+    constructor( r: Partial<Room> = {}, b?: Board) {
+        this.id = r.id !== undefined ? r.id : -1
+        this.name = r.name !== undefined ? r.name : ''
+        this.property_id = r.property_id !== undefined ? r.property_id : -1
+        this.room_type_id = r.room_type_id !== undefined ? r.room_type_id : -1
 
-        this._board = b
-        this._board.rooms.set(this.id, this)
+        if(b) this.board = b
+    }
 
+    private _mountBoard(){
+        if (!this._board) return
         if(!this._board.roomsByRoomType.has(this.room_type_id)){
             this._board.roomsByRoomType.set(this.room_type_id, new Map())
         }
         this._board.roomsByRoomType.get(this.room_type_id)!.set(this.id, this)
+        this._board.rooms.set(this.id, this)
+    }
+
+
+    private _unmountBoard(){
+        if (!this._board) return
+        this._board.roomsByRoomType.get(this.room_type_id)?.delete(this.id)
+        this._board.rooms.delete(this.id)
+    }
+
+
+    set board(b: Board){
+        if (this._board) this._unmountBoard()
+        this._board = b
+        this._mountBoard()
     }
 
     get roomType() {
-        return this._board.roomTypes.get(this.room_type_id)
+        return this._board?.roomTypes.get(this.room_type_id)
     }
 
     get property() {
-        return this._board.properties.get(this.property_id)
+        return this._board?.properties.get(this.property_id)
     }
 
     get blocking() {
+        if(!this._board) return []
         return Array.from(this._board.blocking.get(this.id)?.values() || [])
     }
 
@@ -51,6 +69,7 @@ export class Room {
     }
 
     get booking(): BookingItem[] {
+        if(!this._board) return []
         return Array.from(this._board.roomBookings.get(this.id)?.values() || [])
     }
 
