@@ -9,6 +9,7 @@ import {Tariff} from "./Tariff";
 import {Person} from "./Person";
 import {Room} from "./Room";
 import {Bed} from "./Bed";
+import {ExtraService} from "./ExtraService";
 
 export class Board {
     persons:  Map<Person['id'], Person>
@@ -20,6 +21,7 @@ export class Board {
     rooms: Map<Room['id'], Room>
     bedTypes: Map<BedDesc['id'], BedDesc>
     tariffs: Map<Tariff['id'], Tariff>
+    extraServices: Map<ExtraService['id'], ExtraService>
 
     blocking: Map<RoomBlockPeriod['room_id'], Map<RoomBlockPeriod['id'], RoomBlockPeriod>>
     roomBookings: Map<Room['id'], Map<BookingItem['id'], BookingItem>>
@@ -41,6 +43,7 @@ export class Board {
         this.blocking = new Map() //+
         this.beds = new Map() //+
         this.tariffs = new Map()
+        this.extraServices = new Map()
 
         this.roomBookings = new Map()
         this.roomsByRoomType = new Map()
@@ -99,6 +102,9 @@ export class Board {
         Array.from(this.tariffs.values())
             .forEach(el => new Tariff(el, b))
 
+        Array.from(this.extraServices.values())
+            .forEach(el => new ExtraService(el, b))
+
         Array.from(this.blocking.values())
             .forEach(els =>
                 els.forEach(el => new RoomBlockPeriod(b, el))
@@ -139,6 +145,9 @@ export class Board {
 
         Array.from(b.tariffs.values())
             .forEach(el => new Tariff(el, this))
+
+        Array.from(b.extraServices.values())
+            .forEach(el => new ExtraService(el, this))
 
         Array.from(b.blocking.values())
             .forEach(els =>

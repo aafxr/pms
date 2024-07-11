@@ -1,0 +1,1 @@
+export type ExtraServiceQtyType = 'pc' | 'day' | 'hour'

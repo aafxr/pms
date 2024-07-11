@@ -1,7 +1,8 @@
+import {ExtraService} from "./ExtraService";
 import {BookingItem} from "./BookingItem";
-import {Legal} from "./Legal";
-import {Person} from "./Person";
 import {RoomReserve} from "./RoomReserve";
+import {Person} from "./Person";
+import {Legal} from "./Legal";
 
 export class Order {
     bookingItems: BookingItem[]
@@ -11,6 +12,7 @@ export class Order {
 
     guests: Person[]
     roomReserves: RoomReserve[]
+    extraServices: ExtraService[]
 
     constructor(o: Partial<Order> = {}) {
         this.bookingItems = o.bookingItems !== undefined ? o.bookingItems : [new BookingItem()]
@@ -20,5 +22,6 @@ export class Order {
 
         this.guests = o.guests !== undefined ? o.guests : []
         this.roomReserves = o.roomReserves !== undefined ? o.roomReserves : []
+        this.extraServices = o.extraServices !== undefined ? o.extraServices : []
     }
 }
