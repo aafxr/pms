@@ -9,7 +9,10 @@ export interface LogoPropsType{
 
 export function Logo({onClick,className}: LogoPropsType){
     return (
-        <div className={clsx('logo', className)}>
+        <div
+            className={clsx('logo', className)}
+            onClick={onClick}
+        >
             logo
         </div>
     )

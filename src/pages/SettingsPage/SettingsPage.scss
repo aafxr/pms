@@ -1,5 +1,5 @@
 .settings{
-  .container{
+  &-container{
     padding-top: var(--pd-main);
   }
 
@@ -18,6 +18,4 @@
   &-content{
     grid-area: content;
   }
-
-
 }

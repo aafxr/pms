@@ -25,7 +25,7 @@ export function SettingsPage() {
                 <Header/>
             </Wrapper.Header>
             <Wrapper.Content>
-                <Container>
+                <Container className='settings-container'>
                     <div className='settings-grid'>
                         <div className='settings-menu'>
                             <SettingsMenu initState={{company: true}} onStateChange={setMenuState}/>

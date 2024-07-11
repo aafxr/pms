@@ -2,9 +2,9 @@ import clsx from "clsx";
 import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
 
-import {NewOrderModal} from "../modals/NewOrderModal/NewOrderModal";
 import {useAppContext} from "../../contexts/AppContextProvider";
 import {BellIcon, GearIcon, PlusIcon, UserIcon} from "../svg";
+import {NewOrderModal} from "../modals/NewOrderModal";
 import {Select, SelectOptionType} from "../Select";
 import {Button, RoundButton} from "../buttons";
 import {Container} from "../Container";
@@ -59,7 +59,7 @@ export function Header({className}: HeaderPropsType) {
                 <div className='header-inner'>
                     <Row justify='between' align='center' full wrap>
                         <div className='left gap-1'>
-                            <Logo/>
+                            <Logo onClick={() => navigate('/')}/>
                             <Select
                                 className='header-select'
                                 value={propertySelectOptions.find(el => el.id === property?.id)}

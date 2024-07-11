@@ -149,7 +149,7 @@ export function Reservations({board, property, onBookingItemClick}: Reservations
                                 <div className='order-prop order-prop-range'>
                                     <span>{b.textDateRange}</span>
                                 </div>
-                                <div className='order-prop order-prop-tarif'>{b.tariff_id}</div>
+                                <div className='order-prop order-prop-tarif'>{b.tariff}</div>
                                 <div className='order-prop order-prop-room'>
                                     {b.room ? `${b.room?.id} / ${b.room?.name}` : '-'}
                                 </div>
