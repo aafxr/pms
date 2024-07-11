@@ -25,7 +25,7 @@ export class PropertiesService {
 
         properties.forEach(p => new Property(p, b))
         rooms.rooms.forEach(r => new Room(r, b))
-        room_types.forEach(rt => new RoomType(b, rt))
+        room_types.forEach(rt => new RoomType(rt, b))
         booking_items.forEach(bi => new BookingItem(bi, b))
         individual_persons.forEach(p => new Person(p, b))
         room_block_periods.forEach(rb => new RoomBlockPeriod(b, rb))

@@ -5,10 +5,10 @@ import {RoomType} from "./RoomType";
 import {Property} from "./Property";
 import {BedDesc} from "./BedDesc";
 import {Booking} from "./Booking";
+import {Tariff} from "./Tariff";
 import {Person} from "./Person";
 import {Room} from "./Room";
 import {Bed} from "./Bed";
-import {Tariff} from "./Tariff";
 
 export class Board {
     persons:  Map<Person['id'], Person>
@@ -85,7 +85,7 @@ export class Board {
             .forEach(el => new Property(el, b))
 
         Array.from(this.roomTypes.values())
-            .forEach(el => new RoomType(b, el))
+            .forEach(el => new RoomType(el, b))
 
         Array.from(this.beds.values())
             .forEach(el => new Bed(el, b))
@@ -126,7 +126,7 @@ export class Board {
             .forEach(el => new Property(el, this))
 
         Array.from(b.roomTypes.values())
-            .forEach(el => new RoomType(this, el))
+            .forEach(el => new RoomType(el, this))
 
         Array.from(b.beds.values())
             .forEach(el => new Bed(el, this))

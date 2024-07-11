@@ -12,6 +12,7 @@
       "filter sort"
       "filter orders";
     grid-template-columns: var(--order-filter-width) 1fr;
+    grid-template-rows: auto 1fr;
     grid-gap: var(--order-gap);
     white-space: nowrap;
   }

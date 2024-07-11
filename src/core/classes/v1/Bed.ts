@@ -29,7 +29,7 @@ export class Bed {
     private _board?: Board
 
 
-    constructor(b: Omit<Bed, 'bedsList'>, board: Board) {
+    constructor(b: Omit<Bed, 'bedsList'>, board?: Board) {
         this.id = b.id
         this.count = b.count
         this.is_main = b.is_main

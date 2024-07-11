@@ -28,27 +28,45 @@ export class RoomType{
     property_id: number
     room_type_beds: Bed[]
 
-    private _board: Board
+    private _board?: Board
 
 
-    constructor(b: Board, r: RoomType){
-        this.id = r.id
-        this.desc = r.desc
-        this.name = r.name
-        this.area = r.area
-        this.property_id = r.property_id
+    constructor(r: Partial<RoomType> = {}, b?: Board){
+        this.id = r.id !== undefined ? r.id : -1
+        this.desc = r.desc !== undefined ? r.desc : ''
+        this.name = r.name !== undefined ? r.name : ''
+        this.area = r.area !== undefined ? r.area : -1
+        this.property_id = r.property_id !== undefined ? r.property_id : -1
         this.room_type_beds = Array.isArray(r.room_type_beds)
             ? r.room_type_beds.map(bed => new Bed(bed, b))
             : []
 
-        this._board = b
+        if(b) this.board = b
+    }
+
+
+    private _mountBoard(){
+        if (!this._board) return
         this._board.roomTypes.set(this.id, this)
+    }
+
+
+    private _unmountBoard(){
+        if (!this._board) return
+        this._board.roomTypes.delete(this.id)
+    }
+
+
+    set board(b: Board){
+        if (this._board) this._unmountBoard()
+        this._board = b
+        this._mountBoard()
     }
 
 
 
     get property(){
-        return this._board.properties.get(this.property_id)
+        return this._board?.properties.get(this.property_id)
     }
 
     get roomsByName(){
@@ -61,7 +79,7 @@ export class RoomType{
     }
 
     get rooms(){
-        return Array.from(this._board.roomsByRoomType.get(this.id)?.values() || [])
+        return Array.from(this._board?.roomsByRoomType.get(this.id)?.values() || [])
     }
 
 
