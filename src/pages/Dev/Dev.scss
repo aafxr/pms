@@ -1,0 +1,66 @@
+.tariffForm {
+  height: 100%;
+
+  &-content {
+    height: 100%;
+
+
+  }
+
+  &-mainTitle {
+    font-size: 1.25rem;
+    font-weight: 600;
+
+  }
+
+  &-title {
+    margin-top: var(--offset-main);
+    font-weight: 600;
+  }
+
+  &-title:first-child {
+    margin-top: var(--offset-2);
+  }
+
+  &-input {
+    margin-top: 8px;
+    width: 100%;
+  }
+
+  &-description {
+    margin-top: 8px;
+    width: 100%;
+  }
+
+  &-list {
+    margin-top: 8px;
+  }
+
+  &-listItem {
+    margin-top: 10px;
+    margin-left: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  &-icon {
+    color: var(--text-v1);
+    transform: rotate(45deg);
+    cursor: pointer;
+  }
+
+  &-addItem {
+    margin-top: 12px;
+    font-weight: 600;
+  }
+
+  &-buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &-button {
+    width: 208px;
+  }
+}

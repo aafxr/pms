@@ -1,0 +1,13 @@
+.textarea{
+  padding: 10px 12px;
+  color: var(--text-main);
+  background-color: var(--bg-main);
+  border: 1px solid var(--border-color);
+  border-radius: var(--br-main);
+  resize: none;
+
+
+  &::placeholder{
+    color: var(--text-v1);
+  }
+}
