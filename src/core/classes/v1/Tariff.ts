@@ -1,6 +1,7 @@
 import {Board} from "./Board";
 import {RoomType} from "./RoomType";
 import {ExtraService} from "./ExtraService";
+import {BookingTimeStrategyType} from "../../types/BookingTimeStrategyType";
 
 export class Tariff{
     id: number
@@ -8,6 +9,8 @@ export class Tariff{
     description: string
     roomTypes_ids: RoomType['id'][]
     extraServices_ids: ExtraService['id'][]
+
+    timeStrategy: BookingTimeStrategyType
 
     private _board: Board | undefined
 
@@ -18,6 +21,7 @@ export class Tariff{
 
         this.roomTypes_ids = t.roomTypes_ids !== undefined ? t.roomTypes_ids : []
         this.extraServices_ids = t.extraServices_ids !== undefined ? t.extraServices_ids : []
+        this.timeStrategy = t.timeStrategy !== undefined ? t.timeStrategy : 'daily'
 
         if(board) this.board = board
     }
@@ -44,4 +48,6 @@ export class Tariff{
         this._unmountBoard()
         this._board = undefined
     }
+
+
 }
